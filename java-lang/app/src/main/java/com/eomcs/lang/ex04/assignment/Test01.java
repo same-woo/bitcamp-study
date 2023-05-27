@@ -5,18 +5,18 @@ public class Test01 {
         java.io.InputStream keyboard = System.in;
         java.util.Scanner keyScan = new java.util.Scanner(keyboard);
 
-        System.out.print("이름이 무엇입니까 ? ");
+        System.out.print("이름이 무엇입니까? ");
         String name = keyScan.nextLine();
 
-        System.out.print("리눅스 시험은 몇점입니까 ? ");
+        System.out.print("리눅스 시험은 몇점입니까? ");
         int kor = keyScan.nextInt();
 
-        System.out.print("파이썬 시험은 몇점입니까 ? ");
+        System.out.print("파이썬 시험은 몇점입니까? ");
         // 이전에 국어 점수를 입력받을 때 들어온 줄바꿈 코드는 
         // nextInt() 메서드에서 버린다.
         int eng = keyScan.nextInt();
 
-        System.out.print("자바 시험은 몇점입니까 ? ");
+        System.out.print("자바 시험은 몇점입니까? ");
         int math = keyScan.nextInt();
 
         int sum = kor + eng + math;
