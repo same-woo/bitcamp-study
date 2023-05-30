@@ -13,4 +13,4 @@ plugins {
 }
 
 rootProject.name = 'bitcamp-study'
-include('app')
+include('App')

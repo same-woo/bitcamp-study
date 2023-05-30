@@ -10,31 +10,32 @@ public class App {
     //  키보드 스캐너 준비
     Scanner keyboardScanner = new Scanner(System.in);
     
-    System.out.print("번호?");
-    int no = keyboardScanner.nextint();
+    System.out.print("번호?: ");
+    int no = keyboardScanner.nextInt();
     
     // int no = 100;
-    System.out.print("이름은?");
+    System.out.print("이름은?: ");
     String name = keyboardScanner.next();
     // String name = "홍길동";
 
-    System.out.print("나이는?");
-    int age = keyboardScanner.nextint();
+    System.out.print("나이는?: ");
+    int age = keyboardScanner.nextInt();
     // int age = 20;
 
-    System.out.print("재직중? (true | false)");
+    System.out.print("재직중? (true | false) : ");
     boolean working = keyboardScanner.nextBoolean();
     // boolean working = true;
 
-    System.out.print("성별은? M | W");
+    System.out.print("성별은? M | W : ");
     String str = keyboardScanner.next();
     char gender = str.charAt(0);
     // char gender = 'M';
 
-    
-    System.out.print("시력은? (왼쪽,오른쪽)");
-    float leftEye = keyboardScanner.nextfloat();
-    float rightEye = keyboardScanner.nextfloat();
+     
+    System.out.print("시력은? (왼쪽) : ");
+    float leftEye = keyboardScanner.nextFloat();
+    System.out.print("시력은? (오른쪽) : ");
+    float rightEye = keyboardScanner.nextFloat();
 
     // float leftEye = 1.5f;
     // float rightEye = 1.0f;
