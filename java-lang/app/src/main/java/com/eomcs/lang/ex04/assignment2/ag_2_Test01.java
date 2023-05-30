@@ -3,13 +3,13 @@
 // 값1? 10
 // 값2? 20
 // 연산자(+,-,*,/)? +
-// => 10 + 20 = 30 
+// => 10 + 20 = 30
 //
-package com.eomcs.lang.ex04.assignment2;
+package bitcamp.assignment2;
 
 import java.util.Scanner;
 
-public class Test01 {
+public class ag_2_Test01 {
   public static void main(String[] args) {
     Scanner keyScan = new Scanner(System.in);
 

@@ -1,5 +1,4 @@
-package com.eomcs.lang.ex99;
-
+package bitcamp.ex99;
 //# 콘솔로 출력하기
 //
 

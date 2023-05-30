@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex99;
+package bitcamp.ex99;
 
 //# 키보드 입력 받기 - 토큰 단위로 문자열 읽기
 //

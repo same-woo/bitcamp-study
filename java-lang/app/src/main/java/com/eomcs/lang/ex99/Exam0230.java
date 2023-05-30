@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex99;
+package bitcamp.ex99;
 
 //# 키보드 입력 받기 - int, float, boolean 값 읽기
 //
