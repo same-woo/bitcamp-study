@@ -1,5 +1,4 @@
-package com.eomcs.lang.ex05;
-
+package bitcamp.ex05;
 //# 산술 연산자 : 데이터 타입과 연산자
 //
 public class Exam0140 {

@@ -9,11 +9,11 @@
 // 컴퓨터: 가위
 // => 이겼습니다.
 //
-package com.eomcs.lang.ex04.assignment2;
-
+package bitcamp.assignment2;
 import java.util.Scanner;
+import java.util.Random;
 
-public class Test02 {
+public class ag_2_Test02 {
   public static void main(String[] args) {
     // 컴퓨터의 가위, 바위, 보 계산하기
     Scanner keyScan = new Scanner(System.in);
@@ -22,11 +22,14 @@ public class Test02 {
     String user = keyScan.nextLine();
     System.out.printf("사용자: %s\n", user);
 
-    int random = (int)(Math.random() * 3);
+
+    Random random = new Random();
+    int randomNumber = random.nextInt(3); // 0 이상 3 미만의 정수 반환
+
     String computer;
-    if (random == 0) 
+    if (randomNumber == 0) 
       computer = "가위";
-    else if (random == 1) 
+    else if (randomNumber == 1) 
       computer = "바위";
     else 
       computer = "보";
@@ -37,31 +40,40 @@ public class Test02 {
       if (computer.equals("보")) {
         System.out.println("=> 당신이 이겼습니다.");
         return;
+      } else if (computer.equals("바위")) {
+        System.out.println("=> 당신이 졌습니다.");
+        return;
+      } else {
+        System.out.println("=> 비겼습니다.");
+        return;
       }
-    } else if (user.equals("바위")) {
+    } 
+    if (user.equals("바위")) {
       if (computer.equals("가위")) {
         System.out.println("=> 당신이 이겼습니다.");
         return;
+      } else if (computer.equals("보")) {
+        System.out.println("=> 당신이 졌습니다.");
+        return;
+      } else {
+        System.out.println("=> 비겼습니다.");
+        return;
       }
-    } else {
+    } 
+    if (user.equals("보")) {
       if (computer.equals("바위")) {
         System.out.println("=> 당신이 이겼습니다.");
+        return;
+      } else if (computer.equals("가위")) {
+        System.out.println("=> 당신이 졌습니다.");
+        return;
+      } else {
+        System.out.println("=> 비겼습니다.");
         return;
       }
     }
     
-    System.out.println("=> 당신은 비기거나 졌습니다.");
     
     keyScan.close();
   }
 }
-
-
-
-
-
-
-
-
-
-
