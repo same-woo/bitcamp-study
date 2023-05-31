@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex05;
+package bitcamp.ex05;
 
 //# 비트 연산자 & 활용: 특정 값을 차단하고 특정 값만 통과시킬 때
 //=> 특정 비트의 값만 추출하고 싶을 때 사용할 수 있다.

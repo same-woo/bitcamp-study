@@ -1,5 +1,5 @@
 // 관계 연산자 : 부동소수점 비교 
-package com.eomcs.lang.ex05;
+package bitcamp.ex05;
 
 public class Exam0220 {
   public static void main(String[] args) {

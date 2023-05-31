@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex05;
+package bitcamp.ex05;
 
 //# 비트 이동 연산자 : >>, >>>, <<
 //

@@ -1,5 +1,4 @@
-package com.eomcs.lang.ex05;
-
+package bitcamp.ex05;
 //# 산술 연산자 : 명시적 형변환
 //
 public class Exam0170 {

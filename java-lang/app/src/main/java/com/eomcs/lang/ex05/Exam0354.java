@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex05;
+package bitcamp.ex05;
 
 //# 비트 연산자 & 활용: 그림의 한 픽셀에서 빨강 색을 제거하고 싶다.
 //

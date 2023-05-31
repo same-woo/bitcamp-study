@@ -1,4 +1,5 @@
-package com.eomcs.lang.ex05;
+package bitcamp.ex05;
+
 
 //# 논리 연산자 : || vs |
 //

@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex05;
+package bitcamp.ex05;
 
 //# 관계 연산자(relational operators: <, <=, >, >=), 등위 연산자(equality operators: ==, !=)
 //

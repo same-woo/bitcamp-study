@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex05;
+package bitcamp.ex05;
 
 //# 산술 연산자 : 암시적 형변환과 연산 우선순위
 //
