@@ -48,6 +48,17 @@ public class App {
     //   rightEye[i] = keyboardScanner.nextFloat();
     // }
 
+        // if (menuNO.equals("1")) {
+    //   gender[i] = 'M';  
+    //   break; //실행종료를 준다.
+    // } else if (menuNO.equals("2")) {
+    //   gender[i] = 'W';
+    //   break; //실행종료를 준다.
+    // } else {
+    //   System.out.print("무효한 번호입니다.\n");
+    // }
+
+    
     System.out.println("------------------------------");
     for (int i = 0; i < SIZE; i++) {
         System.out.printf("%d %s %d %b %s %f %f\n",
