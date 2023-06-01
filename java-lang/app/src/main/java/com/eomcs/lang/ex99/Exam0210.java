@@ -2,8 +2,13 @@ package bitcamp.ex99;
 
 //# 키보드 입력 받기 - System.in 과 java.util.Scanner
 //
+import java.util.Scanner;
+    Scanner keyScan = new Scanner(System.in);
+
 public class Exam0210 {
   public static void main(String[] args) {
+
+    
     // 1) 키보드로 입력한 데이터를 읽을 때 사용할 도구를 준비한다.
     java.io.InputStream keyboard = System.in;
 

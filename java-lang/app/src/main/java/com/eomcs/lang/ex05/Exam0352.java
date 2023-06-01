@@ -1,4 +1,5 @@
 package bitcamp.ex05;
+
 //# 비트 연산자 & 를 이용하여 % 연산 구현하기 응용 I
 //
 public class Exam0352 {

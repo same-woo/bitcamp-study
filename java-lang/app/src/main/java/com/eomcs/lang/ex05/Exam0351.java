@@ -1,7 +1,11 @@
 package bitcamp.ex05;
 
 //# 비트 연산자 & 를 이용하여 % 연산 구현하기
-//
+// % 나누려누는 수 또는 & 0b000a
+// ex) 54 % 4 or 54 & 0100
+// 2로 나눈 나머지가 있을 때만 & 연산을 사용한다. (ex 2,4,8,16) ob1111
+// 실무사용 : x & 1 == 0 , 나머지가 존재하면 홀수가 되는 것.
+
 public class Exam0351 {
   public static void main(String[] args) {
 
