@@ -39,9 +39,7 @@ public class App2 {
       
       length++;
 
-      if (!promptContinue(keyboardScanner))
-
-
+      if(!promptContinue(keyboardScanner))
 
 
 
@@ -79,8 +77,7 @@ public class App2 {
     System.out.print("  1. 남자 : \n");
     System.out.print("  2. 여자 : \n");
     System.out.print("> ");
-    String menuNO = keyboardScanner.nextLine(); 
-    keyboardScanner.nextLine(); // 입력값을 읽고 난 후에 남아있는 줄바꿈 코드 제거
+    String menuNO = keyboardScanner.next(); 
 
     switch (menuNO) {  // if문 대신 사용가능. break때문에 loop 사용해야한다.
       case "1":
@@ -92,12 +89,11 @@ public class App2 {
       default:
         System.out.print("무효한 번호입니다.\n");
     }
-      keyboardScanner.nextLine();
   }
   num[i] = userid++;
   }
 
-  static boolean promptContinue(Scanner keyboardScanner) {
+  static boolean promptContinue() {
     // else 뒤에는 "{}"가 붙지않아도 되지만, 반드시 마지막에 "{}"는 사용 해야한다.
     //계속 진행 할 것인지 확인
     System.out.print("계속 하시겠습니까? (Y/n): \n");
@@ -105,11 +101,10 @@ public class App2 {
     // keyboardScanner.nextLine(); // 이전에 next()를 실행한 후 남아있는 줄바꿈 코드를 제거한다.
     String choice = keyboardScanner.nextLine(); // Enter를 빈문자열로 인식한다.
     if (!choice.equals("") && !choice.equalsIgnoreCase("Y")) { // ignoreCase는 대소문자를 구분x
-      System.out.println("실행을 종료합니다.\n");
       return false;
+      System.out.println("실행을 종료합니다.\n");
     } else {
       return true;
     }
   }
-
 }

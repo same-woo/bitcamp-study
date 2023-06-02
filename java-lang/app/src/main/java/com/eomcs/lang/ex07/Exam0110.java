@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex07;
+package bitcamp.ex07;
 
 import java.util.Scanner;
 

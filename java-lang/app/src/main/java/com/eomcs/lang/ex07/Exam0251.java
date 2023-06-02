@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex07;
+package bitcamp.ex07;
 
 // # 메서드 : 가변 파라미터
 //

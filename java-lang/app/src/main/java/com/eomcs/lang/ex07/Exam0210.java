@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex07;
+package bitcamp.ex07;
 
 // # 메서드 : 개념 및 기본 문법
 // - 특정 기능을 수행하는 명령문들을 모아 둔 블록

@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex07;
+package bitcamp.ex07;
 
 //# 메서드 : 개념 및 기본 문법 IV
 //

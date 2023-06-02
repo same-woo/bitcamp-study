@@ -1,5 +1,4 @@
-package com.eomcs.lang.ex07;
-
+package bitcamp.ex07;
 // # 메서드 : main() 메서드 - 프로그램 아규먼트 응용 II
 //
 public class Exam0540 {
