@@ -17,7 +17,6 @@ public class App5 {
         break;
       }
     }
-      
 
     // 회원정보 출력
     MemberHandler.printMembers();
@@ -46,6 +45,5 @@ public class App5 {
       }
     }
   }
-  
 
 }

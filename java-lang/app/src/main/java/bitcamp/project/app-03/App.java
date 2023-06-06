@@ -7,17 +7,17 @@ public class App {
 
     int no = 100;
     String name = "홍길동";
-    int age = 20;
-    boolean working = true;
+
+    boolean locker = true;
     char gender = 'M';
-    float leftEye = 1.5f;
-    float rightEye = 1.0f;
+    int days = 180;
+
 
     System.out.printf("번호: %d\n", no);
     System.out.printf("이름: %s\n", name);
     System.out.printf("나이: %d\n", age);
-    System.out.printf("재직자: %b\n", working);
+    System.out.printf("락커사용: %b\n", locker);
     System.out.printf("성별(남자(M), 여자(W)): %c\n", gender);
-    System.out.printf("좌우시력: %.1f,%.1f\n", leftEye, rightEye);
+    System.out.printf("이용기간: %d\n", days);
   }
 }
