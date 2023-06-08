@@ -1,63 +1,79 @@
 package bitcamp.myapp;
 
-import java.util.Random;
-import bitcamp.myapp.MemberManager;
+import bitcamp.myapp.Prompt;
+import bitcamp.myapp.MemberHandler;
 
-public class DefaultMembers {
+public class App5 {
 
-  static void addDefaultMembers() {
-    String[] defaultNames = { "홍길동", "김철수", "이영희", "박영수", "정미경", "최성준", "백김동", "김지영", "오상훈", "최영환" };
-    int[] defaultAges = { 25, 30, 27, 32, 29, 28, 24, 26, 31, 33 };
-    String[] defaultLockers = { "Locker 1", "Locker 2", "Locker 3", "Locker 4", "Locker 5", "미사용", "미사용", "미사용", "미사용",
-        "미사용" };
-    char[] defaultGenders = { 'M', 'M', 'F', 'M', 'F', 'M', 'F', 'F', 'M', 'M' };
-    int[] defaultRemainingDays = { 121, 60, 196, 84, 168, 186, 119, 194, 174, 90 };
+  public static void main(String[] args) {
+    printTitle();
+    printmenu();
 
-    for (int i = 0; i < MemberManager.length; i++) {
-      MemberManager.name[i] = defaultNames[i];
-      MemberManager.age[i] = defaultAges[i];
-      MemberManager.locker[i] = defaultLockers[i];
-      MemberManager.gender[i] = defaultGenders[i];
-      MemberManager.remainingDays[i] = defaultRemainingDays[i];
-      MemberManager.no[i] = MemberManager.userId + i;
+
+
+
+    while (true) {
+      String menuNO = Prompt.prompt("> ");
+
+        if (menuNO.equals("6")) {
+          Prompt.close();
+          System.out.println("프로그램을 종료합니다.");
+          break;
+          
+        } else if (menuNO.equals("menu")) {
+          printmenu();
+        } else if (menuNO.equals("1")) {
+          MemberHandler.inputMember();
+        } else if (menuNO.equals("2")) {
+          MemberHandler.printMembers();
+        } else if (menuNO.equals("3")) {
+          MemberHandler.viewMember();
+        } else if (menuNO.equals("4")) {
+          MemberHandler.updateMember();
+        } else {
+          System.out.println(menuNO);
+        }
+    }
+
+
+
+
+  }
+    
+
+
+
+  static void printmenu() { 
+    System.out.println("1.회원등록");
+    System.out.println("2.회원목록");
+    System.out.println("3.회원조회");
+    System.out.println("4.회원변경");
+    System.out.println("5.회원삭제");
+    System.out.println("6. 종료");
+  }
+
+
+  static void printTitle() {
+    System.out.println("나의 목록 관리 시스템");
+    System.out.println("----------------------");
+  }
+
+
+
+  static boolean promptContinue() {
+    while (true) {
+      String choice = Prompt.prompt("계속 하시겠습니까? (Y/n): ");
+      if (choice.equalsIgnoreCase("Y") || choice.equals("")) {
+        return true;
+      } else if (choice.equalsIgnoreCase("N")) {
+        System.out.println("실행을 종료합니다.");
+        return false;
+      } else {
+        System.out.println("유효하지 않은 입력입니다. 다시 입력해주세요.");
+      }
     }
   }
 
-  static void shuffleMembers(int[] remainingDays) {
-    Random random = new Random();
 
-    for (int i = MemberManager.length - 1; i >= 0; i--) {
-      int j = random.nextInt(i + 1);
-      swapMembers(MemberManager.name, MemberManager.age, MemberManager.locker,
-          MemberManager.gender, MemberManager.no, MemberManager.remainingDays, i, j);
-    }
-  }
-
-  static void swapMembers(String[] name, int[] age, String[] locker,
-      char[] gender, int[] no, int[] remainingDays, int i, int j) {
-    String tempName = name[i];
-    int tempAge = age[i];
-    String tempLocker = locker[i];
-    char tempGender = gender[i];
-    int tempRemainingDays = remainingDays[i];
-
-    name[i] = name[j];
-    age[i] = age[j];
-    locker[i] = locker[j];
-    gender[i] = gender[j];
-    remainingDays[i] = remainingDays[j];
-
-    name[j] = tempName;
-    age[j] = tempAge;
-    locker[j] = tempLocker;
-    gender[j] = tempGender;
-    remainingDays[j] = tempRemainingDays;
-  }
-
-  static void printMembers(int[] remainingDays) {
-    for (int i = 0; i < MemberManager.length; i++) {
-      System.out.printf("%d, %s, %d, %c, %s, %d\n", MemberManager.no[i], MemberManager.name[i],
-          MemberManager.age[i], MemberManager.gender[i], MemberManager.locker[i], remainingDays[i]);
-    }
-  }
 }
+

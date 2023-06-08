@@ -14,6 +14,11 @@ class MemberHandler {
     static final char FEMALE = 'W';
 
     static void inputMember() {
+      if (!available()) {
+        System.out.println("더 이상 입력할 수 없습니다!");
+        return;
+
+      }
         name[length] = Prompt.prompt("이름?");
         email[length] = Prompt.prompt("이메일?");
         password[length] = Prompt.prompt("암호?");
@@ -37,8 +42,21 @@ class MemberHandler {
         }
         num[length] = userid++;
         length++;
+        whileinputMember();
     }
 
+
+      // for문 배열 입력 (회원정보 입력)
+    static void whileinputMember() {
+    while (available()) {
+    if (!App5.promptContinue()) {
+      System.out.println("프로그램을 종료합니다.");
+      break;
+      inputMember();
+      }
+
+    }
+  }
 
   static void printMembers() {
         // 출력
@@ -47,14 +65,30 @@ class MemberHandler {
         System.out.println("------------------------------");
         for (int i = 0; i < length; i++) {
             System.out.printf("%d %s %s %c\n",
-                    num[i], name[i], email[i], gender[i]);
+              num[i], name[i], email[i], 
+              toGenderString(gender[i]));
         }
   }
 
+  public static void viewMember() {
+    String memberNo = Prompt.prompt("번호?");
+    for (int i = 0; i <length; i++ ) {
+      if (num[i] == Integer.parseInt(memberNo)) {
+        System.out.printf("이름: %s\n", name[i]);
+        System.out.printf("이메일: %s\n", email[i]);
+        System.out.printf("성별: %s\n", toGenderString(gender[i]));
+        return;
+      }
+    }
+    System.out.println("해당 번호의 회원이 없습니다.");
+  }
 
-  public static boolean available() {
+  static boolean available() {
     return length < MAX_SIZE;
   }
 
+  public static String toGenderString(char gender) {
+    return gender == 'M' ? "남성" : "여성";
+  }
 
 }

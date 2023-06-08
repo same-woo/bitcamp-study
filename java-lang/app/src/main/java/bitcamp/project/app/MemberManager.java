@@ -1,27 +1,26 @@
-package bitcamp.myapp;
-
+package bitcamp.project;
 import java.util.Scanner;
+import java.util.Arrays;
+import bitcamp.project.DefaultMembers;
+import bitcamp.project.Member;
 
 public class MemberManager {
 
     static int userId = 1;
-    static int length = DefaultMembers.length;
+    static int lockused = 6;
 
     public static void printTitle() {
         System.out.println("헬스장에 등록할 회원정보를 입력합니다.");
         System.out.println("----------------------------------");
     }
 
-    public static void inputMember(Scanner scanner) {
-        if (length >= DefaultMembers.MAX_SIZE) {
-            System.out.println("더 이상 회원을 추가할 수 없습니다.");
-            return;
-        }
+    public static void inputMember(Scanner scanner, Member m) {
+        Member m = new Member();
         System.out.print("이름? ");
-        DefaultMembers.name[length] = scanner.next();
+        m.name = scanner.next();
 
         System.out.print("나이? ");
-        DefaultMembers.age[length] = scanner.nextInt();
+        m.age = scanner.nextInt();
         scanner.nextLine();
 
         loop: while (true) {
@@ -34,10 +33,10 @@ public class MemberManager {
 
             switch (lockerUse) {
                 case "1":
-                    DefaultMembers.locker[length] = "Locker " + DefaultMembers.lockused++;
+                    m.locker = "Locker " + lockused++;
                     break loop;
                 case "2":
-                    DefaultMembers.locker[length] = "미사용";
+                    m.locker = "미사용";
                     break loop;
                 default:
                     System.out.println("무효한 번호입니다.");
@@ -54,10 +53,10 @@ public class MemberManager {
 
             switch (menuNo) {
                 case "1":
-                    DefaultMembers.gender[length] = 'M';
+                    m.gender = 'M';
                     break loop;
                 case "2":
-                    DefaultMembers.gender[length] = 'W';
+                    m.gender = 'W';
                     break loop;
                 default:
                     System.out.println("무효한 번호입니다.");
@@ -75,45 +74,33 @@ public class MemberManager {
 
             switch (menuNo) {
                 case "1":
-                    DefaultMembers.remainingDays[length] = 90;
+                    m.remainingDays = 90;
                     break loop;
                 case "2":
-                    DefaultMembers.remainingDays[length] = 180;
+                    m.remainingDays = 180;
                     break loop;
                 case "3":
-                    DefaultMembers.remainingDays[length] = 360;
+                    m.remainingDays = 360;
                     break loop;
                 default:
                     System.out.println("무효한 번호입니다.");
             }
         }
 
-        DefaultMembers.no[length] = userId + 10; // 기존 회원수가 30명이므로..
-        length++;
+        m.no = userId + 10; // 기존 회원수가 30명이므로..
+        userId++;
     }
 
-    public static boolean promptContinue(Scanner scanner) {
-        while (true) {
-            System.out.print("계속 하시겠습니까?(Y/n)\n");
-            System.out.print("> ");
-            String choice = scanner.nextLine();
 
-            if (choice.equalsIgnoreCase("Y") || choice.equals("")) {
-                inputMember(scanner);
-                return true;
-            } else if (choice.equalsIgnoreCase("N")) {
-                System.out.println("실행을 종료합니다.");
-                return false;
-            } else {
-                System.out.println("유효하지 않은 입력입니다. 다시 입력해주세요.");
-            }
-        }
+    public static void printMembers(Member[] members) {
+      for (int i = 0; i < DefaultMembers.length; i++) {
+          Member m = members[i];
+          System.out.printf("%d, %s, %d, %c, %s, %d\n", m.no, m.name, m.age,
+                  m.gender, m.locker, m.remainingDays);
+      }
+  }
+  
+  
+  
+  
     }
-
-    public static void printMembers() {
-        for (int i = 0; i < length; i++) {
-            System.out.printf("%d, %s, %d, %c, %s, %d\n", DefaultMembers.no[i], DefaultMembers.name[i], DefaultMembers.age[i],
-                    DefaultMembers.gender[i], DefaultMembers.locker[i], DefaultMembers.remainingDays[i]);
-        }
-    }
-}
