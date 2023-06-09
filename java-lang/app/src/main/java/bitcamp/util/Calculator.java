@@ -3,13 +3,9 @@ package bitcamp.util;
 public class Calculator {
   
   private int result;
-  private static int result2;
-
-  public static int getResult2() {
-    return getResult2;
-  }
   
   public int getResult() {
+    //Calculator this = 외부에서 넘겨준 주소
     return this.result;
   }
 
