@@ -1,34 +1,35 @@
 package bitcamp.util;
 
 public class Calculator {
-  static int result;
-  static int temp;
+  
+  private int result;
+  private static int result2;
 
-  public static void init(int a) {
-    result = a;
+  public static int getResult2() {
+    return getResult2;
+  }
+  
+  public int getResult() {
+    return this.result;
   }
 
-  public static void plus(int a) {
-    temp = result;
-    result += a;
-    System.out.println("plus: " + temp + " + " + a + " = " + result);
+  public void init(int a) {
+    this.result = a;
   }
 
-  public static void minus(int a) {
-    temp = result;
-    result -= a;
-    System.out.println("minus: " + temp + " - " + a + " = " + result);
+  public void plus(int a) {
+    this.result += a;
   }
 
-  public static void multiple(int a) {
-    temp = result;
-    result *= a;
-    System.out.println("multiple: " + temp + " * " + a + " = " + result);
+  public void minus(int a) {
+    this.result -= a;
   }
 
-  public static void divide(int a) {
-    temp = result;
-    result /= a;
-    System.out.println("divide: " + temp + " / " + a + " = " + result);
+  public void multiple(int a) {
+    this.result *= a;
+  }
+
+  public void divide(int a) {
+    this.result /= a;
   }
 }
