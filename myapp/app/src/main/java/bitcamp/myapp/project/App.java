@@ -1,4 +1,7 @@
-package bitcamp.myapp;
+package bitcamp.myapp.project;
+
+import bitcamp.myapp.project.handler.MemberHandler;
+import bitcamp.myapp.project.util.Prompt;
 
 public class App {
 

@@ -1,12 +1,13 @@
 package bitcamp.myapp.vo;
 
 public class Member {
+
   private int no;
   private String name;
-  private  int age;
-  private  int remainingDays;
+  private int age;
+  private int remainingDays;
   private char gender;
-  private  boolean locker;
+  private boolean locker;
 
   public int getNo() {
     return this.no;
@@ -17,7 +18,7 @@ public class Member {
 
   }
 
-  public Strng getName() {
+  public String getName() {
     return this.name;
   }
 
