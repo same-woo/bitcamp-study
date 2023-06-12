@@ -15,8 +15,6 @@ public class Prompt {
     return Integer.parseInt(inputString(title));
   }
 
-  
-
   public static void close() {
     scanner.close();
   }

@@ -1,6 +1,6 @@
-package bitcamp.test.step15;
+package bitcamp.test.step17;
 
-import bitcamp.test.step15.vo.Score;
+import bitcamp.test.step17.vo.Score;
 
 // 1) 낱개의 변수 사용
 // 2) 낱개의 변수 재사용
@@ -17,6 +17,10 @@ import bitcamp.test.step15.vo.Score;
 // 13) 클래스를 유지보수 하기 쉽게 패키지로 분류: import, public
 // 14) 외부접근 차단과 값 꺼내기 : private, getter
 // 15) 프로그래밍의 일관성을 위해 보통 다른 필드에 대해서도 getter를 만들고 사용한다.
+// 16) 필드의 직접 접근을 막고 setter를 정의하는 이유
+// 17) 필드의 직접 접근을 막고 인스턴스 변수에 무효한 값이 저장되지 않게 하기 위해
+//      => getter 정의하기 : 값을 꺼낼 때 사용
+//      => setter 정의하기 : 값을 변경할 때 사용. 단 유효한 값을 저장하도록 통제한다.
 public class App {
   
   public static void main(String[] args) {
@@ -29,8 +33,11 @@ public class App {
     scores[length++] = new Score("임꺽정", 90, 90, 90);
     scores[length++] = new Score("유관순", 80, 80, 80);
 
-    // 변수에 직접 접근 => 국영수 합계를 임의로 조작 가능 !
 
+    // scores[0].kor = 7000; // 접근 불가 !
+    scores[0].setKor(70); // setter 를 통해서는 값 변경가능. 단 유효값만 가능
+    // scores[0].compute(); // 호출하는 것을 잊어버릴 수 있기 때문에 setter에서 호출
+    
     for (int i = 0; i < length; i++) {
       printScore(scores[i]);
     }
@@ -38,8 +45,8 @@ public class App {
   }
 
   static void printScore(Score s) {
-    System.out.printf("%s: 합계=%d, 평균=%.1f\n", 
-      s.getName(), s.getSum(), s.getAver());
+    System.out.printf("%s: 국어=%d, 영어=%d, 수학=%d, 합계=%d, 평균=%.1f\n", 
+      s.getName(), s.getKor(), s.getEng(), s.getMath(), s.getSum(), s.getAver());
   }
 
 }

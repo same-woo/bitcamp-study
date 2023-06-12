@@ -16,6 +16,7 @@ public class Calculator {
   public void plus(int a) {
     this.result += a;
   }
+  
 
   public void minus(int a) {
     this.result -= a;
