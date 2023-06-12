@@ -1,7 +1,6 @@
-package bitcamp.myapp.myproject.vo;
+package bitcamp.myapp.myproject2.vo;
 
 public class Member {
-
   private static int userId = 1;
   public static final char MALE = 'M';
   public static final char FEMALE = 'W';
@@ -13,6 +12,15 @@ public class Member {
   private char gender;
   private boolean locker;
 
+  public Member(String name, int age, int remainingDays, char gender, boolean locker) {
+    this.no = userId++;
+    this.name = name;
+    this.age = age;
+    this.remainingDays = remainingDays;
+    this.gender = gender;
+    this.locker = locker;
+  }
+
   public Member() {
     this.no = userId++;
   }
@@ -23,7 +31,6 @@ public class Member {
 
   public void setNo(int no) {
     this.no = no;
-
   }
 
   public int getAge() {
@@ -31,6 +38,10 @@ public class Member {
   }
 
   public void setAge(int age) {
+    if (age <= 5 | age > 100) {
+      System.out.println("5살 이상, 100세 이하만 입장 가능합니다.");
+      return;
+    }
     this.age = age;
   }
 
@@ -65,5 +76,7 @@ public class Member {
   public void setName(String name) {
     this.name = name;
   }
+
+
 
 }

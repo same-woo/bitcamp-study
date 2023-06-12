@@ -1,6 +1,6 @@
-package bitcamp.myapp.myproject.handler;
+package bitcamp.myapp.myproject2.handler;
 
-import bitcamp.myapp.myproject.vo.Member;
+import bitcamp.myapp.myproject2.vo.Member;
 import bitcamp.myapp.project.util.Prompt;
 
 
