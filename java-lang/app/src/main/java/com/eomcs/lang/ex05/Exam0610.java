@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex05;
+package bitcamp.ex05;
 
 //# 증감 연산자 : 후위(post-fix) 증가 연산자
 //
@@ -22,7 +22,7 @@ public class Exam0610 {
 
     System.out.println(i);   // 4
 
-    System.out.println(i++); // 4
+    System.out.println((i+1)); // 4
     // 위의 코드는 컴파일 할 때 다음의 코드로 바뀐다.
     //
     //    int temp = i; //<-- 임시 변수를 만들어 현재 i 값을 저장한다.

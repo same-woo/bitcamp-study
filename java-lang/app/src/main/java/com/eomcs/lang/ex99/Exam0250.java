@@ -1,5 +1,4 @@
-package com.eomcs.lang.ex99;
-
+package bitcamp.ex99;
 //# 키보드 입력 받기 - 여러 개의 데이터를 한 번에 입력하고 쪼개서 읽기
 //
 public class Exam0250 {

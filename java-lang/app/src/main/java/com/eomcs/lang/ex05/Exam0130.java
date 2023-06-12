@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex05;
+package bitcamp.ex05;
 
 //# 산술 연산자 : 기본 연산 단위
 //
@@ -24,7 +24,7 @@ public class Exam0130 {
     z = x; // OK!
     z = y; // OK!
 
-    //    z = x + y; // 컴파일 오류!
+    //  z = x + y; // 컴파일 오류!
     //
     // "자바의 정수 연산은 최소 단위가 4바이트이다."
     // "그래서 byte나 short의 연산 단위가 기본으로 4바이트이다."
@@ -47,7 +47,7 @@ public class Exam0130 {
     short s3;
     s3 = s1; // OK!
     s3 = s2; // OK!
-    //    s3 = s1 + s2; // 컴파일 오류!
+    // s3 = s1 + s2; // 컴파일 오류!
 
     int s4 = s1 + s2;
     System.out.println(s4);

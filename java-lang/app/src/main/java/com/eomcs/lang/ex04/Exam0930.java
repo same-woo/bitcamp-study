@@ -1,4 +1,4 @@
-package com.eomcs.lang.ex04;
+package bitcamp.ex04;
 
 //# 형변환 - 명시적 형변환
 //

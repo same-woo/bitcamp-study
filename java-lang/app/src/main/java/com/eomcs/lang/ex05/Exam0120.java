@@ -1,7 +1,9 @@
-package com.eomcs.lang.ex05;
+package bitcamp.ex05;
 
 //# 산술 연산자 : 우선 순위 
-//
+// 괄호를 먼저하고, 곱셉,나눕셈을 우선순위로. 더하기 빼기는 그 다음 우선순위이다.
+// 같은 우선순위끼리는 실행 순서를 따른다.
+
 public class Exam0120 {
   public static void main(String[] args) {
     // *, /, % 는 +, - 보다 먼저 계산된다.
