@@ -1,8 +1,8 @@
 # 네이버 클라우드 7기(2023-04-24 ~ 2023-10-27)
 
-## 구글 미트 접속
+## 웨일즈 화상회의
 
-https://meet.google.com/sya-jckw-ivq
+https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
 
 ## 학습 내용
 
@@ -148,16 +148,53 @@ https://meet.google.com/sya-jckw-ivq
 
 ### 11일(6/7,수)
 
-- 과제(개인) 발표
-  - 개인 프로젝트 시연
-  - 프로그래머스 일별 점수 보고
-    - 6/5(점수), 6/6(점수) 
+- 프로젝트 실습
+  - 10. 메뉴 구성 및 CRUD 구현
+- 과제
+  - 프로그래머스 일별 점수 보고(6/5, 6/6)
   - github.com 잔디 확인
     - 개인별 github.com 의 bitcamp-study 저장소 주소 제출
       - 이름, url
     - to: jinyoung.eom@gmail.com
 
+### 12일(6/8,목)
 
-## 구글 미트 접속
+- 프로젝트 실습
+  - 11. 사용자 정의 데이터 타입 만들기
+- 과제(개인) 발표
+  - 개인 프로젝트 시연(17:10)
+  - 프로그래머스 일별 점수 보고(6/7)
+  - github.com 잔디 확인
 
-https://meet.google.com/sya-jckw-ivq
+### 13일(6/9,금)
+
+- 자바 프로그래밍
+  - 클래스 사용법(계속)
+    - 스태틱 필드와 스태틱 메서드 사용법
+    - 인스턴스 필드와 인스턴스 메서드 사용법
+    - 패키지 사용법: import, public 접근 제어
+    - GRASP 패턴: Information Expert 패턴 소개 
+    - GoF의 Design Patters: Factory Method 패턴 소개
+    - 생성자 사용법
+    - private/public, setter/getter 사용법
+
+### 14일(6/12,월)
+
+- 자바 프로그래밍
+  - 클래스 사용법(복습)
+  - Eclipse IDE 도구 설정
+    - 다운로드 및 설치, 워크스페이스 설정
+    - 프로젝트 임포트
+    - 소스 코드 편집과 컴파일, 실행하기
+    - git add/commit/push 실행하기
+- Gradle 사용법
+  - 빌드 스크립트 파일과 플러그인, 태스크 관계
+  - `eclispe` 플러그인 사용법
+- 프로젝트 실습
+  - 12. 생성자, 셋터, 겟터 도입하기
+
+### 15일(6/13,화)
+
+## 웨일즈 화상회의
+
+https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
