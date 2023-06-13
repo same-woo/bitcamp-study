@@ -29,7 +29,7 @@ public class App {
     scores[length++] = new Score("유관순", 80, 80, 80);
 
     // 변수에 직접 접근 => 국영수 합계를 임의로 조작 가능 !
-    scores[0].sum = 20000;
+    // scores[0].sum = 20000;
 
     for (int i = 0; i < length; i++) {
       printScore(scores[i]);
