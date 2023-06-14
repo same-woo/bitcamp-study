@@ -1,8 +1,10 @@
 package bitcamp.myapp.project;
 
 import bitcamp.myapp.project.handler.BoardHandler;
+import bitcamp.myapp.project.handler.BoardHandler2;
 import bitcamp.myapp.project.handler.MemberHandler;
 import bitcamp.myapp.project.util.Prompt;
+
 
 public class App {
 
@@ -37,6 +39,16 @@ public class App {
         BoardHandler.updateBoard();
       } else if (menuNo.equals("10")) {
         BoardHandler.deleteBoard();
+      } else if (menuNo.equals("11")) {
+        BoardHandler2.inputBoard();
+      } else if (menuNo.equals("12")) {
+        BoardHandler2.printBoards();
+      } else if (menuNo.equals("13")) {
+        BoardHandler2.viewBoard();
+      } else if (menuNo.equals("14")) {
+        BoardHandler2.updateBoard();
+      } else if (menuNo.equals("15")) {
+        BoardHandler2.deleteBoard();
       } else {
         System.out.println(menuNo);
       }
@@ -54,8 +66,14 @@ public class App {
     System.out.println("6. 게시글등록");
     System.out.println("7. 게시글목록");
     System.out.println("8. 게시글조회");
-    System.out.println("9. 게시글삭제");
-    System.out.println("10. 종료");
+    System.out.println("9. 게시글변경");
+    System.out.println("10. 게시글삭제");
+    System.out.println("11. 독서록등록");
+    System.out.println("12. 독서록목록");
+    System.out.println("13. 독서록조회");
+    System.out.println("14. 독서록변경");
+    System.out.println("15. 독서록삭제");
+    System.out.println("99. 종료");
 
   }
 
