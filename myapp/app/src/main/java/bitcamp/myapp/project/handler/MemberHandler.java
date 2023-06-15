@@ -23,6 +23,41 @@ public class MemberHandler {
     this.prompt = prompt;
   }
 
+  public void execute() {
+    printMenu();
+
+    while (true) {
+      String menuNo = prompt.inputString("회원> ");
+      if (menuNo.equals("0")) {
+        return;
+      } else if (menuNo.equals("menu")) {
+        printMenu();
+        // 회원등록
+      } else if (menuNo.equals("1")) {
+        // memberHandler.inputMember();
+      } else if (menuNo.equals("2")) {
+        // memberHandler.printMembers();
+      } else if (menuNo.equals("3")) {
+        // memberHandler.viewMember();
+      } else if (menuNo.equals("4")) {
+        // memberHandler.viewMember();
+      } else if (menuNo.equals("5")) {
+        // memberHandler.viewMember();
+      } else {
+        System.out.println("메뉴 번호가 옳지 않습니다.");
+      }
+    }
+  }
+
+  private static void printMenu() {
+    System.out.println("1. 회원등록");
+    System.out.println("2. 회원목록");
+    System.out.println("3. 회원조회");
+    System.out.println("4. 회원변경");
+    System.out.println("5. 회원삭제");
+    System.out.println("0. 메인");
+  }
+
   public void inputMember() {
     if (!available()) {
       System.out.println("더이상 입력할 수 없습니다!");
