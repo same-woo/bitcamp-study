@@ -1,6 +1,7 @@
 package bitcamp.myapp.project;
 
 import bitcamp.myapp.project.handler.BoardHandler;
+import bitcamp.myapp.project.handler.Handler;
 import bitcamp.myapp.project.handler.MemberHandler;
 import bitcamp.myapp.project.util.Prompt;
 
@@ -11,9 +12,9 @@ public class App {
 
     Prompt prompt = new Prompt();
 
-    MemberHandler memberHandler = new MemberHandler(prompt, "회원");
-    BoardHandler boardHandler = new BoardHandler(prompt, "게시글");
-    BoardHandler readingHandler = new BoardHandler(prompt, "독서록");
+    Handler memberHandler = new MemberHandler(prompt, "회원");
+    Handler boardHandler = new BoardHandler(prompt, "게시글");
+    Handler readingHandler = new BoardHandler(prompt, "독서록");
 
 
 
@@ -32,9 +33,9 @@ public class App {
       } else if (menuNo.equals("1")) {
         memberHandler.execute();
       } else if (menuNo.equals("2")) {
-        boardHandler.service();
+        boardHandler.execute();
       } else if (menuNo.equals("3")) {
-        readingHandler.service();
+        readingHandler.execute();
       } else {
         System.out.println("메뉴 번호가 옳지 않습니다.");
       }
