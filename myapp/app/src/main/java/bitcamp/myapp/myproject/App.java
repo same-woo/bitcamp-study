@@ -3,7 +3,6 @@ package bitcamp.myapp.myproject;
 import bitcamp.myapp.myproject.handler.MemberHandler;
 import bitcamp.myapp.project.util.Prompt;
 
-
 public class App {
 
   public static void main(String[] args) {
