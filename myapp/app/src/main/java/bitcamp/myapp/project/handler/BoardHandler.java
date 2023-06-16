@@ -5,7 +5,8 @@ import bitcamp.myapp.project.vo.Board;
 
 public class BoardHandler implements Handler {
 
-  private BoardList list = new BoardList();
+
+  private ArrayList list = new ArrayList();
   private Prompt prompt;
 
   private String title;
@@ -25,7 +26,6 @@ public class BoardHandler implements Handler {
         return;
       } else if (menuNo.equals("menu")) {
         printMenu();
-        // 회원등록
       } else if (menuNo.equals("1")) {
         this.inputBoard();
       } else if (menuNo.equals("2")) {
@@ -37,11 +37,10 @@ public class BoardHandler implements Handler {
       } else if (menuNo.equals("5")) {
         this.deleteBoard();
       } else {
-        System.out.println("메뉴 번호가 옳지 않습니다.");
+        System.out.println("메뉴 번호가 옳지 않습니다!");
       }
     }
   }
-
 
   private static void printMenu() {
     System.out.println("1. 등록");
@@ -53,64 +52,66 @@ public class BoardHandler implements Handler {
   }
 
   private void inputBoard() {
-    Board b = new Board();
-    b.setTitle(this.prompt.inputString("제목? "));
-    b.setContent(this.prompt.inputString("내용? "));
-    b.setWriter(this.prompt.inputString("작성자 "));
-    b.setPassword(this.prompt.inputString("암호? "));
+    Board board = new Board();
+    board.setTitle(this.prompt.inputString("제목? "));
+    board.setContent(this.prompt.inputString("내용? "));
+    board.setWriter(this.prompt.inputString("작성자? "));
+    board.setPassword(this.prompt.inputString("암호? "));
 
-    this.list.add(b);
+    this.list.add(board);
   }
 
   private void printBoards() {
     System.out.println("---------------------------------------");
-    System.out.println("번호, 제목, 작성자, 조회수, 작성일");
+    System.out.println("번호, 제목, 작성자, 조회수, 등록일");
     System.out.println("---------------------------------------");
 
-
-    Board[] arr = this.list.list();
-    for (Board b : arr) {
-      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td-%5$tH:%5$tM\n", b.getNo(), b.getTitle(),
-          b.getWriter(), b.getViewCount(), b.getCreatedDate());
+    Object[] arr = this.list.list();
+    for (Object obj : arr) {
+      Board b = (Board) obj;
+      System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n", b.getNo(), b.getTitle(), b.getWriter(),
+          b.getViewCount(), b.getCreatedDate());
     }
-
   }
 
   private void viewBoard() {
     int boardNo = this.prompt.inputInt("번호? ");
-    Board b = list.get(boardNo);
-    if (b == null) {
-      return;
-    }
-    System.out.printf("제목: %s\n", b.getTitle());
-    System.out.printf("내용: %s\n", b.getContent());
-    System.out.printf("작성자: %s\n", b.getWriter());
-    System.out.printf("조회수: %s\n", b.getViewCount());
-    System.out.printf("등록일: %tY-%1$tm-%1$td\n", b.getCreatedDate());
-  }
 
-
-  private void updateBoard() {
-    int boardNo = this.prompt.inputInt("번호? ");
-    Board b = list.get(boardNo);
-    if (b == null) {
-      System.out.printf("암호가 일치하지 않습니다.");
-      return;
-    }
-    b.setTitle(this.prompt.inputString("제목(%s)?", b.getTitle()));
-    b.setContent(this.prompt.inputString("내용(%s)", b.getContent()));
-
-    return;
-  }
-
-  private void deleteBoard() {
-    int BoardNo = this.prompt.inputInt("번호? ");
-
-    if (this.list.delete(BoardNo)) {
+    Board board = (Board) this.list.get(new Board(boardNo));
+    if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
     }
+
+    System.out.printf("제목: %s\n", board.getTitle());
+    System.out.printf("내용: %s\n", board.getContent());
+    System.out.printf("작성자: %s\n", board.getWriter());
+    System.out.printf("조회수: %s\n", board.getViewCount());
+    System.out.printf("등록일: %tY-%1$tm-%1$td\n", board.getCreatedDate());
+    board.setViewCount(board.getViewCount() + 1);
   }
 
+  private void updateBoard() {
+    int boardNo = this.prompt.inputInt("번호? ");
 
+    Board board = (Board) this.list.get(new Board(boardNo));
+    if (board == null) {
+      System.out.println("해당 번호의 게시글이 없습니다!");
+      return;
+    }
+
+    if (!this.prompt.inputString("암호? ").equals(board.getPassword())) {
+      System.out.println("암호가 일치하지 않습니다!");
+      return;
+    }
+
+    board.setTitle(this.prompt.inputString("제목(%s)? ", board.getTitle()));
+    board.setContent(this.prompt.inputString("내용(%s)? ", board.getContent()));
+  }
+
+  private void deleteBoard() {
+    if (!this.list.delete(new Board(this.prompt.inputInt("번호? ")))) {
+      System.out.println("해당 번호의 게시글이 없습니다!");
+    }
+  }
 }

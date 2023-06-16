@@ -3,25 +3,18 @@ package bitcamp.myapp.project.handler;
 import bitcamp.myapp.project.util.Prompt;
 import bitcamp.myapp.project.vo.Member;
 
-// MemberHandler는 Handler 규칙에 따라 메서드를 구현했다.
 public class MemberHandler implements Handler {
 
   private ArrayList list = new ArrayList();
-  // 사용자 UI 도구
   private Prompt prompt;
   private String title;
-
 
   public MemberHandler(Prompt prompt, String title) {
     this.prompt = prompt;
     this.title = title;
   }
 
-
-  @Override // 인터페이스에 선언된 메서드를 정의했다.
-  // 수퍼 클래스의 메소드를 재정의
-  // Handler 인터페이스에 선언된 대로 정의했다.
-  // Handler 인터페이스를 구현했다.
+  @Override
   public void execute() {
     printMenu();
 
@@ -31,7 +24,6 @@ public class MemberHandler implements Handler {
         return;
       } else if (menuNo.equals("menu")) {
         printMenu();
-        // 회원등록
       } else if (menuNo.equals("1")) {
         this.inputMember();
       } else if (menuNo.equals("2")) {
@@ -43,7 +35,7 @@ public class MemberHandler implements Handler {
       } else if (menuNo.equals("5")) {
         this.deleteMember();
       } else {
-        System.out.println("메뉴 번호가 옳지 않습니다.");
+        System.out.println("메뉴 번호가 옳지 않습니다!");
       }
     }
   }
@@ -69,15 +61,12 @@ public class MemberHandler implements Handler {
     }
   }
 
-  // 위에서 만든 Member 인스턴스의 주소를 잃어버리지 않게
-  // 레퍼런스 배열에 담는다.
-
   private void printMembers() {
     System.out.println("---------------------------------------");
     System.out.println("번호, 이름, 이메일, 성별");
     System.out.println("---------------------------------------");
 
-    Object[] arr = this.list.list(); // list() 메서드 호출하여 Member 배열 가져오기
+    Object[] arr = this.list.list();
     for (Object obj : arr) {
       Member m = (Member) obj;
       System.out.printf("%d, %s, %s, %s\n", m.getNo(), m.getName(), m.getEmail(),
@@ -85,12 +74,12 @@ public class MemberHandler implements Handler {
     }
   }
 
-
   private void viewMember() {
     int memberNo = this.prompt.inputInt("번호? ");
 
     Member m = (Member) this.list.get(new Member(memberNo));
     if (m == null) {
+      System.out.println("해당 번호의 회원이 없습니다!");
       return;
     }
 
@@ -108,7 +97,7 @@ public class MemberHandler implements Handler {
 
     Member m = (Member) this.list.get(new Member(memberNo));
     if (m == null) {
-      System.out.println("해당 번호의 회원이 없습니다.");
+      System.out.println("해당 번호의 회원이 없습니다!");
       return;
     }
 
@@ -141,10 +130,8 @@ public class MemberHandler implements Handler {
   }
 
   private void deleteMember() {
-    if (this.list.delete(new Member(this.prompt.inputInt("번호? ")))) {
+    if (!this.list.delete(new Member(this.prompt.inputInt("번호? ")))) {
       System.out.println("해당 번호의 회원이 없습니다!");
     }
   }
-
-
 }

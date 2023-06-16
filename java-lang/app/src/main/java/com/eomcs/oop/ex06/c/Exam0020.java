@@ -26,6 +26,8 @@ public class Exam0020 {
     // => 상속 받은 메서드와 똑 같은 시그너처(메서드명,파라미터 타입/개수/순서)로 메서드를 정의한다.
     // => 오버라이딩 메서드는 원래의 메서드 보다 접근 범위가 같거나 커야 한다.
     //    원래의 메서드 보다 접근 범위가 줄어들면 안된다.
+    overriding
+    @Override
     public void compute() {
       this.sum = this.kor + this.eng + this.math + this.music + this.art;
       this.aver = this.sum / 5f;
