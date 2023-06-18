@@ -5,7 +5,6 @@ import bitcamp.myapp.project.handler.Handler;
 import bitcamp.myapp.project.handler.MemberHandler;
 import bitcamp.myapp.project.util.Prompt;
 
-// 푸시확인 (잔디 안심어짐..1회차 오류)
 public class App {
 
   public static void main(String[] args) {
