@@ -3,6 +3,8 @@ package bitcamp.myapp.project;
 import bitcamp.myapp.project.handler.BoardHandler;
 import bitcamp.myapp.project.handler.Handler;
 import bitcamp.myapp.project.handler.MemberHandler;
+import bitcamp.util.ArrayList;
+import bitcamp.util.LinkedList;
 import bitcamp.util.Prompt;
 
 public class App {
@@ -11,10 +13,9 @@ public class App {
 
     Prompt prompt = new Prompt();
 
-    Handler memberHandler = new MemberHandler(prompt, "회원");
-    Handler boardHandler = new BoardHandler(prompt, "게시글");
-    Handler readingHandler = new BoardHandler(prompt, "독서록");
-
+    Handler memberHandler = new MemberHandler(prompt, "회원", new ArrayList());
+    Handler boardHandler = new BoardHandler(prompt, "게시글", new LinkedList());
+    Handler readingHandler = new BoardHandler(prompt, "독서록", new LinkedList());
 
 
     // 기본 생성자를 이용해 prompt 인스턴스를 준비한다.
