@@ -1,4 +1,4 @@
-package bitcamp.myapp.project.handler;
+package bitcamp.util;
 
 public class ArrayList {
   private static final int DEFAULT_SIZE = 3;

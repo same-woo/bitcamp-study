@@ -3,7 +3,7 @@ package bitcamp.myapp.project;
 import bitcamp.myapp.project.handler.BoardHandler;
 import bitcamp.myapp.project.handler.Handler;
 import bitcamp.myapp.project.handler.MemberHandler;
-import bitcamp.myapp.project.util.Prompt;
+import bitcamp.util.Prompt;
 
 public class App {
 

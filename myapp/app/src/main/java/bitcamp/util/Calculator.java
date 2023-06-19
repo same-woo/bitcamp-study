@@ -1,4 +1,4 @@
-package bitcamp.myapp.project.util;
+package bitcamp.util;
 
 public class Calculator {
 

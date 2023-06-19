@@ -1,12 +1,13 @@
 package bitcamp.myapp.project.handler;
 
-import bitcamp.myapp.project.util.Prompt;
 import bitcamp.myapp.project.vo.Board;
+import bitcamp.util.LinkedList;
+import bitcamp.util.Prompt;
 
 public class BoardHandler implements Handler {
 
 
-  private ArrayList list = new ArrayList();
+  private LinkedList list = new LinkedList();
   private Prompt prompt;
 
   private String title;

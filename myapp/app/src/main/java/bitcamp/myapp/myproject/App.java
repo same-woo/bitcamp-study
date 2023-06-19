@@ -1,7 +1,7 @@
 package bitcamp.myapp.myproject;
 
 import bitcamp.myapp.myproject.handler.MemberHandler;
-import bitcamp.myapp.project.util.Prompt;
+import bitcamp.util.Prompt;
 
 public class App {
 
