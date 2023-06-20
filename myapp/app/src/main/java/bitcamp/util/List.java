@@ -12,4 +12,5 @@ public interface List {
   boolean remove(Object value);
 
   int size();
+
 }

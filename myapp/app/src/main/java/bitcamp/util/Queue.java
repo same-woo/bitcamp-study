@@ -30,4 +30,5 @@ public class Queue extends LinkedList {
     }
     return this.remove(0);
   }
+
 }
