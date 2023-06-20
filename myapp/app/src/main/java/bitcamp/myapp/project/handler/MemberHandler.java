@@ -21,27 +21,29 @@ public class MemberHandler implements Handler {
     prompt.appendBreadcrumb(this.title, getMenu());
     System.out.println(getMenu());
 
-    while (true) {
+    loop: while (true) {
       String menuNo = prompt.inputMenu();
-      if (menuNo.equals("0")) {
-        prompt.removeBreadcrumb();
-        return;
-      } else if (menuNo.equals("menu")) {
-        System.out.println(getMenu());
-      } else if (menuNo.equals("1")) {
-        this.inputMember();
-      } else if (menuNo.equals("2")) {
-        this.printMembers();
-      } else if (menuNo.equals("3")) {
-        this.viewMember();
-      } else if (menuNo.equals("4")) {
-        this.updateMember();
-      } else if (menuNo.equals("5")) {
-        this.deleteMember();
-      } else {
-        System.out.println("메뉴 번호가 옳지 않습니다!");
+
+      switch (menuNo) {
+        case "0":
+          prompt.removeBreadcrumb();
+          break loop;
+        case "1":
+          this.inputMember();
+          break;
+        case "2":
+          this.printMembers();
+          break;
+        case "3":
+          this.viewMember();
+        case "4":
+          this.updateMember();
+        case "5":
+          this.deleteMember();
+          break;
       }
     }
+
   }
 
   static String getMenu() {

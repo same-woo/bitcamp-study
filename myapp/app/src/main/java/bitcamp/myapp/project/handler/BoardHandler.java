@@ -23,25 +23,26 @@ public class BoardHandler implements Handler {
     prompt.appendBreadcrumb(this.title, getMenu());
     System.out.println(getMenu());
 
-    while (true) {
+    loop: while (true) {
       String menuNo = prompt.inputMenu();
-      if (menuNo.equals("0")) {
-        prompt.removeBreadcrumb();
-        return;
-      } else if (menuNo.equals("menu")) {
-        System.out.println(getMenu());
-      } else if (menuNo.equals("1")) {
-        this.inputBoard();
-      } else if (menuNo.equals("2")) {
-        this.printBoards();
-      } else if (menuNo.equals("3")) {
-        this.viewBoard();
-      } else if (menuNo.equals("4")) {
-        this.updateBoard();
-      } else if (menuNo.equals("5")) {
-        this.deleteBoard();
-      } else {
-        System.out.println("메뉴 번호가 옳지 않습니다!");
+
+      switch (menuNo) {
+        case "0":
+          prompt.removeBreadcrumb();
+          break loop;
+        case "1":
+          this.inputBoard();
+          break;
+        case "2":
+          this.printBoards();
+          break;
+        case "3":
+          this.viewBoard();
+        case "4":
+          this.updateBoard();
+        case "5":
+          this.deleteBoard();
+          break;
       }
     }
   }

@@ -26,24 +26,25 @@ public class App {
 
     prompt.printMenu();
 
-    while (true) {
+    loop: while (true) {
       String menuNo = prompt.inputMenu();
-      if (menuNo.equals("0")) {
-        break;
-      } else if (menuNo.equals("menu")) {
-        prompt.printMenu();
-      } else if (menuNo.equals("1")) {
-        memberHandler.execute();
-      } else if (menuNo.equals("2")) {
-        boardHandler.execute();
-      } else if (menuNo.equals("3")) {
-        readingHandler.execute();
-      } else {
-        System.out.println("메뉴 번호가 옳지 않습니다.");
+      switch (menuNo) {
+        case "0":
+          break loop;
+        case "1":
+          memberHandler.execute();
+          break;
+        case "2":
+          boardHandler.execute();
+          break;
+        case "3":
+          readingHandler.execute();
+          break;
       }
     }
 
     prompt.close();
+
   }
 
   static String getMenu() {
