@@ -56,8 +56,8 @@ public class LinkedList implements List {
     Node node = new Node();
     node.value = value;
 
-    if (head == null) {
-      head = node;
+    if (this.head == null) {
+      this.head = node;
     } else if (this.tail != null) {
       this.tail.next = node;
     }
