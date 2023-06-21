@@ -2,15 +2,15 @@ package bitcamp.myapp.project.handler;
 
 import bitcamp.myapp.project.vo.Member;
 import bitcamp.util.List;
-import bitcamp.util.MenuPrompt;
+import bitcamp.util.BreadcrumPrompt;
 
 public class MemberHandler implements Handler {
 
   private List list;
-  private MenuPrompt prompt;
+  private BreadcrumPrompt prompt;
   private String title;
 
-  public MemberHandler(MenuPrompt prompt, String title, List list) {
+  public MemberHandler(BreadcrumPrompt prompt, String title, List list) {
     this.prompt = prompt;
     this.title = title;
     this.list = list;

@@ -11,7 +11,7 @@ public class Menu {
     return title;
   }
 
-  public void execute() {
+  public void execute(BreadcrumPrompt prompt) {
     System.out.println(this.title + "메뉴 실행!");
   }
 }

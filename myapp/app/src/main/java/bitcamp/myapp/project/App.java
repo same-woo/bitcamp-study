@@ -4,54 +4,53 @@ import bitcamp.myapp.project.handler.BoardHandler;
 import bitcamp.myapp.project.handler.Handler;
 import bitcamp.myapp.project.handler.MemberHandler;
 import bitcamp.util.ArrayList;
+import bitcamp.util.BreadcrumPrompt;
 import bitcamp.util.LinkedList;
 import bitcamp.util.Menu;
-import bitcamp.util.MenuPrompt;
+import bitcamp.util.MenuGroup;
 
 public class App {
 
   public static void main(String[] args) {
 
-    MenuPrompt prompt = new MenuPrompt();
-    prompt.appendBreadcrumb("메인", getMenu());
+    BreadcrumPrompt prompt = new BreadcrumPrompt();
 
-    Menu m1 = new Menu("회원");
-    Menu m2 = new Menu("게시글");
-    Menu m3 = new Menu("독서록");
+    MenuGroup mainMenu = new MenuGroup("메인");
 
+    MenuGroup memberMenu = new MenuGroup("회원");
+    memberMenu.add(new Menu("등록"));
+    memberMenu.add(new Menu("목록"));
+    memberMenu.add(new Menu("조회"));
+    memberMenu.add(new Menu("변경"));
+    memberMenu.add(new Menu("삭제"));
+    mainMenu.add(memberMenu);
+
+    MenuGroup boardMenu = new MenuGroup("게시글");
+    boardMenu.add(new Menu("등록"));
+    boardMenu.add(new Menu("목록"));
+    boardMenu.add(new Menu("조회"));
+    boardMenu.add(new Menu("변경"));
+    boardMenu.add(new Menu("삭제"));
+    mainMenu.add(boardMenu);
+
+    MenuGroup readingMenu = new MenuGroup("독서록");
+    readingMenu.add(new Menu("등록"));
+    readingMenu.add(new Menu("목록"));
+    readingMenu.add(new Menu("조회"));
+    readingMenu.add(new Menu("변경"));
+    readingMenu.add(new Menu("삭제"));
+    mainMenu.add(readingMenu);
 
 
     Handler memberHandler = new MemberHandler(prompt, "회원", new ArrayList());
     Handler boardHandler = new BoardHandler(prompt, "게시글", new LinkedList());
     Handler readingHandler = new BoardHandler(prompt, "독서록", new LinkedList());
 
-
-    // 기본 생성자를 이용해 prompt 인스턴스를 준비한다.
-    // 기본 생성자는 Scanner를 키보드와 연결한다.
-
     printTitle();
 
-    prompt.printMenu();
-
-    loop: while (true) {
-      String menuNo = prompt.inputMenu();
-      switch (menuNo) {
-        case "0":
-          break loop;
-        case "1":
-          memberHandler.execute();
-          break;
-        case "2":
-          boardHandler.execute();
-          break;
-        case "3":
-          readingHandler.execute();
-          break;
-      }
-    }
+    mainMenu.execute(prompt);
 
     prompt.close();
-
   }
 
   static String getMenu() {

@@ -2,17 +2,49 @@ package bitcamp.util;
 
 public class MenuGroup extends Menu {
 
-  ArrayList menus;
+  ArrayList childs;
 
   public MenuGroup(String title) {
     super(title);
-    menus = new ArrayList();
+    this.childs = new ArrayList();
+  }
+
+  public void add(Menu menu) {
+    this.childs.add(menu);
   }
 
   @Override
-  public void execute() {
-    // TODO Auto-generated method stub
-    super.execute();
+  public void execute(BreadcrumPrompt prompt) {
+
+    prompt.appendBreadcrumb(this.getTitle());
+
+    this.printMenu();
+
+    while (true) {
+      String input = prompt.inputMenu();
+      if (input.equals("menu")) {
+        this.printMenu();
+        continue;
+      }
+
+      int menuNo = Integer.parseInt(input);
+      if (menuNo < 0 || menuNo > childs.size()) {
+        System.out.println("메뉴 번호가 옳지 않습니다!");
+      } else if (menuNo == 0) {
+        prompt.removeBreadcrumb();
+        return;
+      } else {
+        Menu menu = (Menu) this.childs.get(menuNo - 1);
+        menu.execute(prompt);
+      }
+    }
   }
 
+  private void printMenu() {
+    for (int i = 0; i < childs.size(); i++) {
+      Menu menu = (Menu) childs.get(i);
+      System.out.printf("%d. %s\n", i + 1, menu.getTitle());
+    }
+    System.out.println("0. 이전/종료");
+  }
 }
