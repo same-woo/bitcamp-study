@@ -1,16 +1,13 @@
 package bitcamp.myapp.project.handler;
 
 import bitcamp.myapp.project.vo.Member;
-import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.List;
 
-public class MemberAddListener implements ActionListener {
-
-  private List list;
+public class MemberAddListener extends AbstractMemberLinstener {
 
   public MemberAddListener(List list) {
-    this.list = list;
+    super(list);
   }
 
   @Override

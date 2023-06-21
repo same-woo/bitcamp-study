@@ -5,6 +5,9 @@ import bitcamp.myapp.project.handler.BoardDeleteListener;
 import bitcamp.myapp.project.handler.BoardDetailListener;
 import bitcamp.myapp.project.handler.BoardListListener;
 import bitcamp.myapp.project.handler.BoardUpdateListener;
+import bitcamp.myapp.project.handler.FooterListener;
+import bitcamp.myapp.project.handler.HeaderListener;
+import bitcamp.myapp.project.handler.HelloListener;
 import bitcamp.myapp.project.handler.MemberAddListener;
 import bitcamp.myapp.project.handler.MemberDeleteListener;
 import bitcamp.myapp.project.handler.MemberDetailListener;
@@ -51,6 +54,12 @@ public class App {
     readingMenu.add(new Menu("변경", new BoardUpdateListener(readingList)));
     readingMenu.add(new Menu("삭제", new BoardDeleteListener(readingList)));
     mainMenu.add(readingMenu);
+
+    Menu helloMenu = new Menu("안녕!");
+    helloMenu.addActionListener(new HeaderListener());
+    helloMenu.addActionListener(new HelloListener());
+    helloMenu.addActionListener(new FooterListener());
+    mainMenu.add(helloMenu);
 
     printTitle();
 

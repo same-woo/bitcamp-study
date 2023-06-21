@@ -1,16 +1,13 @@
 package bitcamp.myapp.project.handler;
 
 import bitcamp.myapp.project.vo.Member;
-import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.List;
 
-public class MemberUpdateListener implements ActionListener {
-
-  private List list;
+public class MemberUpdateListener extends AbstractMemberLinstener {
 
   public MemberUpdateListener(List list) {
-    this.list = list;
+    super(list);
   }
 
   @Override
@@ -55,14 +52,6 @@ public class MemberUpdateListener implements ActionListener {
     }
   }
 
-  private Member findBy(int no) {
-    for (int i = 0; i < this.list.size(); i++) {
-      Member m = (Member) this.list.get(i);
-      if (m.getNo() == no) {
-        return m;
-      }
-    }
-    return null;
-  }
+
 
 }

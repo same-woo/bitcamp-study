@@ -10,6 +10,6 @@ public class Test2 {
     // obj.v2 = 200; // default
     // obj.v3 = 300; // protected
     obj.v4 = 300; // public
-    obj.m();
+    // obj.m();
   }
 }

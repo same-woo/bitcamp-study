@@ -1,16 +1,14 @@
 package bitcamp.myapp.project.handler;
 
 import bitcamp.myapp.project.vo.Member;
-import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.List;
 
-public class MemberDeleteListener implements ActionListener {
+public class MemberDeleteListener extends AbstractMemberLinstener {
 
-  private List list;
 
   public MemberDeleteListener(List list) {
-    this.list = list;
+    super(list);
   }
 
   @Override

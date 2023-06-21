@@ -1,16 +1,14 @@
 package bitcamp.myapp.project.handler;
 
 import bitcamp.myapp.project.vo.Board;
-import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.List;
 
-public class BoardDetailListener implements ActionListener {
+public class BoardDetailListener extends AbstractBoardLinstener {
 
-  private List list;
 
   public BoardDetailListener(List list) {
-    this.list = list;
+    super(list);
   }
 
   @Override
@@ -31,15 +29,7 @@ public class BoardDetailListener implements ActionListener {
     board.setViewCount(board.getViewCount() + 1);
   }
 
-  private Board findBy(int no) {
-    for (int i = 0; i < this.list.size(); i++) {
-      Board b = (Board) this.list.get(i);
-      if (b.getNo() == no) {
-        return b;
-      }
-    }
-    return null;
-  }
+
 }
 
 

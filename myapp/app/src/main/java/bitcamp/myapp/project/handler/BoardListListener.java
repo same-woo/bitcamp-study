@@ -1,15 +1,13 @@
 package bitcamp.myapp.project.handler;
 
 import bitcamp.myapp.project.vo.Board;
-import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.List;
 
-public class BoardListListener implements ActionListener {
-
-  private List list;
+public class BoardListListener extends AbstractBoardLinstener {
 
   public BoardListListener(List list) {
+    super(list);
     this.list = list;
   }
 
