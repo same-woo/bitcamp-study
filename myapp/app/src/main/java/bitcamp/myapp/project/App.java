@@ -1,5 +1,7 @@
 package bitcamp.myapp.project;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import bitcamp.myapp.project.handler.BoardAddListener;
 import bitcamp.myapp.project.handler.BoardDeleteListener;
 import bitcamp.myapp.project.handler.BoardDetailListener;
@@ -13,9 +15,9 @@ import bitcamp.myapp.project.handler.MemberDeleteListener;
 import bitcamp.myapp.project.handler.MemberDetailListener;
 import bitcamp.myapp.project.handler.MemberListListener;
 import bitcamp.myapp.project.handler.MemberUpdateListener;
-import bitcamp.util.ArrayList;
+import bitcamp.myapp.project.vo.Board;
+import bitcamp.myapp.project.vo.Member;
 import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.LinkedList;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
 
@@ -23,9 +25,9 @@ public class App {
 
   public static void main(String[] args) {
 
-    ArrayList memberList = new ArrayList();
-    LinkedList boardList = new LinkedList();
-    LinkedList readingList = new LinkedList();
+    ArrayList<Member> memberList = new ArrayList<>();
+    LinkedList<Board> boardList = new LinkedList<>();
+    LinkedList<Board> readingList = new LinkedList<>();
 
     BreadcrumbPrompt prompt = new BreadcrumbPrompt();
 

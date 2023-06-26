@@ -1,20 +1,20 @@
 package bitcamp.myapp.project.handler;
 
+import java.util.List;
 import bitcamp.myapp.project.vo.Board;
 import bitcamp.util.ActionListener;
-import bitcamp.util.List;
 
 public abstract class AbstractBoardLinstener implements ActionListener {
 
-  protected List list;
+  protected List<Board> list;
 
-  public AbstractBoardLinstener(List list) {
+  public AbstractBoardLinstener(List<Board> list) {
     this.list = list;
   }
 
   protected Board findBy(int no) {
     for (int i = 0; i < this.list.size(); i++) {
-      Board b = (Board) this.list.get(i);
+      Board b = this.list.get(i);
       if (b.getNo() == no) {
         return b;
       }

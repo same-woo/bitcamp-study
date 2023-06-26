@@ -1,12 +1,12 @@
 package bitcamp.myapp.project.handler;
 
+import java.util.List;
 import bitcamp.myapp.project.vo.Board;
 import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.List;
 
 public class BoardDeleteListener extends AbstractBoardLinstener {
 
-  public BoardDeleteListener(List list) {
+  public BoardDeleteListener(List<Board> list) {
     super(list);
   }
 

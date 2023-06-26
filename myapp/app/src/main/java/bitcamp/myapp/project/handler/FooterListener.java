@@ -7,6 +7,6 @@ public class FooterListener implements ActionListener {
 
   @Override
   public void service(BreadcrumbPrompt prompt) {
-    System.out.printf("Copyright by 네클 7기---------------------");
+    System.out.println("Copyright by 네클 7기---------------------");
   }
 }

@@ -1,13 +1,13 @@
 package bitcamp.myapp.project.handler;
 
+import java.util.List;
 import bitcamp.myapp.project.vo.Board;
 import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.List;
 
 public class BoardAddListener extends AbstractBoardLinstener {
 
 
-  public BoardAddListener(List list) {
+  public BoardAddListener(List<Board> list) {
     super(list);
   }
 
