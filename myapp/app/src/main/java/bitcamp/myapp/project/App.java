@@ -60,6 +60,11 @@ public class App {
 
   }
 
+  private void loadData() {
+    loadMember();
+    loadBoard("board.data", boardList);
+    loadBoard("reading.data", readingList);
+  }
 
   private void saveData() {
     saveMember();
@@ -67,11 +72,7 @@ public class App {
     saveBoard("reading.data", readingList);
   }
 
-  private void loadData() {
-    loadMember();
-    loadBoard("board.data", boardList);
-    loadBoard("reading.data", readingList);
-  }
+
 
   private void prepareMenu() {
     this.mainMenu = new MenuGroup("메인");
@@ -107,6 +108,66 @@ public class App {
     mainMenu.add(helloMenu);
   }
 
+  private void loadMember() {
+    try {
+      DataInputStream in = new DataInputStream("member.data");
+      System.out.println("member.data 파일 정보 읽기 성공 !");
+
+      int size = in.readShort(); // 8비트 이동 후 number에 저장
+
+
+      for (int i = 0; i < size; i++) {
+        Member member = new Member();
+        member.setNo(in.readInt());
+        member.setName(in.readUTF());
+        member.setEmail(in.readUTF());
+        member.setPassword(in.readUTF());
+        member.setGender(in.readChar());
+        memberList.add(member);
+      }
+      // 데이터를 로딩한 이후에 추가 할 회원의 번호를 설정한다.
+      Member.userId = memberList.get(memberList.size() - 1).getNo() + 1;
+
+      in.close();
+    } catch (Exception e) {
+      System.out.println("member.data 파일 정보를 읽는 중 오류 발생 !");
+    }
+  }
+
+  private void loadBoard(String filename, List<Board> list) {
+    try {
+      DataInputStream in = new DataInputStream(filename);
+      System.out.println("member.data 파일 정보 읽기 성공 !");
+
+      int size = in.readShort(); // 8비트 이동 후 number에 저장
+
+
+      for (int i = 0; i < size; i++) {
+        Board board = new Board();
+        board.setNo(in.readInt());
+        board.setTitle(in.readUTF());
+        board.setContent(in.readUTF());
+        board.setWriter(in.readUTF());
+        board.setPassword(in.readUTF());
+        board.setViewCount(in.readInt());
+        board.setCreatedDate(in.readLong());
+        list.add(board);
+      }
+
+
+      Board.boardNo = Math.max(Board.boardNo, list.get(list.size() - 1).getNo() + 1);
+
+
+
+      in.close();
+    } catch (
+
+    Exception e) {
+      System.out.println(filename + " 파일 정보를 읽는 중 오류 발생 !");
+    }
+  }
+
+
   private void saveMember() {
     try {
 
@@ -128,32 +189,6 @@ public class App {
 
     } catch (Exception e) {
       System.out.println("member.data 파일 정보를 저장하는 중 오류 발생!");
-    }
-  }
-
-  private void loadMember() {
-    try {
-      DataInputStream in = new DataInputStream("member.data");
-      System.out.println("member.data 파일 정보 읽기 성공 !");
-
-      int size = in.readShort() << 8; // 8비트 이동 후 number에 저장
-
-
-      for (int i = 0; i < size; i++) {
-        Member member = new Member();
-        member.setNo(in.readShort());
-        member.setName(in.readUTF());
-        member.setEmail(in.readUTF());
-        member.setPassword(in.readUTF());
-        member.setGender(in.readChar());
-        memberList.add(member);
-      }
-      // 데이터를 로딩한 이후에 추가 할 회원의 번호를 설정한다.
-      Member.userId = memberList.get(memberList.size() - 1).getNo() + 1;
-
-      in.close();
-    } catch (Exception e) {
-      System.out.println("member.data 파일 정보를 읽는 중 오류 발생 !");
     }
   }
 
@@ -181,39 +216,6 @@ public class App {
 
     } catch (Exception e) {
       System.out.println(filename + " 파일 정보를 저장하는 중 오류 발생!");
-    }
-  }
-
-  private void loadBoard(String filename, List<Board> list) {
-    try {
-      DataInputStream in = new DataInputStream("board.data");
-      System.out.println("member.data 파일 정보 읽기 성공 !");
-
-      int size = in.readShort() << 8; // 8비트 이동 후 number에 저장
-
-
-      for (int i = 0; i < size; i++) {
-        Board board = new Board();
-        board.setNo(in.readShort());
-        board.setTitle(in.readUTF());
-        board.setContent(in.readUTF());
-        board.setWriter(in.readUTF());
-        board.setPassword(in.readUTF());
-        board.setViewCount(in.readInt());
-        board.setCreatedDate(in.readLong());
-        boardList.add(board);
-      }
-
-
-      Board.boardNo = Math.max(Board.boardNo, list.get(list.size() - 1).getNo() + 1);
-
-
-
-      in.close();
-    } catch (
-
-    Exception e) {
-      System.out.println(filename + " 파일 정보를 읽는 중 오류 발생 !");
     }
   }
 
