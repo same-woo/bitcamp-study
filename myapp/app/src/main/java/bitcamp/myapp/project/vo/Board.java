@@ -3,7 +3,7 @@ package bitcamp.myapp.project.vo;
 public class Board {
 
   // 클래스가 만들어 질때 단 한번 생성되고 모든 클래스가 공유
-  private static int boardNo = 1;
+  public static int boardNo = 1;
 
   private int no;
   private String title;

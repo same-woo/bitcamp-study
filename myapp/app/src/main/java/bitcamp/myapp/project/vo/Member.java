@@ -3,7 +3,7 @@ package bitcamp.myapp.project.vo;
 public class Member {
 
   // 모든 인스턴스가 공유하는 값은 스태틱 필드에 보관한다.
-  private static int userId = 1;
+  public static int userId = 1;
 
   // 상수는 스태틱 필드로 정의한다.
   // 정보를 다룰 때는 그 정보를 갖고 있는 클래스에 그 기능을 둔다.
