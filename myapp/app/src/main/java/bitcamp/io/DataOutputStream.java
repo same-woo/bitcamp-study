@@ -1,14 +1,31 @@
 package bitcamp.io;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
-public class DataOutputStream extends FileOutputStream {
+public class DataOutputStream extends OutputStream {
 
-  public DataOutputStream(String name) throws FileNotFoundException {
+  OutputStream original;
 
-    super(name);
+  public DataOutputStream(OutputStream original) {
+    this.original = original;
+  }
+
+  @Override
+  public void write(int b) throws IOException {
+    original.write(b);
+  }
+
+  @Override
+  public void flush() throws IOException {
+    // TODO Auto-generated method stub
+    original.flush();
+  }
+
+  @Override
+  public void close() throws IOException {
+    this.flush();
+    original.close();
   }
 
   public void writeShort(int v) throws IOException {
@@ -16,15 +33,12 @@ public class DataOutputStream extends FileOutputStream {
     this.write(v);
   }
 
-
   public void writeInt(int v) throws IOException {
     this.write(v >> 24);
     this.write(v >> 16);
     this.write(v >> 8);
     this.write(v);
   }
-
-
 
   public void writeLong(long v) throws IOException {
     this.write((int) (v >> 56));
@@ -41,7 +55,6 @@ public class DataOutputStream extends FileOutputStream {
     this.write(v >> 8);
     this.write(v);
   }
-
 
   public void writeUTF(String str) throws IOException {
     byte[] bytes = str.getBytes("UTF-8");

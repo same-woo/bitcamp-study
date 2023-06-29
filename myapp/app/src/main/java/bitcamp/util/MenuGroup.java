@@ -34,6 +34,8 @@ public class MenuGroup extends Menu {
         System.out.println("메뉴 번호가 옳지 않습니다!");
       } else if (menuNo == 0) {
         prompt.removeBreadcrumb();
+        System.out.println("");
+        System.out.println("종료했습니다.");
         return;
       } else {
         Menu menu = this.childs.get(menuNo - 1);

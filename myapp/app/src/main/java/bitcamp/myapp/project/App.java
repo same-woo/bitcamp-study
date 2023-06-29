@@ -1,5 +1,8 @@
 package bitcamp.myapp.project;
 
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,6 +49,7 @@ public class App {
   }
 
   static void printTitle() {
+    System.out.println("");
     System.out.println("나의 목록 관리 시스템");
     System.out.println("----------------------------------");
   }
@@ -110,7 +114,8 @@ public class App {
 
   private void loadMember() {
     try {
-      DataInputStream in = new DataInputStream("member.data");
+      FileInputStream in0 = new FileInputStream("member.data");
+      DataInputStream in = new DataInputStream(in0);
       System.out.println("member.data 파일 정보 읽기 성공 !");
 
       int size = in.readShort(); // 8비트 이동 후 number에 저장
@@ -136,8 +141,10 @@ public class App {
 
   private void loadBoard(String filename, List<Board> list) {
     try {
-      DataInputStream in = new DataInputStream(filename);
-      System.out.println("member.data 파일 정보 읽기 성공 !");
+
+      FileInputStream in0 = new FileInputStream(filename);
+      DataInputStream in = new DataInputStream(in0);
+      System.out.println(filename + " 파일 정보 읽기 성공 !");
 
       int size = in.readShort(); // 8비트 이동 후 number에 저장
 
@@ -171,7 +178,8 @@ public class App {
   private void saveMember() {
     try {
 
-      DataOutputStream out = new DataOutputStream("member.data");
+      FileOutputStream out0 = new FileOutputStream("member.data");
+      DataOutputStream out = new DataOutputStream(out0);
 
       // 출력할 데이터의 개수를 먼저 출력한다.
       out.writeShort(memberList.size());
@@ -196,7 +204,10 @@ public class App {
 
   private void saveBoard(String filename, List<Board> list) {
     try {
-      DataOutputStream out = new DataOutputStream(filename);
+      FileOutputStream out0 = new FileOutputStream(filename);
+      BufferedOutputStream out1 = new BufferedOutputStream(out0); // <= Decorator(장식품) 역할 수행!
+      DataOutputStream out = new DataOutputStream(out1); // <= Decorator(장식품) 역할 수행!
+
 
       // 출력할 데이터의 개수를 먼저 출력한다.
       out.writeShort(list.size());
