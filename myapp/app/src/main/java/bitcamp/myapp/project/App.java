@@ -1,13 +1,14 @@
 package bitcamp.myapp.project;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import bitcamp.io.DataInputStream;
-import bitcamp.io.DataOutputStream;
 import bitcamp.myapp.project.handler.BoardAddListener;
 import bitcamp.myapp.project.handler.BoardDeleteListener;
 import bitcamp.myapp.project.handler.BoardDetailListener;
@@ -115,7 +116,8 @@ public class App {
   private void loadMember() {
     try {
       FileInputStream in0 = new FileInputStream("member.data");
-      DataInputStream in = new DataInputStream(in0);
+      BufferedInputStream in1 = new BufferedInputStream(in0); // <= Decorator(장식품) 역할 수행!
+      DataInputStream in = new DataInputStream(in1);
       System.out.println("member.data 파일 정보 읽기 성공 !");
 
       int size = in.readShort(); // 8비트 이동 후 number에 저장
@@ -143,7 +145,8 @@ public class App {
     try {
 
       FileInputStream in0 = new FileInputStream(filename);
-      DataInputStream in = new DataInputStream(in0);
+      BufferedInputStream in1 = new BufferedInputStream(in0); // <= Decorator(장식품) 역할 수행!
+      DataInputStream in = new DataInputStream(in1);
       System.out.println(filename + " 파일 정보 읽기 성공 !");
 
       int size = in.readShort(); // 8비트 이동 후 number에 저장
@@ -177,9 +180,9 @@ public class App {
 
   private void saveMember() {
     try {
-
       FileOutputStream out0 = new FileOutputStream("member.data");
-      DataOutputStream out = new DataOutputStream(out0);
+      BufferedOutputStream out1 = new BufferedOutputStream(out0); // <= Decorator(장식품) 역할 수행!
+      DataOutputStream out = new DataOutputStream(out1);
 
       // 출력할 데이터의 개수를 먼저 출력한다.
       out.writeShort(memberList.size());
