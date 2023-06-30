@@ -1,6 +1,10 @@
 package bitcamp.myapp.project.vo;
 
-public class Board {
+import java.io.Serializable;
+
+public class Board implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   // 클래스가 만들어 질때 단 한번 생성되고 모든 클래스가 공유
   public static int boardNo = 1;

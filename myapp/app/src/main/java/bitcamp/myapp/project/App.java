@@ -1,11 +1,10 @@
 package bitcamp.myapp.project;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -66,15 +65,15 @@ public class App {
   }
 
   private void loadData() {
-    loadMember();
-    loadBoard("board.data", boardList);
-    loadBoard("reading.data", readingList);
+    loadMember("member.csv", memberList);
+    loadBoard("board.csv", boardList);
+    loadBoard("reading.csv", readingList);
   }
 
   private void saveData() {
-    saveMember();
-    saveBoard("board.data", boardList);
-    saveBoard("reading.data", readingList);
+    saveMember("member.csv", memberList);
+    saveBoard("board.csv", boardList);
+    saveBoard("reading.csv", readingList);
   }
 
 
@@ -113,28 +112,29 @@ public class App {
     mainMenu.add(helloMenu);
   }
 
-  private void loadMember() {
+  private void loadMember(String filename, List<Member> list) {
     try {
-      FileInputStream in0 = new FileInputStream("member.data");
-      BufferedInputStream in1 = new BufferedInputStream(in0); // <= Decorator(장식품) 역할 수행!
-      DataInputStream in = new DataInputStream(in1);
-      System.out.println("member.data 파일 정보 읽기 성공 !");
+      FileReader in0 = new FileReader(filename);
+      BufferedReader in = new BufferedReader(in0); // <= Decorator(장식품) 역할 수행!
+      System.out.println(filename + "파일 정보 읽기 성공 !");
 
-      int size = in.readShort(); // 8비트 이동 후 number에 저장
+      String line = null;
 
-
-      for (int i = 0; i < size; i++) {
+      while ((line = in.readLine()) != null) {
+        String[] values = line.split(",");
         Member member = new Member();
-        member.setNo(in.readInt());
-        member.setName(in.readUTF());
-        member.setEmail(in.readUTF());
-        member.setPassword(in.readUTF());
-        member.setGender(in.readChar());
-        memberList.add(member);
-      }
-      // 데이터를 로딩한 이후에 추가 할 회원의 번호를 설정한다.
-      Member.userId = memberList.get(memberList.size() - 1).getNo() + 1;
+        member.setNo(Integer.parseInt(values[0]));
+        member.setName(values[1]);
+        member.setEmail(values[2]);
+        member.setPassword(values[3]);
+        member.setGender(values[4].charAt(0));
+        list.add(member);
 
+      }
+
+      if (list.size() > 0) {
+        Member.userId = list.get(list.size() - 1).getNo() + 1;
+      }
       in.close();
     } catch (Exception e) {
       System.out.println("member.data 파일 정보를 읽는 중 오류 발생 !");
@@ -144,30 +144,31 @@ public class App {
   private void loadBoard(String filename, List<Board> list) {
     try {
 
-      FileInputStream in0 = new FileInputStream(filename);
-      BufferedInputStream in1 = new BufferedInputStream(in0); // <= Decorator(장식품) 역할 수행!
-      DataInputStream in = new DataInputStream(in1);
+      FileReader in0 = new FileReader(filename);
+      BufferedReader in = new BufferedReader(in0); // <= Decorator(장식품) 역할 수행!
       System.out.println(filename + " 파일 정보 읽기 성공 !");
 
-      int size = in.readShort(); // 8비트 이동 후 number에 저장
+      String line = null;
 
 
-      for (int i = 0; i < size; i++) {
+      while ((line = in.readLine()) != null) {
+        String[] values = line.split(",");
+
         Board board = new Board();
-        board.setNo(in.readInt());
-        board.setTitle(in.readUTF());
-        board.setContent(in.readUTF());
-        board.setWriter(in.readUTF());
-        board.setPassword(in.readUTF());
-        board.setViewCount(in.readInt());
-        board.setCreatedDate(in.readLong());
+        board.setNo(Integer.parseInt(values[0]));
+        board.setTitle(values[1]);
+        board.setContent(values[2]);
+        board.setWriter(values[3]);
+        board.setPassword(values[4]);
+        board.setViewCount(Integer.parseInt(values[5]));
+        board.setCreatedDate(Long.parseLong(values[6]));
+
         list.add(board);
       }
 
-
-      Board.boardNo = Math.max(Board.boardNo, list.get(list.size() - 1).getNo() + 1);
-
-
+      if (list.size() > 0) {
+        Board.boardNo = Math.max(Board.boardNo, list.get(list.size() - 1).getNo() + 1);
+      }
 
       in.close();
     } catch (
@@ -178,28 +179,23 @@ public class App {
   }
 
 
-  private void saveMember() {
+  private void saveMember(String filename, List<Member> list) {
     try {
-      FileOutputStream out0 = new FileOutputStream("member.data");
-      BufferedOutputStream out1 = new BufferedOutputStream(out0); // <= Decorator(장식품) 역할 수행!
-      DataOutputStream out = new DataOutputStream(out1);
+      FileWriter out0 = new FileWriter(filename);
+      BufferedWriter out1 = new BufferedWriter(out0); // <= Decorator(장식품) 역할 수행!
+      PrintWriter out = new PrintWriter(out1);
 
-      // 출력할 데이터의 개수를 먼저 출력한다.
-      out.writeShort(memberList.size());
+      for (Member member : list) {
+        out.printf("%d,%s,%s,%s,%c\n", member.getNo(), member.getName(), member.getEmail(),
+            member.getPassword(), member.getGender());
 
-      for (Member member : memberList) {
-        out.writeInt(member.getNo());
-        out.writeUTF(member.getName());
-        out.writeUTF(member.getEmail());
-        out.writeUTF(member.getPassword());
-        out.writeChar(member.getGender());
 
       }
-      System.out.println("member.data 파일 정보 저장 완료");
+      System.out.println(filename + "파일 정보 저장 완료");
       out.close();
 
     } catch (Exception e) {
-      System.out.println("member.data 파일 정보를 저장하는 중 오류 발생!");
+      System.out.println(filename + "파일 정보를 저장하는 중 오류 발생!");
     }
   }
 
@@ -207,22 +203,14 @@ public class App {
 
   private void saveBoard(String filename, List<Board> list) {
     try {
-      FileOutputStream out0 = new FileOutputStream(filename);
-      BufferedOutputStream out1 = new BufferedOutputStream(out0); // <= Decorator(장식품) 역할 수행!
-      DataOutputStream out = new DataOutputStream(out1); // <= Decorator(장식품) 역할 수행!
-
-
-      // 출력할 데이터의 개수를 먼저 출력한다.
-      out.writeShort(list.size());
+      FileWriter out0 = new FileWriter(filename);
+      BufferedWriter out1 = new BufferedWriter(out0); // <= Decorator(장식품) 역할 수행!
+      PrintWriter out = new PrintWriter(out1); // <= Decorator(장식품) 역할 수행!
 
       for (Board board : list) {
-        out.writeInt(board.getNo());
-        out.writeUTF(board.getTitle());
-        out.writeUTF(board.getContent());
-        out.writeUTF(board.getWriter());
-        out.writeUTF(board.getPassword());
-        out.writeInt(board.getViewCount());
-        out.writeLong(board.getCreatedDate());
+        out.printf("%d,%s,%s,%s,%s,%d,%d\n", board.getNo(), board.getTitle(), board.getContent(),
+            board.getWriter(), board.getPassword(), board.getViewCount(), board.getCreatedDate());
+
 
       }
       System.out.println(filename + " 파일 정보 저장 완료");
