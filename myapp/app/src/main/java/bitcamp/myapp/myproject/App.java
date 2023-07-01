@@ -64,7 +64,6 @@ public class App {
 
   }
 
-
   private void loadData() {
     loadMember("my_member.csv", memberList);
     loadBoard("my_board.csv", boardList);
