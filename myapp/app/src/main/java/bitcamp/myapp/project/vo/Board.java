@@ -2,11 +2,9 @@ package bitcamp.myapp.project.vo;
 
 import java.io.Serializable;
 
-public class Board implements Serializable {
-
+public class Board implements Serializable, CsvObject {
   private static final long serialVersionUID = 1L;
 
-  // 클래스가 만들어 질때 단 한번 생성되고 모든 클래스가 공유
   public static int boardNo = 1;
 
   private int no;
@@ -26,12 +24,36 @@ public class Board implements Serializable {
     this.no = no;
   }
 
+  public static Board fromCsv(String csv) {
+    String[] values = csv.split(",");
+
+    Board board = new Board(Integer.parseInt(values[0]));
+    board.setTitle(values[1]);
+    board.setContent(values[2]);
+    board.setWriter(values[3]);
+    board.setPassword(values[4]);
+    board.setViewCount(Integer.parseInt(values[5]));
+    board.setCreatedDate(Long.parseLong(values[6]));
+
+    if (Board.boardNo <= board.getNo()) {
+      Board.boardNo = board.getNo() + 1;
+    }
+
+    return board;
+  }
+
+  @Override
+  public String toCsvString() {
+    return String.format("%d,%s,%s,%s,%s,%d,%d", this.getNo(), this.getTitle(), this.getContent(),
+        this.getWriter(), this.getPassword(), this.getViewCount(), this.getCreatedDate());
+  }
 
   @Override
   public boolean equals(Object obj) {
     if (obj == null) {
       return false;
     }
+
     if (this.getClass() != obj.getClass()) {
       return false;
     }
@@ -41,9 +63,9 @@ public class Board implements Serializable {
     if (this.getNo() != b.getNo()) {
       return false;
     }
+
     return true;
   }
-
 
   public int getNo() {
     return no;
@@ -85,16 +107,6 @@ public class Board implements Serializable {
     this.viewCount = viewCount;
   }
 
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-
   public long getCreatedDate() {
     return createdDate;
   }
@@ -103,6 +115,13 @@ public class Board implements Serializable {
     this.createdDate = createdDate;
   }
 
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
 
 }

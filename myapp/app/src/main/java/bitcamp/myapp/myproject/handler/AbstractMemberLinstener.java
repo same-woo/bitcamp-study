@@ -1,9 +1,8 @@
 package bitcamp.myapp.myproject.handler;
 
 import java.util.List;
-import bitcamp.myapp.myproject.vo.Member;
 import bitcamp.util.ActionListener;
-
+import bitcamp.myproject.
 public abstract class AbstractMemberLinstener implements ActionListener {
 
   protected List<Member> list;

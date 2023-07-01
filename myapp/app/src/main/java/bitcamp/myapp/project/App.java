@@ -8,21 +8,21 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import bitcamp.myapp.project.handler.BoardAddListener;
-import bitcamp.myapp.project.handler.BoardDeleteListener;
-import bitcamp.myapp.project.handler.BoardDetailListener;
-import bitcamp.myapp.project.handler.BoardListListener;
-import bitcamp.myapp.project.handler.BoardUpdateListener;
-import bitcamp.myapp.project.handler.FooterListener;
-import bitcamp.myapp.project.handler.HeaderListener;
-import bitcamp.myapp.project.handler.HelloListener;
-import bitcamp.myapp.project.handler.MemberAddListener;
-import bitcamp.myapp.project.handler.MemberDeleteListener;
-import bitcamp.myapp.project.handler.MemberDetailListener;
-import bitcamp.myapp.project.handler.MemberListListener;
-import bitcamp.myapp.project.handler.MemberUpdateListener;
-import bitcamp.myapp.project.vo.Board;
-import bitcamp.myapp.project.vo.Member;
+import bitcamp.myapp.myproject.handler.BoardAddListener;
+import bitcamp.myapp.myproject.handler.BoardDeleteListener;
+import bitcamp.myapp.myproject.handler.BoardDetailListener;
+import bitcamp.myapp.myproject.handler.BoardListListener;
+import bitcamp.myapp.myproject.handler.BoardUpdateListener;
+import bitcamp.myapp.myproject.handler.FooterListener;
+import bitcamp.myapp.myproject.handler.HeaderListener;
+import bitcamp.myapp.myproject.handler.HelloListener;
+import bitcamp.myapp.myproject.handler.MemberAddListener;
+import bitcamp.myapp.myproject.handler.MemberDeleteListener;
+import bitcamp.myapp.myproject.handler.MemberDetailListener;
+import bitcamp.myapp.myproject.handler.MemberListListener;
+import bitcamp.myapp.myproject.handler.MemberUpdateListener;
+import bitcamp.myapp.myproject.vo.Board;
+import bitcamp.myapp.myproject.vo.Member;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
@@ -65,17 +65,16 @@ public class App {
   }
 
   private void loadData() {
-    loadMember("member.csv", memberList);
-    loadBoard("board.csv", boardList);
-    loadBoard("reading.csv", readingList);
+    loadMember("my_member.csv", memberList);
+    loadBoard("my_board.csv", boardList);
+    loadBoard("my_reading.csv", readingList);
   }
 
   private void saveData() {
-    saveMember("member.csv", memberList);
-    saveBoard("board.csv", boardList);
-    saveBoard("reading.csv", readingList);
+    saveMember("my_member.csv", memberList);
+    saveBoard("my_board.csv", boardList);
+    saveBoard("my_reading.csv", readingList);
   }
-
 
 
   private void prepareMenu() {
