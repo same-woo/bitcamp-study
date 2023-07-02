@@ -2,6 +2,7 @@ package bitcamp.myapp.myproject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -41,16 +42,22 @@ public class App {
   LinkedList<TrainingCenterBoard> trainingCenternoticeList = new LinkedList<>();
 
   BreadcrumbPrompt prompt = new BreadcrumbPrompt();
-
   MenuGroup mainMenu = new MenuGroup("메인");
+
+  // 관리자 이름 변수
+  private String adminName;
+  private String adminPassword;
+
+
+  public static void main(String[] args) {
+    new App().execute();
+  }
 
   public App() {
     prepareMenu();
   }
 
-  public static void main(String[] args) {
-    new App().execute();
-  }
+
 
   static void printTitle() {
     System.out.println("");
@@ -60,27 +67,108 @@ public class App {
 
   public void execute() {
     printTitle();
-
-    loadData();
+    setAdminName();
+    loadAdmin();
+    // checkAdmin();
     mainMenu.execute(prompt);
-    saveData();
-
+    saveAdmin();
     prompt.close();
+  }
+
+  public void loadAdmin() {
+    String trainingCenterCsv = adminName + "_TrainingCenter.csv";
+    String trainingCenterEmployeeCsv = adminName + "_TrainingCenterEmployee.csv";
+    String trainingCenterBoardCsv = adminName + "_TrainingCenterBoard.csv";
+    String trainingCenterNoticeCsv = adminName + "_TrainingCenterNotice.csv";
+
+    boolean isNewAdmin = !checkAdminExists();
+
+    if (isNewAdmin) {
+      System.out.println("새로운 관리자입니다. 비밀번호를 설정해주세요.");
+      setAdminPassword();
+    } else {
+      System.out.println("기존 관리자입니다. 비밀번호를 입력하세요.");
+      loginAdmin();
+    }
+
+    if (!adminPassword.isEmpty()) {
+      loadData(trainingCenterCsv, trainingCenterEmployeeCsv, trainingCenterBoardCsv,
+          trainingCenterNoticeCsv);
+    } else {
+      System.out.println("비밀번호를 입력하지 않았습니다. 프로그램을 종료합니다.");
+      System.exit(0);
+    }
+  }
+
+  public void setAdminName() {
+    System.out.print("학원명을 입력하세요: ");
+    adminName = prompt.inputString("");
+  }
+
+  public void setAdminPassword() {
+    System.out.print("비밀번호를 입력하세요: ");
+    adminPassword = prompt.inputString("");
+  }
+
+  public void loginAdmin() {
+    System.out.print("비밀번호를 입력하세요: ");
+    String enteredPassword = prompt.inputString("");
+
+    if (enteredPassword.equals(adminPassword.trim())) {
+      System.out.println("비밀번호가 일치합니다. 로그인되었습니다.");
+    } else {
+      System.out.println("비밀번호가 일치하지 않습니다. 프로그램을 종료합니다.");
+      System.exit(0);
+    }
+  }
+
+
+
+  private boolean checkAdminExists() {
+    // Check if the admin's data already exists (e.g., by checking if the CSV files exist)
+    // Return true if admin data exists; false otherwise
+    // You can implement your own logic here to check if the admin data exists
+
+    // For example, you can check if the CSV files exist using the File class:
+    File trainingCenterCsvFile = new File(adminName + "_TrainingCenter.csv");
+    File trainingCenterEmployeeCsvFile = new File(adminName + "_TrainingCenterEmployee.csv");
+    File trainingCenterBoardCsvFile = new File(adminName + "_TrainingCenterBoard.csv");
+    File trainingCenterNoticeCsvFile = new File(adminName + "_TrainingCenterNotice.csv");
+
+    return trainingCenterCsvFile.exists() && trainingCenterEmployeeCsvFile.exists()
+        && trainingCenterBoardCsvFile.exists() && trainingCenterNoticeCsvFile.exists();
+  }
+
+
+
+  public void saveAdmin() {
+    String trainingCenterCsv = adminName + "_TrainingCenter.csv";
+    String trainingCenterEmployeeCsv = adminName + "_TrainingCenterEmployee.csv";
+    String trainingCenterBoardCsv = adminName + "_TrainingCenterBoard.csv";
+    String trainingCenterNoticeCsv = adminName + "_TrainingCenterNotice.csv";
+
+    saveData(trainingCenterCsv, trainingCenterEmployeeCsv, trainingCenterBoardCsv,
+        trainingCenterNoticeCsv);
+  }
+
+
+
+  private void loadData(String trainingCenterCsv, String trainingCenterEmployeeCsv,
+      String trainingCenterBoardCsv, String trainingCenterNoticeCsv) {
+    loadCsv(trainingCenterCsv, trainingCenterList, TrainingCenter.class);
+    loadCsv(trainingCenterEmployeeCsv, trainingCenterEmployeeList, TrainingCenterEmployee.class);
+    loadCsv(trainingCenterBoardCsv, trainingCenterboardList, TrainingCenterBoard.class);
+    loadCsv(trainingCenterNoticeCsv, trainingCenternoticeList, TrainingCenterBoard.class);
+
 
   }
 
-  private void loadData() {
-    loadCsv("TrainingCenter.csv", trainingCenterList, TrainingCenter.class); // Add this line
-    loadCsv("TrainingCenterEmployee.csv", trainingCenterEmployeeList, TrainingCenterEmployee.class); // Add
-    loadCsv("TrainingCenterBoard.csv", trainingCenterboardList, TrainingCenterBoard.class);
-    loadCsv("TrainingCenterNotice.csv", trainingCenternoticeList, TrainingCenterBoard.class);
-  }
-
-  private void saveData() {
-    saveCsv("TrainingCenter.csv", trainingCenterList);
-    saveCsv("TrainingCenterEmployee.csv", trainingCenterEmployeeList);
-    saveCsv("TrainingCenterBoard.csv", trainingCenterboardList);
-    saveCsv("TrainingCenterNotice.csv", trainingCenternoticeList);
+  private void saveData(String trainingCenterCsv, String trainingCenterEmployeeCsv,
+      String trainingCenterBoardCsv, String trainingCenterNoticeCsv) {
+    saveCsv(trainingCenterCsv, trainingCenterList);
+    saveCsv(trainingCenterEmployeeCsv, trainingCenterEmployeeList);
+    saveCsv(trainingCenterBoardCsv, trainingCenterboardList);
+    saveCsv(trainingCenterNoticeCsv, trainingCenternoticeList);
   }
 
   private void prepareMenu() {
@@ -140,7 +228,6 @@ public class App {
   private <T extends CsvObject> void loadCsv(String filename, List<T> list, Class<T> clazz) {
     try {
       Method factoryMethod = clazz.getDeclaredMethod("fromCsv", String.class);
-      System.out.println(filename + " 파일을 성공적으로 로딩했습니다.");
       FileReader in0 = new FileReader(filename);
       BufferedReader in = new BufferedReader(in0); // <== Decorator 역할을 수행!
 
@@ -153,7 +240,9 @@ public class App {
       in.close();
 
     } catch (Exception e) {
-      System.out.println(filename + " 파일을 읽는 중 오류 발생!");
+      if (list.size() > 0) {
+        System.out.println(filename + " 파일을 읽는 중 오류 발생!");
+      }
     }
   }
 
@@ -173,6 +262,4 @@ public class App {
       System.out.println(filename + " 파일을 저장하는 중 오류 발생!");
     }
   }
-
-
 }

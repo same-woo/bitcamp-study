@@ -21,7 +21,7 @@ public class TrainingCenterListListener extends AbstractTrainingCenterListener {
     Iterator<TrainingCenter> iterator = list.iterator();
     while (iterator.hasNext()) {
       TrainingCenter center = iterator.next();
-      System.out.printf("%d, %s, %d, %S" + "개월" + "%s\n", center.getId(), center.getName(),
+      System.out.printf("%d,%s,%d,%s,%d" + "개월" + ",%s\n", center.getId(), center.getName(),
           center.getAge(), center.getLocation(), center.getDuration(), center.getCurriculum());
     }
   }

@@ -21,7 +21,7 @@ public class TrainingCenterEmployeeDetailListener extends AbstractTrainingCenter
     }
 
     System.out.printf("이름: %s\n", center.getName());
-    System.out.printf("나: %s\n", center.getAge());
+    System.out.printf("나이: %d\n", center.getAge());
     System.out.printf("주소: %s\n", center.getLocation());
     System.out.printf("직급: %s\n", center.getRank());
     System.out.printf("부서: %s\n", center.getDepartment());

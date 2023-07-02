@@ -14,7 +14,7 @@ public class TrainingCenterEmployeeAddListener extends AbstractTrainingCenterEmp
   public void service(BreadcrumbPrompt prompt) {
     TrainingCenterEmployee center = new TrainingCenterEmployee();
     center.setName(prompt.inputString("이름? "));
-    center.setAge(prompt.inputString("나이? "));
+    center.setAge(prompt.inputInt("나이? "));
     center.setLocation(prompt.inputString("주소?"));
     center.setRank(prompt.inputString("직급?"));
     center.setDepartment(prompt.inputString("부서?"));

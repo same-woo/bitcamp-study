@@ -21,7 +21,7 @@ public class TrainingCenterEmployeeUpdateListener extends AbstractTrainingCenter
     }
 
     center.setName(prompt.inputString("이름(%s)? ", center.getName()));
-    center.setName(prompt.inputString("나이(%s)? ", center.getAge()));
+    center.setAge(prompt.inputInt("나이(%d)? ", center.getAge()));
     center.setLocation(prompt.inputString("주소(%s)? ", center.getLocation()));
     center.setRank(prompt.inputString("직급(%s)? ", center.getRank()));
     center.setDepartment(prompt.inputString("부서(%s)? ", center.getDepartment()));

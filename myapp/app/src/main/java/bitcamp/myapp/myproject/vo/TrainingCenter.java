@@ -14,6 +14,13 @@ public class TrainingCenter implements Serializable, CsvObject {
   private int duration;
   private String curriculum;
   private String password;
+  private static String adminPassword;
+
+
+  public static String getAdminPassword() {
+    return adminPassword;
+  }
+
 
   public int getDuration() {
     return duration;
