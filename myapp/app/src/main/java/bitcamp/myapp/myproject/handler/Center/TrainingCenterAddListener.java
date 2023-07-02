@@ -1,7 +1,7 @@
-package bitcamp.myapp.myproject.handler;
+package bitcamp.myapp.myproject.handler.Center;
 
 import java.util.List;
-import bitcamp.myapp.project.vo.TrainingCenter;
+import bitcamp.myapp.myproject.vo.TrainingCenter;
 import bitcamp.util.BreadcrumbPrompt;
 
 public class TrainingCenterAddListener extends AbstractTrainingCenterListener {
@@ -14,8 +14,9 @@ public class TrainingCenterAddListener extends AbstractTrainingCenterListener {
   public void service(BreadcrumbPrompt prompt) {
     TrainingCenter center = new TrainingCenter();
     center.setName(prompt.inputString("이름? "));
-    center.setLocation(prompt.inputString("지역? "));
-    center.setDuration(prompt.inputString("기간? "));
+    center.setAge(prompt.inputInt("나이? "));
+    center.setLocation(prompt.inputString("주소? "));
+    center.setDuration(prompt.inputInt("기간(개월)? "));
     center.setCurriculum(prompt.inputString("커리큘럼? "));
     center.setPassword(prompt.inputString("비밀번호? "));
 

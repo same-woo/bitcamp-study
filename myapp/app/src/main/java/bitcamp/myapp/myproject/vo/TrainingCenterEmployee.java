@@ -2,7 +2,7 @@ package bitcamp.myapp.myproject.vo;
 
 import java.io.Serializable;
 
-public class TrainingCenter implements Serializable, CsvObject {
+public class TrainingCenterEmployee implements Serializable, CsvObject {
   private static final long serialVersionUID = 1L;
 
   private static int centerId = 1;
@@ -11,25 +11,9 @@ public class TrainingCenter implements Serializable, CsvObject {
   private String name;
   private int age;
   private String location;
-  private int duration;
-  private String curriculum;
+  private String rank;
+  private String department;
   private String password;
-
-  public int getDuration() {
-    return duration;
-  }
-
-
-
-  public TrainingCenter() {
-    this.id = centerId++;
-  }
-
-
-
-  public void setDuration(int duration) {
-    this.duration = duration;
-  }
 
 
 
@@ -37,33 +21,27 @@ public class TrainingCenter implements Serializable, CsvObject {
     return age;
   }
 
-
-
   public void setAge(int age) {
     this.age = age;
   }
 
-
-
-  public String getCurriculum() {
-    return curriculum;
+  public TrainingCenterEmployee() {
+    this.id = centerId++;
   }
 
-
-
-  public TrainingCenter(int id) {
+  public TrainingCenterEmployee(int id) {
     this.id = id;
   }
 
-  public static TrainingCenter fromCsv(String csv) {
+  public static TrainingCenterEmployee fromCsv(String csv) {
     String[] values = csv.split(",");
 
-    TrainingCenter center = new TrainingCenter(Integer.parseInt(values[0]));
+    TrainingCenterEmployee center = new TrainingCenterEmployee(Integer.parseInt(values[0]));
     center.setName(values[1]);
     center.setAge(Integer.parseInt(values[2]));
     center.setLocation(values[3]);
-    center.setDuration(Integer.parseInt(values[4]));
-    center.setCurriculum(values[5]);
+    center.setRank(values[4]);
+    center.setDepartment(values[5]);
     center.setPassword(values[6]);
 
     if (centerId <= center.getId()) {
@@ -75,8 +53,8 @@ public class TrainingCenter implements Serializable, CsvObject {
 
   @Override
   public String toCsvString() {
-    return String.format("%d,%d,%s,%s,%d,%s,%s", this.getId(), this.getAge(), this.getName(),
-        this.getLocation(), this.getDuration(), this.getCurriculum(), this.getPassword());
+    return String.format("%d,%s,%s,%s,%s,%s", this.getId(), this.getName(), this.getLocation(),
+        this.getRank(), this.getDepartment(), this.getPassword());
   }
 
   @Override
@@ -87,7 +65,7 @@ public class TrainingCenter implements Serializable, CsvObject {
     if (this.getClass() != obj.getClass()) {
       return false;
     }
-    TrainingCenter center = (TrainingCenter) obj;
+    TrainingCenterEmployee center = (TrainingCenterEmployee) obj;
     if (this.getId() != center.getId()) {
       return false;
     }
@@ -119,9 +97,20 @@ public class TrainingCenter implements Serializable, CsvObject {
   }
 
 
+  public String getRank() {
+    return rank;
+  }
 
-  public void setCurriculum(String curriculum) {
-    this.curriculum = curriculum;
+  public void setRank(String rank) {
+    this.rank = rank;
+  }
+
+  public String getDepartment() {
+    return department;
+  }
+
+  public void setDepartment(String department) {
+    this.department = department;
   }
 
   public String getPassword() {

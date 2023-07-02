@@ -23,7 +23,13 @@ public class Prompt {
   }
 
   public int inputInt(String title, Object... args) {
-    return Integer.parseInt(this.inputString(title, args));
+    while (true) {
+      try {
+        return Integer.parseInt(this.inputString(title, args));
+      } catch (NumberFormatException e) {
+        System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
+      }
+    }
   }
 
   public void close() {
