@@ -14,6 +14,8 @@ dependencies {
     // Jsoup 의존성 추가
     implementation 'org.jsoup:jsoup:1.14.2'
 
+    implementation 'com.google.code.gson:gson:2.8.7'
+
 
 
 }

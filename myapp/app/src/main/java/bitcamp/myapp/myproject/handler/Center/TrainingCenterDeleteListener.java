@@ -19,7 +19,7 @@ public class TrainingCenterDeleteListener extends AbstractTrainingCenterListener
       System.out.println("해당 번호의 수강생이 없습니다!");
       return;
     }
-
+    System.out.println(centerNo + "번의 수강생 정보를 삭제했습니다");
     this.list.remove(center);
   }
 }

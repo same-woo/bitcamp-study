@@ -19,7 +19,7 @@ public class TrainingCenterEmployeeDeleteListener extends AbstractTrainingCenter
       System.out.println("해당 번호의 직원이 없습니다!");
       return;
     }
-
+    System.out.println(centerNo + "번의 직원 정보를 삭제했습니다");
     this.list.remove(center);
   }
 }
