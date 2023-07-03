@@ -1,5 +1,5 @@
-// 객체 --> JSON 문자열 : 객체의 필드 값을 json 형식의 문자열로 만들기
-package com.eomcs.openapi.json.gson;
+Exam0113.java// 객체 --> JSON 문자열 : 객체의 필드 값을 json 형식의 문자열로 만들기
+package com.eomcs.openapi.json;
 
 import java.lang.reflect.Type;
 import java.sql.Date;
@@ -12,7 +12,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-public class Exam0112 {
+public class Exam0114 {
   public static void main(String[] args) {
 
     // 1) 객체 준비
@@ -26,28 +26,14 @@ public class Exam0112 {
     m.setRegisteredDate(new Date(System.currentTimeMillis()));
 
     // 2) JSON 처리 객체 준비
-    // Date 타입의 값을 내보내고 가져올 때 사용할 변환 도구를 준비
-    class GsonDateFormatAdapter implements JsonSerializer<Date> {
-
-      private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    GsonBuilder builder = new GsonBuilder();
+    builder.registerTypeAdapter(Date.class, new JsonSerializer<Date>() {
       @Override
       public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
-        // 객체를 JSON 문자열로 변환할 때 호출된다.
-        // 그 중 Date 타입의 프로퍼티 값을 JSON 문자열로 바꿀 때 호출된다.
-        System.out.println(src.getTime());
         return new JsonPrimitive(dateFormat.format(src));
       }
-    }
-
-    // Gson 객체를 만들어 줄 도우미 객체
-    GsonBuilder builder = new GsonBuilder();
-
-    // Date 타입의 프로퍼티 값을 JSON 형식의 문자열로 바꿔줄 변환기를 등록한다.
-    builder.registerTypeAdapter(
-        Date.class, // 원래 데이터의 타입
-        new GsonDateFormatAdapter() // Date 형식의 데이터를 JSON 문자열로 바꿔줄 변환기
-        );
+    });
 
     Gson gson = builder.create();
 
@@ -67,7 +53,5 @@ public class Exam0112 {
 // - 논리   => true, false
 //
 // 프로퍼티명은 반드시 문자열로 표현해야 한다.
-
-
 
 

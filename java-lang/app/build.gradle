@@ -10,12 +10,13 @@ repositories {
 dependencies {
 
   // 미디어 파일에서 메타정보 추출
-    // implementation 'com.drewnoakes:metadata-extractor:2.18.0'
-    // implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'com.drewnoakes:metadata-extractor:2.18.0'
+    implementation 'com.google.guava:guava:31.1-jre'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
-    implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
     implementation 'net.sf.squirrel-sql:squirrelsql-update-site:3.5.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+
 }
 
 java {
