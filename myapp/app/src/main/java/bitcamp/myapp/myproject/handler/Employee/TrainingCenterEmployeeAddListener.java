@@ -13,11 +13,12 @@ public class TrainingCenterEmployeeAddListener extends AbstractTrainingCenterEmp
   @Override
   public void service(BreadcrumbPrompt prompt) {
     TrainingCenterEmployee center = new TrainingCenterEmployee();
+    // center.setId(TrainingCenterEmployee.centerId++);
     center.setName(prompt.inputString("이름? "));
     center.setAge(prompt.inputInt("나이? "));
-    center.setLocation(prompt.inputString("주소?"));
-    center.setRank(prompt.inputString("직급?"));
-    center.setDepartment(prompt.inputString("부서?"));
+    center.setLocation(prompt.inputString("주소? "));
+    center.setRank(prompt.inputString("직급? "));
+    center.setDepartment(prompt.inputString("부서? "));
 
     center.setPassword(prompt.inputString("비밀번호? "));
 

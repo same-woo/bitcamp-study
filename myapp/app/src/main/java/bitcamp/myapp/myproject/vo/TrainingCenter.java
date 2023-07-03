@@ -2,10 +2,10 @@ package bitcamp.myapp.myproject.vo;
 
 import java.io.Serializable;
 
-public class TrainingCenter implements Serializable, CsvObject {
+public class TrainingCenter implements Serializable, CsvObject, AutoIncrement {
   private static final long serialVersionUID = 1L;
 
-  private static int centerId = 1;
+  public static int centerId = 1;
 
   private int id;
   private String name;
@@ -15,6 +15,36 @@ public class TrainingCenter implements Serializable, CsvObject {
   private String curriculum;
   private String password;
   private static String adminPassword;
+
+
+  public TrainingCenter(int id) {
+    this.id = id;
+  }
+
+  public static TrainingCenter fromCsv(String csv) {
+    String[] values = csv.split(",");
+
+    TrainingCenter center = new TrainingCenter(Integer.parseInt(values[0]));
+    center.setName(values[1]);
+    center.setAge(Integer.parseInt(values[2]));
+    center.setLocation(values[3]);
+    center.setDuration(Integer.parseInt(values[4]));
+    center.setCurriculum(values[5]);
+    center.setPassword(values[6]);
+
+    if (centerId <= center.getId()) {
+      centerId = center.getId() + 1;
+    }
+
+    return center;
+  }
+
+  @Override
+  public void updateKey() {
+    if (TrainingCenter.centerId <= this.id) {
+      TrainingCenter.centerId = this.id + 1;
+    }
+  }
 
 
   public static String getAdminPassword() {
@@ -57,28 +87,6 @@ public class TrainingCenter implements Serializable, CsvObject {
   }
 
 
-
-  public TrainingCenter(int id) {
-    this.id = id;
-  }
-
-  public static TrainingCenter fromCsv(String csv) {
-    String[] values = csv.split(",");
-
-    TrainingCenter center = new TrainingCenter(Integer.parseInt(values[0]));
-    center.setName(values[1]);
-    center.setAge(Integer.parseInt(values[2]));
-    center.setLocation(values[3]);
-    center.setDuration(Integer.parseInt(values[4]));
-    center.setCurriculum(values[5]);
-    center.setPassword(values[6]);
-
-    if (centerId <= center.getId()) {
-      centerId = center.getId() + 1;
-    }
-
-    return center;
-  }
 
   @Override
   public String toCsvString() {
@@ -138,5 +146,7 @@ public class TrainingCenter implements Serializable, CsvObject {
   public void setPassword(String password) {
     this.password = password;
   }
+
+
 
 }

@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "박도우",
+    "age": 27,
+    "location": "경기북부",
+    "duration": 6,
+    "curriculum": "자바 네이버클라우드 개발자 과정",
+    "password": "1"
+  },
+  {
+    "id": 2,
+    "name": "김리눅스",
+    "age": 25,
+    "location": "서울 강남",
+    "duration": 6,
+    "curriculum": "자바 네이버클라우드 개발자 과정",
+    "password": "1"
+  }
+]

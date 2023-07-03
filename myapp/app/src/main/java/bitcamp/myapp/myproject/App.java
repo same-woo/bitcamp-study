@@ -4,11 +4,13 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import bitcamp.myapp.myproject.handler.Admin.AdminManager;
 import bitcamp.myapp.myproject.handler.Board.TrainingCenterBoardAddListener;
 import bitcamp.myapp.myproject.handler.Board.TrainingCenterBoardDeleteListener;
@@ -25,10 +27,10 @@ import bitcamp.myapp.myproject.handler.Employee.TrainingCenterEmployeeDeleteList
 import bitcamp.myapp.myproject.handler.Employee.TrainingCenterEmployeeDetailListener;
 import bitcamp.myapp.myproject.handler.Employee.TrainingCenterEmployeeListListener;
 import bitcamp.myapp.myproject.handler.Employee.TrainingCenterEmployeeUpdateListener;
-import bitcamp.myapp.myproject.vo.CsvObject;
 import bitcamp.myapp.myproject.vo.TrainingCenter;
 import bitcamp.myapp.myproject.vo.TrainingCenterBoard;
 import bitcamp.myapp.myproject.vo.TrainingCenterEmployee;
+import bitcamp.myapp.project.vo.AutoIncrement;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
@@ -74,13 +76,23 @@ public class App {
   }
 
   private void loadAdmin() {
-    String trainingCenterCsv = adminName + "_TrainingCenter.csv";
-    String trainingCenterEmployeeCsv = adminName + "_TrainingCenterEmployee.csv";
-    String trainingCenterBoardCsv = adminName + "_TrainingCenterBoard.csv";
-    String trainingCenterNoticeCsv = adminName + "_TrainingCenterNotice.csv";
+    String trainingCenterJson = adminName + "_TrainingCenter.json";
+    String trainingCenterEmployeeJson = adminName + "_TrainingCenterEmployee.json";
+    String trainingCenterBoardJson = adminName + "_TrainingCenterBoard.json";
+    String trainingCenterNoticeJson = adminName + "_TrainingCenterNotice.json";
 
     AdminManager adminManager = new AdminManager(adminName);
-    loadData(trainingCenterCsv, trainingCenterEmployeeCsv, trainingCenterBoardCsv,
+    loadData(trainingCenterJson, trainingCenterEmployeeJson, trainingCenterBoardJson,
+        trainingCenterNoticeJson);
+  }
+
+  private void saveAdmin() {
+    String trainingCenterCsv = adminName + "_TrainingCenter.json";
+    String trainingCenterEmployeeCsv = adminName + "_TrainingCenterEmployee.json";
+    String trainingCenterBoardCsv = adminName + "_TrainingCenterBoard.json";
+    String trainingCenterNoticeCsv = adminName + "_TrainingCenterNotice.json";
+
+    saveData(trainingCenterCsv, trainingCenterEmployeeCsv, trainingCenterBoardCsv,
         trainingCenterNoticeCsv);
   }
 
@@ -89,73 +101,21 @@ public class App {
     adminName = prompt.inputString("");
   }
 
-  private void loadData(String trainingCenterCsv, String trainingCenterEmployeeCsv,
-      String trainingCenterBoardCsv, String trainingCenterNoticeCsv) {
+  private void loadData(String trainingCenterJson, String trainingCenterEmployeeJson,
+      String trainingCenterBoardJson, String trainingCenterNoticeJson) {
 
-    loadCsv(trainingCenterCsv, trainingCenterList, TrainingCenter.class);
-    loadCsv(trainingCenterEmployeeCsv, trainingCenterEmployeeList, TrainingCenterEmployee.class);
-    loadCsv(trainingCenterBoardCsv, trainingCenterboardList, TrainingCenterBoard.class);
-    loadCsv(trainingCenterNoticeCsv, trainingCenternoticeList, TrainingCenterBoard.class);
+    loadJson(trainingCenterJson, trainingCenterList, TrainingCenter.class);
+    loadJson(trainingCenterEmployeeJson, trainingCenterEmployeeList, TrainingCenterEmployee.class);
+    loadJson(trainingCenterBoardJson, trainingCenterboardList, TrainingCenterBoard.class);
+    loadJson(trainingCenterNoticeJson, trainingCenternoticeList, TrainingCenterBoard.class);
   }
 
-  private <T extends CsvObject> void loadCsv(String filename, List<T> list, Class<T> clazz) {
-    try {
-      Method factoryMethod = clazz.getDeclaredMethod("fromCsv", String.class);
-      FileReader fileReader = new FileReader(filename);
-      BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-      String line;
-
-      while ((line = bufferedReader.readLine()) != null) {
-        Object obj = factoryMethod.invoke(null, line);
-        if (clazz.isInstance(obj)) {
-          list.add(clazz.cast(obj));
-        } else {
-          System.out.println("잘못된 타입의 객체입니다: " + obj);
-        }
-      }
-
-      bufferedReader.close();
-    } catch (Exception e) {
-      if (list.size() > 0) {
-        System.out.println(filename + " 파일을 읽는 중 오류 발생!");
-      }
-    }
-  }
-
-  private void saveData(String trainingCenterCsv, String trainingCenterEmployeeCsv,
-      String trainingCenterBoardCsv, String trainingCenterNoticeCsv) {
-    saveCsv(trainingCenterCsv, trainingCenterList);
-    saveCsv(trainingCenterEmployeeCsv, trainingCenterEmployeeList);
-    saveCsv(trainingCenterBoardCsv, trainingCenterboardList);
-    saveCsv(trainingCenterNoticeCsv, trainingCenternoticeList);
-  }
-
-  private void saveCsv(String filename, List<? extends CsvObject> list) {
-    try {
-      FileWriter fileWriter = new FileWriter(filename);
-      BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-      PrintWriter printWriter = new PrintWriter(bufferedWriter);
-
-      for (CsvObject obj : list) {
-        printWriter.println(obj.toCsvString());
-      }
-
-      printWriter.close();
-      System.out.println(filename + " 파일을 성공적으로 저장했습니다.");
-    } catch (Exception e) {
-      System.out.println(filename + " 파일을 저장하는 중 오류 발생!");
-    }
-  }
-
-  private void saveAdmin() {
-    String trainingCenterCsv = adminName + "_TrainingCenter.csv";
-    String trainingCenterEmployeeCsv = adminName + "_TrainingCenterEmployee.csv";
-    String trainingCenterBoardCsv = adminName + "_TrainingCenterBoard.csv";
-    String trainingCenterNoticeCsv = adminName + "_TrainingCenterNotice.csv";
-
-    saveData(trainingCenterCsv, trainingCenterEmployeeCsv, trainingCenterBoardCsv,
-        trainingCenterNoticeCsv);
+  private void saveData(String trainingCenterJson, String trainingCenterEmployeeJson,
+      String trainingCenterBoardJson, String trainingCenterNoticeJson) {
+    saveJson(trainingCenterJson, trainingCenterList);
+    saveJson(trainingCenterEmployeeJson, trainingCenterEmployeeList);
+    saveJson(trainingCenterBoardJson, trainingCenterboardList);
+    saveJson(trainingCenterNoticeJson, trainingCenternoticeList);
   }
 
   private void prepareMenu() {
@@ -207,4 +167,60 @@ public class App {
         .add(new Menu("삭제", new TrainingCenterBoardDeleteListener(trainingCenternoticeList)));
     mainMenu.add(trainingCenternoticeMenu);
   }
+
+
+  private <T> void loadJson(String filename, List<T> list, Class<T> clazz) {
+    try {
+      FileReader in0 = new FileReader(filename);
+      BufferedReader in = new BufferedReader(in0);
+
+      StringBuilder strBuilder = new StringBuilder();
+      String line = null;
+
+      while ((line = in.readLine()) != null) {
+        strBuilder.append(line);
+      }
+
+      Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+      Collection<T> objects = gson.fromJson(strBuilder.toString(),
+          TypeToken.getParameterized(Collection.class, clazz).getType());
+
+      list.addAll(objects);
+      Class<?>[] interfaces = clazz.getInterfaces();
+      for (Class<?> info : interfaces) {
+        if (info == AutoIncrement.class) {
+          AutoIncrement autoIncrement = (AutoIncrement) list.get(list.size() - 1);
+          autoIncrement.updateKey();
+          break;
+        }
+      }
+      in.close();
+    } catch (Exception e) {
+      if (list.size() > 0) {
+        System.out.println(filename + " 파일을 읽는 중 오류 발생!");
+      }
+    }
+  }
+
+
+
+  private void saveJson(String filename, List<?> list) {
+    try {
+      FileWriter out0 = new FileWriter(filename);
+      BufferedWriter out = new BufferedWriter(out0);
+
+      Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").setPrettyPrinting().create();
+      out.write(gson.toJson(list));
+
+      out.close();
+
+    } catch (
+
+    Exception e) {
+      System.out.println(filename + " 파일을 저장하는 중 오류 발생!");
+    }
+  }
+
+
+
 }

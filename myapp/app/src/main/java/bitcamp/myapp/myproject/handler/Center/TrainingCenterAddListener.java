@@ -13,6 +13,7 @@ public class TrainingCenterAddListener extends AbstractTrainingCenterListener {
   @Override
   public void service(BreadcrumbPrompt prompt) {
     TrainingCenter center = new TrainingCenter();
+    // center.setId(TrainingCenter.centerId++);
     center.setName(prompt.inputString("이름? "));
     center.setAge(prompt.inputInt("나이? "));
     center.setLocation(prompt.inputString("주소? "));

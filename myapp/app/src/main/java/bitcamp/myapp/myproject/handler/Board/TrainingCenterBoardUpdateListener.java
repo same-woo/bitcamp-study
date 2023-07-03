@@ -6,6 +6,8 @@ import bitcamp.util.BreadcrumbPrompt;
 
 public class TrainingCenterBoardUpdateListener extends AbstractTrainingCenterBoardLinstener {
 
+  private String temp = "";
+
   public TrainingCenterBoardUpdateListener(List<TrainingCenterBoard> list) {
     super(list);
   }
@@ -28,12 +30,17 @@ public class TrainingCenterBoardUpdateListener extends AbstractTrainingCenterBoa
     int changeNo = prompt.inputInt("번호? ");
     switch (changeNo) {
       case 1:
+        temp = board.getTitle();
         board.setTitle(prompt.inputString("제목(%s)? ", board.getTitle()));
+        System.out.printf("기존 : (%s) -> (%s). 변경완료\n", temp, board.getTitle());
         break;
       case 2:
+        temp = board.getContent();
         board.setContent(prompt.inputString("내용(%s)? ", board.getContent()));
+        System.out.printf("기존 : (%s) -> (%s). 변경완료\n", temp, board.getContent());
         break;
       case 0:
+        System.out.println("전체 내용을 변경합니다.");
         board.setTitle(prompt.inputString("제목(%s)? ", board.getTitle()));
         board.setContent(prompt.inputString("내용(%s)? ", board.getContent()));
 

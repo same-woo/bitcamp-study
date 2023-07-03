@@ -14,6 +14,7 @@ public class TrainingCenterBoardAddListener extends AbstractTrainingCenterBoardL
   @Override
   public void service(BreadcrumbPrompt prompt) {
     TrainingCenterBoard board = new TrainingCenterBoard();
+    // board.setNo(TrainingCenterBoard.boardNo++);
     board.setTitle(prompt.inputString("제목? "));
     board.setContent(prompt.inputString("내용? "));
     board.setWriter(prompt.inputString("작성자? "));

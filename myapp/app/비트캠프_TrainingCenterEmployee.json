@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "김대리",
+    "age": 25,
+    "location": "강북구",
+    "rank": "대리",
+    "department": "영업지원부",
+    "password": "1"
+  },
+  {
+    "id": 2,
+    "name": "김강사",
+    "age": 45,
+    "location": "서울 강서",
+    "rank": "강사",
+    "department": "리눅스",
+    "password": "1"
+  },
+  {
+    "id": 3,
+    "name": "김이사",
+    "age": 50,
+    "location": "서울 강남",
+    "rank": "부장",
+    "department": "영업부",
+    "password": "1"
+  }
+]

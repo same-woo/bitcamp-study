@@ -12,18 +12,18 @@ public class AdminManager extends App {
   private int count = 0;
   private String adminName;
   private String adminPassword;
-  private String trainingCenterPasswordCsv;
+  private String trainingCenterPasswordJson;
 
   BreadcrumbPrompt prompt = new BreadcrumbPrompt();
 
 
   public AdminManager(String adminName) {
     this.adminName = adminName;
-    this.trainingCenterPasswordCsv = adminName + "_AdminPassword.csv";
+    this.trainingCenterPasswordJson = adminName + "_AdminPassword.json";
   }
 
   private boolean isNewAdmin() {
-    return !new File(trainingCenterPasswordCsv).exists();
+    return !new File(trainingCenterPasswordJson).exists();
   }
 
   public void setAdminPassword(String password) {
@@ -61,7 +61,7 @@ public class AdminManager extends App {
 
 
   private String loadAdminPassword() {
-    try (BufferedReader reader = new BufferedReader(new FileReader(trainingCenterPasswordCsv))) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(trainingCenterPasswordJson))) {
       return reader.readLine();
     } catch (Exception e) {
       return null;
@@ -69,7 +69,7 @@ public class AdminManager extends App {
   }
 
   public void saveAdminPassword() {
-    try (PrintWriter writer = new PrintWriter(trainingCenterPasswordCsv)) {
+    try (PrintWriter writer = new PrintWriter(trainingCenterPasswordJson)) {
       writer.println(adminPassword);
       System.out.println("비밀번호를 성공적으로 저장했습니다.");
     } catch (Exception e) {
