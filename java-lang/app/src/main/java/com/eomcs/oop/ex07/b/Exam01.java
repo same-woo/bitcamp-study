@@ -13,8 +13,8 @@ public class Exam01 {
 
     int count = size >> 1;
     for (int i = 0; i < count; i++) {
-      int index1 = (int)(Math.random() * size); 
-      int index2 = (int)(Math.random() * size);
+      int index1 = (int) (Math.random() * size);
+      int index2 = (int) (Math.random() * size);
       int temp = arr[index1];
       arr[index1] = arr[index2];
       arr[index2] = temp;
@@ -29,7 +29,6 @@ public class Exam01 {
 
     BubbleSort s1 = new BubbleSort();
     QuickSort s2 = new QuickSort();
-
     // 두 개의 정렬 객체가 서로 다른 타입이기 때문에
     // 정렬을 수행하고 출력할 메서드를 따로 따로 만들어야 한다.
     // 클래스의 사용법도 달라서 불편하다.
@@ -45,8 +44,8 @@ public class Exam01 {
   // 그 값을 정렬한 후 출력하는 메서드이다.
   static void display(BubbleSort sorter, int[] values) {
 
-    //System.out.println("[정렬 전]");
-    //printNumbers(values);
+    // System.out.println("[정렬 전]");
+    // printNumbers(values);
 
     long start = System.currentTimeMillis();
 
@@ -56,14 +55,14 @@ public class Exam01 {
     long end = System.currentTimeMillis();
     System.out.printf("걸린시간: %d\n", end - start);
 
-    //System.out.println("[정렬 후]--------------------------");
-    //printNumbers(values);
+    // System.out.println("[정렬 후]--------------------------");
+    // printNumbers(values);
   }
 
   static void display(QuickSort sorter, int[] values) {
 
-    //System.out.println("[정렬 전]");
-    //printNumbers(values);
+    // System.out.println("[정렬 전]");
+    // printNumbers(values);
 
     long start = System.currentTimeMillis();
 
@@ -73,20 +72,16 @@ public class Exam01 {
     long end = System.currentTimeMillis();
     System.out.printf("걸린시간: %d\n", end - start);
 
-    //System.out.println("[정렬 후]--------------------------");
-    //printNumbers(values);
+    // System.out.println("[정렬 후]--------------------------");
+    // printNumbers(values);
   }
 
   static void printNumbers(int[] values) {
-    for (int  value : values) {
+    for (int value : values) {
       System.out.print(value + ",");
     }
     System.out.println();
   }
 }
-
-
-
-
 
 

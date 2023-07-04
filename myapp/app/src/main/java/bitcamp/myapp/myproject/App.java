@@ -57,7 +57,7 @@ public class App {
 
   static void printTitle() {
     System.out.println("");
-    System.out.println("국비학원 인사 관리 시스템 v1.1.1");
+    System.out.println("🏢국비학원 인사 관리 시스템 v1.1.1🏢");
     System.out.println("----------------------------------");
   }
 
@@ -120,7 +120,7 @@ public class App {
 
   private void prepareMenu() {
     this.mainMenu = new MenuGroup("메인");
-    MenuGroup trainingCenterMenu = new MenuGroup("수강생 관리");
+    MenuGroup trainingCenterMenu = new MenuGroup("🧑‍💻수강생 관리");
     trainingCenterMenu.add(new Menu("등록", new TrainingCenterAddListener(trainingCenterList))); // Add
     trainingCenterMenu.add(new Menu("목록", new TrainingCenterListListener(trainingCenterList))); // Add
     trainingCenterMenu.add(new Menu("조회", new TrainingCenterDetailListener(trainingCenterList))); // Add
@@ -128,7 +128,7 @@ public class App {
     trainingCenterMenu.add(new Menu("삭제", new TrainingCenterDeleteListener(trainingCenterList))); // Add
     mainMenu.add(trainingCenterMenu); // Add this line
 
-    MenuGroup trainingCenterMenuEmployee = new MenuGroup("직원 관리");
+    MenuGroup trainingCenterMenuEmployee = new MenuGroup("🧑‍💼직원 관리");
     trainingCenterMenuEmployee
         .add(new Menu("등록", new TrainingCenterEmployeeAddListener(trainingCenterEmployeeList))); // Add
     trainingCenterMenuEmployee
@@ -141,7 +141,7 @@ public class App {
         .add(new Menu("삭제", new TrainingCenterEmployeeDeleteListener(trainingCenterEmployeeList))); // Add
     mainMenu.add(trainingCenterMenuEmployee); // Add this line
 
-    MenuGroup trainingCenterboardMenu = new MenuGroup("게시판 관리");
+    MenuGroup trainingCenterboardMenu = new MenuGroup("📅게시판 관리");
     trainingCenterboardMenu
         .add(new Menu("등록", new TrainingCenterBoardAddListener(trainingCenterboardList)));
     trainingCenterboardMenu
@@ -154,7 +154,7 @@ public class App {
         .add(new Menu("삭제", new TrainingCenterBoardDeleteListener(trainingCenterboardList)));
     mainMenu.add(trainingCenterboardMenu);
 
-    MenuGroup trainingCenternoticeMenu = new MenuGroup("공지사항");
+    MenuGroup trainingCenternoticeMenu = new MenuGroup("📑공지사항");
     trainingCenternoticeMenu
         .add(new Menu("등록", new TrainingCenterBoardAddListener(trainingCenternoticeList)));
     trainingCenternoticeMenu

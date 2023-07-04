@@ -22,7 +22,34 @@
     "name": "김이사",
     "age": 50,
     "location": "서울 강남",
-    "rank": "부장",
+    "rank": "이사",
+    "department": "영업부",
+    "password": "1"
+  },
+  {
+    "id": 4,
+    "name": "박강사",
+    "age": 44,
+    "location": "서울 종로",
+    "rank": "강사",
+    "department": "파이썬",
+    "password": "1"
+  },
+  {
+    "id": 5,
+    "name": "심강사",
+    "age": 42,
+    "location": "서울 강북",
+    "rank": "강사",
+    "department": "자바",
+    "password": "1"
+  },
+  {
+    "id": 6,
+    "name": "박동우",
+    "age": 27,
+    "location": "서울",
+    "rank": "대리",
     "department": "영업부",
     "password": "1"
   }
