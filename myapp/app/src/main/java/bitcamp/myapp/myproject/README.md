@@ -54,29 +54,86 @@
 - `App` 클래스: 메인 애플리케이션 클래스입니다. 프로그램의 실행 흐름을 제어하고 메뉴를 관리합니다.
 - `AdminManager` 클래스: 관리자 로그인을 처리하는 클래스입니다.
 
-- TrainingCenterAddListener: 수강생 등록 기능을 처리하는 리스너입니다. 사용자로부터 수강생 정보를 입력받아 TrainingCenter 객체를 생성하고, 이를 trainingCenterList에 추가합니다.
-- TrainingCenterListListener: 수강생 목록 조회 기능을 처리하는 리스너입니다. trainingCenterList에 등록된 모든 수강생 정보를 조회하여 출력합니다.
-- TrainingCenterDetailListener: 특정 수강생의 상세 정보 조회 기능을 처리하는 리스너입니다. 사용자로부터 조회할 수강생의 정보를 입력받고, 해당 수강생의 상세 정보를 trainingCenterList에서 찾아 출력합니다.
-- TrainingCenterUpdateListener: 수강생 정보 수정 기능을 처리하는 리스너입니다. 사용자로부터 수정할 수강생의 정보를 입력받고, 해당 수강생의 정보를 trainingCenterList에서 찾아 수정합니다.
-- TrainingCenterDeleteListener: 수강생 정보 삭제 기능을 처리하는 리스너입니다. 사용자로부터 삭제할 수강생의 정보를 입력받고, 해당 수강생의 정보를 trainingCenterList에서 찾아 삭제합니다.
+### 리스너 클래스 설명
 
-- TrainingCenterEmployeeAddListener: 직원 등록 기능을 처리하는 리스너입니다. 사용자로부터 직원 정보를 입력받아 TrainingCenterEmployee 객체를 생성하고, 이를 trainingCenterEmployeeList에 추가합니다.
-- TrainingCenterEmployeeListListener: 직원 목록 조회 기능을 처리하는 리스너입니다. trainingCenterEmployeeList에 등록된 모든 직원 정보를 조회하여 출력합니다.
-- TrainingCenterEmployeeDetailListener: 특정 직원의 상세 정보 조회 기능을 처리하는 리스너입니다. 사용자로부터 조회할 직원의 정보를 입력받고, 해당 직원의 상세 정보를 trainingCenterEmployeeList에서 찾아 출력합니다.
-- TrainingCenterEmployeeUpdateListener: 직원 정보 수정 기능을 처리하는 리스너입니다. 사용자로부터 수정할 직원의 정보를 입력받고, 해당 직원의 정보를 trainingCenterEmployeeList에서 찾아 수정합니다.
-- TrainingCenterEmployeeDeleteListener: 직원 정보 삭제 기능을 처리하는 리스너입니다. 사용자로부터 삭제할 직원의 정보를 입력받고, 해당 직원의 정보를 trainingCenterEmployeeList에서 찾아 삭제합니다.
+#### TrainingCenterAddListener
 
-- TrainingCenterBoardAddListener: 게시글 등록 기능을 처리하는 리스너입니다. 사용자로부터 게시글 정보를 입력받아 TrainingCenterBoard 객체를 생성하고, 이를 trainingCenterboardList에 추가합니다.
-- TrainingCenterBoardListListener: 게시글 목록 조회 기능을 처리하는 리스너입니다. trainingCenterboardList에 등록된 모든 게시글 정보를 조회하여 출력합니다.
-- TrainingCenterBoardDetailListener: 특정 게시글의 상세 정보 조회 기능을 처리하는 리스너입니다. 사용자로부터 조회할 게시글의 정보를 입력받고, 해당 게시글의 상세 정보를 trainingCenterboardList에서 찾아 출력합니다.
-- TrainingCenterBoardUpdateListener: 게시글 정보 수정 기능을 처리하는 리스너입니다. 사용자로부터 수정할 게시글의 정보를 입력받고, 해당 게시글의 정보를 trainingCenterboardList에서 찾아 수정합니다.
-- TrainingCenterBoardDeleteListener: 게시글 정보 삭제 기능을 처리하는 리스너입니다. 사용자로부터 삭제할 게시글의 정보를 입력받고, 해당 게시글의 정보를 trainingCenterboardList에서 찾아 삭제합니다.
+- 수강생 등록 기능을 처리하는 리스너입니다.
+- 사용자로부터 수강생 정보를 입력받아 `TrainingCenter` 객체를 생성하고, 이를 `trainingCenterList`에 추가합니다.
 
-각 리스너 클래스는 해당 기능을 수행하기 위해 필요한 사용자 입력 및 데이터 처리를 담당하며, 관련된 리스트 (trainingCenterList, trainingCenterEmployeeList, trainingCenterboardList)에서 데이터를 조작합니다. 이를 통해 국비학원 인사 관리 시스템의 다양한 기능을 처리합니다.
-- `BreadcrumbPrompt` 클래스: 메뉴를 표시하고 사용자의 입력을 받는 클래스입니다.
-- `Menu`, `MenuGroup` 클래스: 메뉴 구조를 관리하는 클래스입니다.
-- `Gson`, `GsonBuilder`, `TypeToken` 클래스: JSON 데이터의 직렬화와 역직렬화를 위해 사용되는 Gson 라이브러리 클래스입니다.
-- 기타 필요한 유틸리티 클래스와 인터페이스들이 있습니다.
+#### TrainingCenterListListener
+
+- 수강생 목록 조회 기능을 처리하는 리스너입니다.
+- `trainingCenterList`에 등록된 모든 수강생 정보를 조회하여 출력합니다.
+
+#### TrainingCenterDetailListener
+
+- 특정 수강생의 상세 정보 조회 기능을 처리하는 리스너입니다.
+- 사용자로부터 조회할 수강생의 정보를 입력받고, 해당 수강생의 상세 정보를 `trainingCenterList`에서 찾아 출력합니다.
+
+#### TrainingCenterUpdateListener
+
+- 수강생 정보 수정 기능을 처리하는 리스너입니다.
+- 사용자로부터 수정할 수강생의 정보를 입력받고, 해당 수강생의 정보를 `trainingCenterList`에서 찾아 수정합니다.
+
+#### TrainingCenterDeleteListener
+
+- 수강생 정보 삭제 기능을 처리하는 리스너입니다.
+- 사용자로부터 삭제할 수강생의 정보를 입력받고, 해당 수강생의 정보를 `trainingCenterList`에서 찾아 삭제합니다.
+
+#### TrainingCenterEmployeeAddListener
+
+- 직원 등록 기능을 처리하는 리스너입니다.
+- 사용자로부터 직원 정보를 입력받아 `TrainingCenterEmployee` 객체를 생성하고, 이를 `trainingCenterEmployeeList`에 추가합니다.
+
+#### TrainingCenterEmployeeListListener
+
+- 직원 목록 조회 기능을 처리하는 리스너입니다.
+- `trainingCenterEmployeeList`에 등록된 모든 직원 정보를 조회하여 출력합니다.
+
+#### TrainingCenterEmployeeDetailListener
+
+- 특정 직원의 상세 정보 조회 기능을 처리하는 리스너입니다.
+- 사용자로부터 조회할 직원의 정보를 입력받고, 해당 직원의 상세 정보를 `trainingCenterEmployeeList`에서 찾아 출력합니다.
+
+#### TrainingCenterEmployeeUpdateListener
+
+- 직원 정보 수정 기능을 처리하는 리스너입니다.
+- 사용자로부터 수정할 직원의 정보를 입력받고, 해당 직원의 정보를 `trainingCenterEmployeeList`에서 찾아 수정합니다.
+
+#### TrainingCenterEmployeeDeleteListener
+
+- 직원 정보 삭제 기능을 처리하는 리스너입니다.
+- 사용자로부터 삭제할 직원의 정보를 입력받고, 해당 직원의 정보를 `trainingCenterEmployeeList`에서 찾아 삭제합니다.
+
+#### TrainingCenterBoardAddListener
+
+- 게시글 등록 기능을 처리하는 리스너입니다.
+- 사용자로부터 게시글 정보를 입력받아 `TrainingCenterBoard` 객체를 생성하고, 이를 `trainingCenterboardList`에 추가합니다.
+
+#### TrainingCenterBoardListListener
+
+- 게시글 목록 조회 기능을 처리하는 리스너입니다.
+- `trainingCenterboardList`에 등록된 모든 게시글 정보를 조회하여 출력합니다.
+
+#### TrainingCenterBoardDetailListener
+
+- 특정 게시글의 상세 정보 조회 기능을 처리하는 리스
+
+너입니다.
+- 사용자로부터 조회할 게시글의 정보를 입력받고, 해당 게시글의 상세 정보를 `trainingCenterboardList`에서 찾아 출력합니다.
+
+#### TrainingCenterBoardUpdateListener
+
+- 게시글 정보 수정 기능을 처리하는 리스너입니다.
+- 사용자로부터 수정할 게시글의 정보를 입력받고, 해당 게시글의 정보를 `trainingCenterboardList`에서 찾아 수정합니다.
+
+#### TrainingCenterBoardDeleteListener
+
+- 게시글 정보 삭제 기능을 처리하는 리스너입니다.
+- 사용자로부터 삭제할 게시글의 정보를 입력받고, 해당 게시글의 정보를 `trainingCenterboardList`에서 찾아 삭제합니다.
+
+각 리스너 클래스는 해당 기능을 수행하기 위해 필요한 사용자 입력 및 데이터 처리를 담당하며, 관련된 리스트 (`trainingCenterList`, `trainingCenterEmployeeList`, `trainingCenterboardList`)에서 데이터를 조작합니다. 이를 통해 국비학원 인사 관리 시스템의 다양한 기능을 처리합니다.
 
 ## 데이터 저장 및 로드
 
