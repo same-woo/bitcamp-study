@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "박우동",
+    "age": 27,
+    "location": "경기북부",
+    "duration": 6,
+    "curriculum": "자바 네이버클라우드 개발자 과정",
+    "password": "1"
+  },
+  {
+    "id": 2,
+    "name": "김국비",
+    "age": 25,
+    "location": "서울 강남",
+    "duration": 6,
+    "curriculum": "자바 네이버클라우드 개발자 과정",
+    "password": "1"
+  },
+  {
+    "id": 3,
+    "name": "김싸피",
+    "age": 25,
+    "location": "서울 노원",
+    "duration": 6,
+    "curriculum": "자바 데브옵스 과정",
+    "password": "1"
+  },
+  {
+    "id": 4,
+    "name": "박코딩",
+    "age": 30,
+    "location": "경기 일산",
+    "duration": 4,
+    "curriculum": "파이썬 AI 단기코스",
+    "password": "1"
+  }
+]

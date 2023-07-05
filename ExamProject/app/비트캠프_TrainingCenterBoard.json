@@ -1,0 +1,20 @@
+[
+  {
+    "no": 1,
+    "title": "오늘은 날씨가좋다",
+    "content": "날씨얘기 ~~",
+    "writer": "김학생",
+    "password": "1",
+    "viewCount": 3,
+    "createdDate": 1688382963555
+  },
+  {
+    "no": 3,
+    "title": "자습하기 좋은 날씨네요",
+    "content": "오늘은 자습시간이 있을까요 ?",
+    "writer": "이진석",
+    "password": "1",
+    "viewCount": 10,
+    "createdDate": 1688382963555
+  }
+]
