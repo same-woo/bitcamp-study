@@ -39,18 +39,17 @@ public class Board implements Serializable, CsvObject, AutoIncrement {
     return board;
   }
 
-
-  @Override
-  public String toCsvString() {
-    return String.format("%d,%s,%s,%s,%s,%d,%d", this.getNo(), this.getTitle(), this.getContent(),
-        this.getWriter(), this.getPassword(), this.getViewCount(), this.getCreatedDate());
-  }
-
   @Override
   public void updateKey() {
     if (Board.boardNo <= this.no) {
       Board.boardNo = this.no + 1;
     }
+  }
+
+  @Override
+  public String toCsvString() {
+    return String.format("%d,%s,%s,%s,%s,%d,%d", this.getNo(), this.getTitle(), this.getContent(),
+        this.getWriter(), this.getPassword(), this.getViewCount(), this.getCreatedDate());
   }
 
   @Override
@@ -127,7 +126,6 @@ public class Board implements Serializable, CsvObject, AutoIncrement {
   public void setPassword(String password) {
     this.password = password;
   }
-
 
 
 }

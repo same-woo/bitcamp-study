@@ -38,8 +38,6 @@ public class Member implements Serializable, CsvObject, AutoIncrement {
     return member;
   }
 
-
-
   @Override
   public String toCsvString() {
     return String.format("%d,%s,%s,%s,%c", this.getNo(), this.getName(), this.getEmail(),
@@ -52,7 +50,6 @@ public class Member implements Serializable, CsvObject, AutoIncrement {
       Member.userId = this.no + 1;
     }
   }
-
 
   @Override
   public boolean equals(Object obj) {
@@ -108,7 +105,5 @@ public class Member implements Serializable, CsvObject, AutoIncrement {
   public void setGender(char gender) {
     this.gender = gender;
   }
-
-
 
 }
