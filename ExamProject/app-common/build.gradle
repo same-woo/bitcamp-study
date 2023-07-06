@@ -1,5 +1,5 @@
 plugins {
-    id 'application'
+    id 'java-library'
     id 'eclipse'
 }
 
@@ -23,12 +23,6 @@ java {
     }
 }
 
-
-
-application {
-    mainClass = 'bitcamp.myapp.ServerApp'
-}
-
 tasks.named('test') {
     useJUnitPlatform()
 }
@@ -49,7 +43,7 @@ tasks.withType(JavaCompile) {
 // eclipse 프로젝트 이름을 설정하기
 eclipse {
     project {
-        name = "myapp-server"
+        name = "myapp-common"
     }
     jdt {
       sourceCompatibility = 17
