@@ -28,13 +28,6 @@
     "gender": "M"
   },
   {
-    "no": 6,
-    "name": "cc",
-    "email": "cc@test.com",
-    "password": "1111",
-    "gender": "W"
-  },
-  {
     "no": 7,
     "name": "dd",
     "email": "dd@test.com",
@@ -64,6 +57,13 @@
   },
   {
     "no": 11,
+    "name": "1",
+    "email": "1",
+    "password": "1",
+    "gender": "M"
+  },
+  {
+    "no": 12,
     "name": "1",
     "email": "1",
     "password": "1",

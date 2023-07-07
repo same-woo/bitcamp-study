@@ -2,11 +2,12 @@ package bitcamp.myapp;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.lang.reflect.Proxy;
 import java.net.Socket;
+import bitcamp.dao.DaoBuilder;
+import bitcamp.dao.DaoInvocationHandler;
 import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.dao.BoardNetworkDao;
 import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.dao.MemberNetworkDao;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
@@ -45,9 +46,20 @@ public class ClientApp {
     this.out = new DataOutputStream(socket.getOutputStream());
     this.in = new DataInputStream(socket.getInputStream());
 
-    this.memberDao = new MemberNetworkDao("member", in, out);
-    this.boardDao = new BoardNetworkDao("board", in, out);
-    this.readingDao = new BoardNetworkDao("reading", in, out);
+    DaoBuilder daoBuilder = new DaoBuilder(in, out);
+
+    this.memberDao = daoBuilder.build("member", MemberDao.class);
+    this.boardDao = daoBuilder.build("board", BoardDao.class);
+    this.readingDao = daoBuilder.build("reading", BoardDao.class);
+
+    this.memberDao = (MemberDao) Proxy.newProxyInstance(ClientApp.class.getClassLoader(),
+        new Class[] {MemberDao.class}, new DaoInvocationHandler("member", in, out));
+
+    this.boardDao = (BoardDao) Proxy.newProxyInstance(ClientApp.class.getClassLoader(),
+        new Class[] {BoardDao.class}, new DaoInvocationHandler("board", in, out));
+
+    this.readingDao = (BoardDao) Proxy.newProxyInstance(ClientApp.class.getClassLoader(),
+        new Class[] {BoardDao.class}, new DaoInvocationHandler("reading", in, out));
 
     prepareMenu();
   }
