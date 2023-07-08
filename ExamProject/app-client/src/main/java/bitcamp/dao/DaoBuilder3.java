@@ -11,12 +11,12 @@ import bitcamp.myapp.ClientApp;
 import bitcamp.net.RequestEntity;
 import bitcamp.net.ResponseEntity;
 
-public class DaoBuilder {
+public class DaoBuilder3 {
 
   DataInputStream in;
   DataOutputStream out;
 
-  public DaoBuilder(DataInputStream in, DataOutputStream out) {
+  public DaoBuilder3(DataInputStream in, DataOutputStream out) {
     this.in = in;
     this.out = out;
   }
@@ -27,7 +27,7 @@ public class DaoBuilder {
         new DaoInvocationHandler(dataName, in, out));
   }
 
-  static class DaoInvocationHandler implements InvocationHandler {
+  class DaoInvocationHandler implements InvocationHandler {
 
     String dataName;
     DataInputStream in;
