@@ -120,6 +120,7 @@ public class ServerApp {
   public static Object call(Object obj, Method method, RequestEntity request) throws Exception {
     Parameter[] params = method.getParameters();
     if (params.length > 0) {
+      Object arg = request.getObject(params[0].getType());
       return method.invoke(obj, request.getObject(params[0].getType()));
     } else {
       return method.invoke(obj);

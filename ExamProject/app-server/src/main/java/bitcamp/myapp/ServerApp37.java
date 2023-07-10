@@ -74,7 +74,7 @@ public class ServerApp37 {
         case "board/findBy":
           Board board = boardDao.findBy(request.getObject(Integer.class));
           if (board == null) {
-            response.status(ResponseEntity.SUCCESS);
+            response.status(ResponseEntity.FAILURE).result("해당 번호의 게시글이 없습니다!");
           } else {
             response.status(ResponseEntity.SUCCESS).result(board);
           }
@@ -97,7 +97,7 @@ public class ServerApp37 {
         case "member/findBy":
           Member member = memberDao.findBy(request.getObject(Integer.class));
           if (member == null) {
-            response.status(ResponseEntity.SUCCESS).result("해당 번호의 회원이 없습니다!");
+            response.status(ResponseEntity.FAILURE).result("해당 번호의 회원이 없습니다!");
           } else {
             response.status(ResponseEntity.SUCCESS).result(member);
           }
@@ -120,7 +120,7 @@ public class ServerApp37 {
         case "reading/findBy":
           board = boardDao.findBy(request.getObject(Integer.class));
           if (board == null) {
-            response.status(ResponseEntity.SUCCESS);
+            response.status(ResponseEntity.FAILURE).result("해당 번호의 게시글이 없습니다!");
           } else {
             response.status(ResponseEntity.SUCCESS).result(board);
           }
