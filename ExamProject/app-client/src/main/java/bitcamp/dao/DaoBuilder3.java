@@ -27,7 +27,7 @@ public class DaoBuilder3 {
         new DaoInvocationHandler(dataName, in, out));
   }
 
-  class DaoInvocationHandler implements InvocationHandler {
+  static class DaoInvocationHandler implements InvocationHandler {
 
     String dataName;
     DataInputStream in;

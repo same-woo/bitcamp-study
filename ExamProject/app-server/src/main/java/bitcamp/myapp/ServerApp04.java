@@ -16,8 +16,7 @@ import bitcamp.net.ResponseEntity;
 // 2) 클라이언트가 요청한 DAO 객체와 메서드를 찾는다.
 // 3) 메서드의 파라미터와 리턴 타입을 알아내기
 // 4) 메서드 호출 및 리턴 값 받기
-// 5) 리팩토링
-public class ServerApp {
+public class ServerApp04 {
 
   int port;
   ServerSocket serverSocket;
@@ -25,7 +24,8 @@ public class ServerApp {
   // 클라이언트 요청을 처리 할 DAO 객체를 맵에 보관한다.
   HashMap<String, Object> daoMap = new HashMap<>();
 
-  public ServerApp(int port) throws Exception {
+
+  public ServerApp04(int port) throws Exception {
     this.port = port;
 
     // DAO 객체 생성 및 보관
@@ -44,7 +44,7 @@ public class ServerApp {
       return;
     }
 
-    ServerApp app = new ServerApp(Integer.parseInt(args[0]));
+    ServerApp04 app = new ServerApp04(Integer.parseInt(args[0]));
     app.execute();
     app.close();
   }
@@ -82,8 +82,17 @@ public class ServerApp {
             new ResponseEntity().status(ResponseEntity.ERROR).result("데이터를 찾을 수 없습니다.").toJson());
         continue;
       }
-      // Dao객체에서 메서드 찾기
-      Method method = findMethod(dao, methodName);
+
+      // DAO에 해당 메서드가 있는지 알아낸다.
+      Method[] methods = dao.getClass().getDeclaredMethods();
+      Method method = null;
+      for (int i = 0; i < methods.length; i++) {
+        if (methods[i].getName().equals(methodName)) {
+          method = methods[i];
+          break;
+        }
+      }
+
       if (method == null) {
         // 만약 클라이언트가 요청한 메서드를 찾지 못한다면 오류 정보를 클라이언트에게 보낸다.
         out.writeUTF(
@@ -91,39 +100,34 @@ public class ServerApp {
         continue;
       }
 
-      // DAO 메서드 호출하기
-      Object result = call(dao, method, request);
+      // System.out.printf("%s.%s\n", dataName, methodName);
+
+      // 메서드의 파라미터와 리턴 타입 알아내기
+      Parameter[] params = method.getParameters();
+
+
+      // 메서드 호출
+      Object returnValue = null;
+      // 호출할 메서드가 파라미터를 가지고 있다면,
+
+      if (params.length > 0) {
+        // 클라이언트가 보낸 Json 데이터를 메서드의 파라미터 값으로 deserialize 한다.
+        Object arg = request.getObject(params[0].getType());
+        returnValue = method.invoke(dao, arg);
+      } else {
+        returnValue = method.invoke(dao);
+      }
 
       // 메서드 호출 결과를 클라이언트에게 보낸다.
       ResponseEntity response = new ResponseEntity();
       response.status(ResponseEntity.SUCCESS);
-      response.result(result);
+      response.result(returnValue);
       out.writeUTF(response.toJson());
     }
 
     in.close();
     out.close();
     socket.close();
-  }
-
-  public static Method findMethod(Object obj, String methodName) {
-    // DAO에 해당 메서드가 있는지 알아낸다.
-    Method[] methods = obj.getClass().getDeclaredMethods();
-    for (int i = 0; i < methods.length; i++) {
-      if (methods[i].getName().equals(methodName)) {
-        return methods[i];
-      }
-    }
-    return null;
-  }
-
-  public static Object call(Object obj, Method method, RequestEntity request) throws Exception {
-    Parameter[] params = method.getParameters();
-    if (params.length > 0) {
-      return method.invoke(obj, request.getObject(params[0].getType()));
-    } else {
-      return method.invoke(obj);
-    }
   }
 }
 

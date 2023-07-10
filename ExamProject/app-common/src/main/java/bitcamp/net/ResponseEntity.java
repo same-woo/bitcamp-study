@@ -21,7 +21,6 @@ public class ResponseEntity {
     }
   }
 
-
   public <T> List<T> getList(Class<T> clazz) {
     return new Gson().fromJson(result, TypeToken.getParameterized(List.class, clazz).getType());
   }
