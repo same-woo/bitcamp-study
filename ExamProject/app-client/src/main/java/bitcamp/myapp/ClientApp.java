@@ -38,6 +38,7 @@ public class ClientApp {
 
   MenuGroup mainMenu = new MenuGroup("메인");
 
+
   public ClientApp(String ip, int port) throws Exception {
 
     this.socket = new Socket(ip, port);
