@@ -29,15 +29,19 @@ public class MenuGroup extends Menu {
         continue;
       }
 
-      int menuNo = Integer.parseInt(input);
-      if (menuNo < 0 || menuNo > childs.size()) {
-        System.out.println("메뉴 번호가 옳지 않습니다!");
-      } else if (menuNo == 0) {
-        prompt.removeBreadcrumb();
-        return;
-      } else {
-        Menu menu = this.childs.get(menuNo - 1);
-        menu.execute(prompt);
+      try {
+        int menuNo = Integer.parseInt(input);
+        if (menuNo < 0 || menuNo > childs.size()) {
+          System.out.println("메뉴 번호가 옳지 않습니다!");
+        } else if (menuNo == 0) {
+          prompt.removeBreadcrumb();
+          return;
+        } else {
+          Menu menu = this.childs.get(menuNo - 1);
+          menu.execute(prompt);
+        }
+      } catch (Exception e) {
+        System.out.printf("실행오류 : %s\n", e.getMessage());
       }
     }
   }

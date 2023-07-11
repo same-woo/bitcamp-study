@@ -68,5 +68,19 @@
     "email": "1",
     "password": "1",
     "gender": "M"
+  },
+  {
+    "no": 15,
+    "name": "1",
+    "email": "1",
+    "password": "1",
+    "gender": "W"
+  },
+  {
+    "no": 16,
+    "name": "박동우",
+    "email": "pardongwoo@naver.com",
+    "password": "1",
+    "gender": "M"
   }
 ]
