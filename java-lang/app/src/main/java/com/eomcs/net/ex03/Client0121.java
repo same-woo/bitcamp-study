@@ -10,12 +10,11 @@ public class Client0121 {
   public static void main(String[] args) {
     Scanner keyScan = new Scanner(System.in);
 
-    try (Socket socket = new Socket("localhost", 8888);
+    try (Socket socket = new Socket("192.168.0.215", 8888);
         OutputStream out = socket.getOutputStream();
         InputStream in = socket.getInputStream()) {
 
       System.out.println("서버와 연결되었음!");
-
       // 서버에서 보낸 바이트 배열을 읽는다.
       byte[] buf = new byte[100];
       int size = in.read(buf);

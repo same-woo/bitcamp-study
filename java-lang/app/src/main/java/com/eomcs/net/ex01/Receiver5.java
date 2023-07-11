@@ -19,30 +19,27 @@ public class Receiver5 {
     Socket socket = serverSocket.accept();
     System.out.println("클라이언트가 연결됨.");
 
-    PrintStream out = new PrintStream(
-        new BufferedOutputStream(socket.getOutputStream()));
-    DataInputStream in = new DataInputStream(
-        new BufferedInputStream(socket.getInputStream()));
+    PrintStream out = new PrintStream(new BufferedOutputStream(socket.getOutputStream()));
+    DataInputStream in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 
     System.out.println("클라이언트로부터 데이터 수신 중...");
 
-    //1) 파일 크기 읽기
+    // 1) 파일 크기 읽기
     long filesize = in.readLong();
 
-    //2) 파일 이름 읽기
+    // 2) 파일 이름 읽기
     String filename = in.readUTF();
 
-    //3) 파일 데이터 읽기
-    File file = new File("temp/ok_" + filename);
-    BufferedOutputStream fileOut = new BufferedOutputStream( 
-        new FileOutputStream(file));
+    // 3) 파일 데이터 읽기
+    File file = new File("temp/jls17.pdf" + filename);
+    BufferedOutputStream fileOut = new BufferedOutputStream(new FileOutputStream(file));
 
     for (long i = 0; i < filesize; i++) {
       fileOut.write(in.read());
     }
     System.out.println("클라이언트로부터 데이터 수신 완료!");
 
-    //4) 클라이언트에게 응답하기
+    // 4) 클라이언트에게 응답하기
     out.println("OK!");
     out.flush(); // 버퍼의 남아있는 데이터 방출하기
 
@@ -54,8 +51,5 @@ public class Receiver5 {
   }
 
 }
-
-
-
 
 

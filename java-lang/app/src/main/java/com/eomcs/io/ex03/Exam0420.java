@@ -23,7 +23,7 @@ public class Exam0420 {
     // - read() 메서드가 파일에서 데이터를 읽어서 버퍼에 채울 때 마다 커서의 위치는 다음으로 이동한다.
     // - 버퍼의 데이터를 읽으려면 커서의 위치를 처음으로 되돌려야 한다.(flip)
     // - flip() 메서드를 호출하여 커서를 처음으로 옮긴다. 그런 후에 버퍼의 텍스를 읽어야 한다.
-    charBuf.flip();
+    // charBuf.flip();
 
     System.out.printf("[%s]\n", charBuf.toString());
   }

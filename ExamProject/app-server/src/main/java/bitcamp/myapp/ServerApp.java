@@ -95,56 +95,50 @@ public class ServerApp {
       System.out.printf("%s:%s 클라이언트가 접속했음!\n", socketAddress.getHostName(),
           socketAddress.getPort());
 
-      while (true) {
-        RequestEntity request = RequestEntity.fromJson(in.readUTF());
+      // 클라이언트 요청을 반복해서 처리하지 않는다.
+      // 요청 -> 실행 -> 응답 ->
+      RequestEntity request = RequestEntity.fromJson(in.readUTF());
 
-        String command = request.getCommand();
-        System.out.println(command);
+      String command = request.getCommand();
+      System.out.println(command);
 
-        if (command.equals("quit")) {
-          break;
-        }
+      // 데이터 이름과 메서드 이름 알아내기
+      String[] values = command.split("/");
+      String dataName = values[0];
+      String methodName = values[1];
 
-        // 데이터 이름과 메서드 이름 알아내기
-        String[] values = command.split("/");
-        String dataName = values[0];
-        String methodName = values[1];
+      // 데이터 이름으로 DAO 객체를 꺼낸다.
+      Object dao = daoMap.get(dataName);
+      if (dao == null) { // 만약 데이터를 처리 할 DAO를 찾지 못한다면 오류 정보를 클라이언트에게 보낸다.
+        out.writeUTF(
+            new ResponseEntity().status(ResponseEntity.ERROR).result("데이터를 찾을 수 없습니다.").toJson());
+        return;
+      }
+      // Dao객체에서 메서드 찾기
+      Method method = findMethod(dao, methodName);
+      if (method == null) {
+        // 만약 클라이언트가 요청한 메서드를 찾지 못한다면 오류 정보를 클라이언트에게 보낸다.
+        out.writeUTF(
+            new ResponseEntity().status(ResponseEntity.ERROR).result("메서드를 찾을 수 없습니다.").toJson());
+        return;
+      }
 
+      try {
+        // DAO 메서드 호출하기
+        Object result = call(dao, method, request);
 
+        // 메서드 호출 결과를 클라이언트에게 보낸다.
+        ResponseEntity response = new ResponseEntity();
+        response.status(ResponseEntity.SUCCESS);
+        response.result(result);
+        out.writeUTF(response.toJson());
 
-        // 데이터 이름으로 DAO 객체를 꺼낸다.
-        Object dao = daoMap.get(dataName);
-        if (dao == null) { // 만약 데이터를 처리 할 DAO를 찾지 못한다면 오류 정보를 클라이언트에게 보낸다.
-          out.writeUTF(
-              new ResponseEntity().status(ResponseEntity.ERROR).result("데이터를 찾을 수 없습니다.").toJson());
-          continue;
-        }
-        // Dao객체에서 메서드 찾기
-        Method method = findMethod(dao, methodName);
-        if (method == null) {
-          // 만약 클라이언트가 요청한 메서드를 찾지 못한다면 오류 정보를 클라이언트에게 보낸다.
-          out.writeUTF(
-              new ResponseEntity().status(ResponseEntity.ERROR).result("메서드를 찾을 수 없습니다.").toJson());
-          continue;
-        }
-
-        try {
-          // DAO 메서드 호출하기
-          Object result = call(dao, method, request);
-
-          // 메서드 호출 결과를 클라이언트에게 보낸다.
-          ResponseEntity response = new ResponseEntity();
-          response.status(ResponseEntity.SUCCESS);
-          response.result(result);
-          out.writeUTF(response.toJson());
-
-        } catch (Exception e) {
-          // 메서드 호출 결과를 클라이언트에게 보낸다.
-          ResponseEntity response = new ResponseEntity();
-          response.status(ResponseEntity.ERROR);
-          response.result(e.getMessage());
-          out.writeUTF(response.toJson());
-        }
+      } catch (Exception e) {
+        // 메서드 호출 결과를 클라이언트에게 보낸다.
+        ResponseEntity response = new ResponseEntity();
+        response.status(ResponseEntity.ERROR);
+        response.result(e.getMessage());
+        out.writeUTF(response.toJson());
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());

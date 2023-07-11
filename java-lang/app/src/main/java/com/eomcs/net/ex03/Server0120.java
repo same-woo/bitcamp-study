@@ -26,7 +26,6 @@ public class Server0120 {
         byte[] buf = new byte[100];
         int size = in.read(buf);
         System.out.printf("읽은 바이트 수: %d\n", size);
-
         for (int i = 0; i < size; i++) {
           if (i > 0 && (i % 20) == 0) {
             System.out.println(); // 20바이트 출력한 후 줄 바꾼다.

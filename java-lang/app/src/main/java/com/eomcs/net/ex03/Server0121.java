@@ -16,7 +16,6 @@ public class Server0121 {
         ServerSocket serverSocket = new ServerSocket(8888)) {
 
       System.out.println("클라이언트의 연결을 기다리고 있음.");
-
       try (Socket socket = serverSocket.accept();
           OutputStream out = socket.getOutputStream();
           InputStream in = socket.getInputStream()) {
@@ -29,7 +28,7 @@ public class Server0121 {
 
         byte[] buf = new byte[100];
         for (int i = 0; i < buf.length; i++) {
-          buf[i] =  (byte) i;
+          buf[i] = (byte) i;
         }
 
         // 클라이언트에서 받은 바이트 개수 만큼 배열을 출력한다.
