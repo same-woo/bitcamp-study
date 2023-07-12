@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "1",
+    "age": 1,
+    "location": "1",
+    "rank": "1",
+    "department": "1",
+    "password": "1"
+  },
+  {
+    "id": 2,
+    "name": "1",
+    "age": 1,
+    "location": "1",
+    "rank": "1",
+    "department": "1",
+    "password": "1"
+  },
+  {
+    "id": 1,
+    "name": "1",
+    "age": 1,
+    "location": "1",
+    "rank": "1",
+    "department": "1",
+    "password": "1"
+  }
+]
