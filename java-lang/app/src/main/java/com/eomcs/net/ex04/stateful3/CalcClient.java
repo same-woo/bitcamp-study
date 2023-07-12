@@ -26,7 +26,6 @@ public class CalcClient {
       if (str.equals("quit"))
         break;
     }
-
     in.close();
     out.close();
     socket.close();

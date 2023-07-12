@@ -11,7 +11,6 @@ public class CalcServer {
     System.out.println("서버 실행 중...");
 
     ServerSocket ss = new ServerSocket(8888);
-
     while (true) {
       // stateful을 사용할 때 이점:
       // => 연결되어 있는 동안 클라이언트의 작업 결과를 계속 유지할 수 있다.

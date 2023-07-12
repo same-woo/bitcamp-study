@@ -34,7 +34,6 @@ public class ClientApp {
 
   public ClientApp(String ip, int port) throws Exception {
 
-
     DaoBuilder daoBuilder = new DaoBuilder(ip, port);
 
     this.memberDao = daoBuilder.build("member", MemberDao.class);

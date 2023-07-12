@@ -51,13 +51,27 @@ public class ServerApp {
   }
 
   public void execute() throws Exception {
+    class RequestAgentThread extends Thread {
+      Socket socket;
+
+      public RequestAgentThread(Socket socket) {
+        this.socket = socket;
+      }
+
+      @Override
+      public void run() {
+        processRequest(socket);
+      }
+    }
+
+
     System.out.println("[MyList 서버 애플리케이션]");
 
     this.serverSocket = new ServerSocket(port);
     System.out.println("서버 실행 중...");
 
     while (true) {
-      processRequest(serverSocket.accept());
+      new RequestAgentThread(serverSocket.accept()).start();
     }
   }
 

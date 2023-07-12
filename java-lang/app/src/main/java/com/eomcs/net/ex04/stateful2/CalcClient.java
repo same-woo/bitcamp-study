@@ -12,7 +12,6 @@ public class CalcClient {
     Socket socket = new Socket("localhost", 8888);
     Scanner in = new Scanner(socket.getInputStream());
     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-
     while (true) {
       System.out.print("연산자? ");
       out.writeUTF(keyScan.nextLine());
