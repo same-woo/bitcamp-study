@@ -20,7 +20,7 @@ import bitcamp.util.ThreadPool;
 // 3) 메서드의 파라미터와 리턴 타입을 알아내기
 // 4) 메서드 호출 및 리턴 값 받기
 // 5) 리팩토링
-public class ServerApp {
+public class ServerApp_lamda {
 
   int port;
   ServerSocket serverSocket;
@@ -30,7 +30,7 @@ public class ServerApp {
   // 스레드를 리턴해 줄 스레드풀 준비
   ThreadPool threadPool = new ThreadPool();
 
-  public ServerApp(int port) throws Exception {
+  public ServerApp_lamda(int port) throws Exception {
     this.port = port;
 
     daoMap.put("member", new MemberListDao("member.json"));
@@ -48,11 +48,10 @@ public class ServerApp {
       return;
     }
 
-    ServerApp app = new ServerApp(Integer.parseInt(args[0]));
+    ServerApp_lamda app = new ServerApp_lamda(Integer.parseInt(args[0]));
     app.execute();
     app.close();
   }
-
 
   public void execute() throws Exception {
     System.out.println("[MyList 서버 애플리케이션]");
@@ -66,6 +65,27 @@ public class ServerApp {
       t.setJob(() -> processRequest(socket));
     }
   }
+
+  // ① 익명함수 만들기
+  // while (true) {
+  // Socket socket = serverSocket.accept();
+  // ManagedThread t = threadPool.getResource();
+  // t.setJob(new Job() {
+  // @Override
+  // public void execute() {
+  // processRequest(socket);
+  // }
+  // });
+  // }
+  // }
+
+  // ② 람다 함수 만들기
+  // while (true) {
+  // Socket socket = serverSocket.accept();
+  // ManagedThread t = threadPool.getResource();
+  // t.setJob(() -> processRequest(socket));
+  // }
+  // }
 
   public static Method findMethod(Object obj, String methodName) {
     Method[] methods = obj.getClass().getDeclaredMethods();
