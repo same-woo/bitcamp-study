@@ -1,4 +1,4 @@
-// 파라미터 타입 - 상속 관계
+// 파라미터 타입 - 레퍼런스와 인스턴스 - 기본
 package com.eomcs.generic.ex02;
 
 public class Exam0111 {
@@ -21,19 +21,20 @@ public class Exam0111 {
   // * | \
   // * C D
   // */
-
-
-  static <T extends B1> T echo(T obj) {
-    return obj;
+  static class Box<T> {
+    void set(T obj) {}
   }
+
 
   public static void main(String[] args) {
 
-    // Object obj = echo(new Object());
-    // A obj = echo(new A());
-    B1 obj3 = echo(new B1());
-    // B2 obj4 = echo(new B2());
-    C obj5 = echo(new C());
+    Box<B1> box1;
+    // <B1>을 담는 박스만 올 수 있다. 서브클래스도 못온다.
+
+    // box1 = new Box<A>(); //컴파일 오류!
+    // box1 = new Box<Object>(); //컴파일 오류!
+    box1 = new Box<B1>();
+    // box1 = new Box<C>(); //컴파일 오류!
 
 
 

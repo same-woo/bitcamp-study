@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.BiFunction;
 
-public class Test2 {
+public class Test3 {
 
   public static void main(String[] args) {
 
@@ -22,7 +22,7 @@ public class Test2 {
     // => 값을 리턴할 객체 : BiFunction<? super k, ? super v, ? extends v>
     // => 예) compute('x', BiFunction 구현 객체);
     // ㄴ BiFunction 인터페이스가 구현하는 apply 객체의 반환 값을 저장
-    class MyValue implements BiFunction<Character, Integer, Integer> {
+    BiFunction<Character, Integer, Integer> 값생성기 = new BiFunction<>() {
       @Override
       public Integer apply(Character key, Integer value) {
         // 이 메서드는 Map.compute() 호출한다.
@@ -31,9 +31,8 @@ public class Test2 {
 
         return (value == null) ? 1 : value + 1;
       }
-    }
+    };
 
-    MyValue 값생성기 = new MyValue();
 
     String str = "Be strong, be fearless, be beautiful. "
         + "And believe that anything is possible when you have the right "
