@@ -1,6 +1,7 @@
 package bitcamp.myapp.vo;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class Board implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -12,7 +13,7 @@ public class Board implements Serializable {
   private String writer;
   private String password;
   private int viewCount;
-  private long createdDate;
+  private Date createdDate;
   private int category;
 
   public Board() {}
@@ -88,11 +89,11 @@ public class Board implements Serializable {
     this.viewCount = viewCount;
   }
 
-  public long getCreatedDate() {
+  public Date getCreatedDate() {
     return createdDate;
   }
 
-  public void setCreatedDate(long createdDate) {
+  public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
 
@@ -103,6 +104,7 @@ public class Board implements Serializable {
   public void setPassword(String password) {
     this.password = password;
   }
+
 
 
 }

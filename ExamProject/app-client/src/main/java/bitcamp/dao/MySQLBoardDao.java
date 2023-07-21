@@ -3,9 +3,8 @@ package bitcamp.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
@@ -13,78 +12,82 @@ import bitcamp.myapp.vo.Board;
 public class MySQLBoardDao implements BoardDao {
 
   Connection con;
+  int category;
 
-  public MySQLBoardDao(Connection con) {
+  public MySQLBoardDao(Connection con, int categoryNumber) {
     this.con = con;
+    this.category = categoryNumber;
   }
 
   @Override
   public void insert(Board board) {
-    String sql =
-        "INSERT INTO myapp_board(title, content, writer, password, category) VALUES (?, ?, ?, ?, ?)";
-    try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-      pstmt.setString(1, board.getTitle());
-      pstmt.setString(2, board.getContent());
-      pstmt.setString(3, board.getWriter());
-      pstmt.setString(4, board.getPassword());
-      pstmt.setInt(5, board.getCategory());
+    try (Statement stmt = con.createStatement()) {
 
-      pstmt.executeUpdate();
-    } catch (SQLException e) {
+      stmt.executeUpdate(String.format(
+          "INSERT INTO myapp_board(title, content, writer, password, category) VALUES ('%s', '%s', '%s', '%s', '%d')",
+          board.getTitle(), board.getContent(), board.getWriter(), board.getPassword(),
+          board.getCategory()));
+
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
 
   @Override
   public List<Board> list() {
-    List<Board> list = new ArrayList<>();
-    String sql = "SELECT * FROM myapp_board";
-    try (Statement stmt = con.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+    try (Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(
+            "select board_no, title, content, writer, password, view_count, created_date, category from myapp_board order by title asc")) {
+
+      List<Board> list = new LinkedList<>();
+
 
       while (rs.next()) {
         Board board = new Board();
-        board.setNo(rs.getInt("no"));
+        board.setNo(rs.getInt("board_no"));
         board.setTitle(rs.getString("title"));
         board.setContent(rs.getString("content"));
         board.setWriter(rs.getString("writer"));
         board.setPassword(rs.getString("password"));
         board.setViewCount(rs.getInt("view_count"));
-        board.setCreatedDate(rs.getLong("created_date"));
+        board.setCreatedDate(rs.getDate("created_date"));
         board.setCategory(rs.getInt("category"));
 
         list.add(board);
       }
+      return list;
 
-    } catch (SQLException e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
-    return list;
   }
 
   @Override
   public Board findBy(int no) {
-    String sql = "SELECT * FROM myapp_board WHERE no=?";
-    try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-      pstmt.setInt(1, no);
-      try (ResultSet rs = pstmt.executeQuery()) {
-        if (rs.next()) {
-          Board board = new Board();
-          board.setNo(rs.getInt("no"));
-          board.setTitle(rs.getString("title"));
-          board.setContent(rs.getString("content"));
-          board.setWriter(rs.getString("writer"));
-          board.setPassword(rs.getString("password"));
-          board.setViewCount(rs.getInt("view_count"));
-          board.setCreatedDate(rs.getLong("created_date"));
-          board.setCategory(rs.getInt("category"));
-          return board;
-        }
+    try (Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(
+            "select board_no, title, content, writer, view_count, created_date,category from myapp_board where board_no="
+                + no)) {
+
+      if (rs.next()) {
+        Board board = new Board();
+        board.setNo(rs.getInt("board_no"));
+        board.setTitle(rs.getString("title"));
+        board.setContent(rs.getString("content"));
+        board.setWriter(rs.getString("writer"));
+        board.setViewCount(rs.getInt("view_count"));
+        board.setCreatedDate(rs.getDate("created_date"));
+        board.setCategory(rs.getInt("category"));
+        return board;
       }
-    } catch (SQLException e) {
+
+      return null;
+
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
-    return null;
   }
+
 
   @Override
   public int update(Board board) {
@@ -99,7 +102,7 @@ public class MySQLBoardDao implements BoardDao {
       pstmt.setInt(6, board.getNo());
 
       return pstmt.executeUpdate();
-    } catch (SQLException e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
@@ -110,7 +113,7 @@ public class MySQLBoardDao implements BoardDao {
     try (PreparedStatement pstmt = con.prepareStatement(sql)) {
       pstmt.setInt(1, no);
       return pstmt.executeUpdate();
-    } catch (SQLException e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
