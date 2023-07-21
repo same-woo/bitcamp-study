@@ -13,11 +13,20 @@ public class Board implements Serializable {
   private String password;
   private int viewCount;
   private long createdDate;
+  private int category;
 
   public Board() {}
 
   public Board(int no) {
     this.no = no;
+  }
+
+  public int getCategory() {
+    return category;
+  }
+
+  public void setCategory(int category) {
+    this.category = category;
   }
 
   @Override
