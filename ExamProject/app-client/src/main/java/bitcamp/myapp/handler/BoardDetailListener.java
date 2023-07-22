@@ -7,10 +7,12 @@ import bitcamp.util.BreadcrumbPrompt;
 
 public class BoardDetailListener implements ActionListener {
 
+  int categoryNumber;
   BoardDao boardDao;
 
-  public BoardDetailListener(BoardDao boardDao) {
+  public BoardDetailListener(BoardDao boardDao, int categoryNumber) {
     this.boardDao = boardDao;
+    this.categoryNumber = categoryNumber;
   }
 
   @Override
@@ -32,14 +34,5 @@ public class BoardDetailListener implements ActionListener {
     boardDao.update(board);
   }
 }
-
-
-
-
-
-
-
-
-
 
 

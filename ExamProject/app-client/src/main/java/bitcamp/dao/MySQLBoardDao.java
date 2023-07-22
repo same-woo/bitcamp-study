@@ -1,7 +1,6 @@
 package bitcamp.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.LinkedList;
@@ -19,6 +18,10 @@ public class MySQLBoardDao implements BoardDao {
     this.category = categoryNumber;
   }
 
+  public void setinit(Board board) {
+    board.setCategory(category);
+  }
+
   @Override
   public void insert(Board board) {
     try (Statement stmt = con.createStatement()) {
@@ -29,6 +32,8 @@ public class MySQLBoardDao implements BoardDao {
           board.getCategory()));
 
     } catch (Exception e) {
+      // e.printStackTrace();
+
       throw new RuntimeException(e);
     }
   }
@@ -91,17 +96,14 @@ public class MySQLBoardDao implements BoardDao {
 
   @Override
   public int update(Board board) {
-    String sql =
-        "UPDATE myapp_board SET title=?, content=?, writer=?, password=?, category=? WHERE no=?";
-    try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-      pstmt.setString(1, board.getTitle());
-      pstmt.setString(2, board.getContent());
-      pstmt.setString(3, board.getWriter());
-      pstmt.setString(4, board.getPassword());
-      pstmt.setInt(5, board.getCategory());
-      pstmt.setInt(6, board.getNo());
+    try (Statement stmt = con.createStatement()) {
+      return stmt.executeUpdate(String.format(
+          "update myapp_board set" + " title='%s'," + " content='%s'," + " writer='%s',"
+              + " view_count=%d" + ", category=%d" + " where board_no=%d",
+          board.getTitle(), board.getContent(), board.getWriter(), board.getViewCount(),
+          board.getCategory(), board.getNo()));
 
-      return pstmt.executeUpdate();
+
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -109,10 +111,10 @@ public class MySQLBoardDao implements BoardDao {
 
   @Override
   public int delete(int no) {
-    String sql = "DELETE FROM myapp_board WHERE no=?";
-    try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-      pstmt.setInt(1, no);
-      return pstmt.executeUpdate();
+    try (Statement stmt = con.createStatement()) {
+
+      return stmt.executeUpdate(String.format("delete from myapp_board where board_no=%d", no));
+
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

@@ -12,6 +12,10 @@ CREATE TABLE myapp_board (
 alter table myapp_board
   add constraint primary key (board_no),
   modify column board_no int not null auto_increment;
+  
+  -- 게시판에 카테고리 컬럼 추가
+alter table myapp_board
+  add column category int not null;
 
   /* member */
 CREATE TABLE myapp_member (
@@ -28,9 +32,7 @@ alter table myapp_member
   modify column member_no int not null auto_increment; 
   
   
--- 게시판에 카테고리 컬럼 추가
-alter table myapp_board
-  add column category int not null;
+
   
 -- UPDATE myapp_board set category=1 where board_no < 5;
 -- UPDATE myapp_board set category=2 where board_no >= 5;

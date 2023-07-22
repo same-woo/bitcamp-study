@@ -6,10 +6,12 @@ import bitcamp.util.BreadcrumbPrompt;
 
 public class BoardDeleteListener implements ActionListener {
 
+  int categoryNumber;
   BoardDao boardDao;
 
-  public BoardDeleteListener(BoardDao boardDao) {
+  public BoardDeleteListener(BoardDao boardDao, int categoryNumber) {
     this.boardDao = boardDao;
+    this.categoryNumber = categoryNumber;
   }
 
   @Override
@@ -19,14 +21,5 @@ public class BoardDeleteListener implements ActionListener {
     }
   }
 }
-
-
-
-
-
-
-
-
-
 
 

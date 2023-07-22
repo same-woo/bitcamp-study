@@ -42,9 +42,8 @@ public class ClientApp {
 
 
     this.memberDao = new MySQLMemberDao(con);
-    this.boardDao = new MySQLBoardDao(con, categoryNumber); // Initialize boardDao with
-                                                            // MySQLBoardDao
-    // this.readingDao = new MySQLBoardDao(con);
+    this.boardDao = new MySQLBoardDao(con, 1); //
+    this.readingDao = new MySQLBoardDao(con, 2);
 
     prepareMenu();
   }
@@ -85,19 +84,19 @@ public class ClientApp {
     mainMenu.add(memberMenu);
 
     MenuGroup boardMenu = new MenuGroup("게시글");
-    boardMenu.add(new Menu("등록", new BoardAddListener(boardDao)));
-    boardMenu.add(new Menu("목록", new BoardListListener(boardDao)));
-    boardMenu.add(new Menu("조회", new BoardDetailListener(boardDao)));
-    boardMenu.add(new Menu("변경", new BoardUpdateListener(boardDao)));
-    boardMenu.add(new Menu("삭제", new BoardDeleteListener(boardDao)));
+    boardMenu.add(new Menu("등록", new BoardAddListener(boardDao, 1)));
+    boardMenu.add(new Menu("목록", new BoardListListener(boardDao, 1)));
+    boardMenu.add(new Menu("조회", new BoardDetailListener(boardDao, 1)));
+    boardMenu.add(new Menu("변경", new BoardUpdateListener(boardDao, 1)));
+    boardMenu.add(new Menu("삭제", new BoardDeleteListener(boardDao, 1)));
     mainMenu.add(boardMenu);
 
     MenuGroup readingMenu = new MenuGroup("독서록");
-    readingMenu.add(new Menu("등록", new BoardAddListener(readingDao)));
-    readingMenu.add(new Menu("목록", new BoardListListener(readingDao)));
-    readingMenu.add(new Menu("조회", new BoardDetailListener(readingDao)));
-    readingMenu.add(new Menu("변경", new BoardUpdateListener(readingDao)));
-    readingMenu.add(new Menu("삭제", new BoardDeleteListener(readingDao)));
+    readingMenu.add(new Menu("등록", new BoardAddListener(readingDao, 2)));
+    readingMenu.add(new Menu("목록", new BoardListListener(readingDao, 2)));
+    readingMenu.add(new Menu("조회", new BoardDetailListener(readingDao, 2)));
+    readingMenu.add(new Menu("변경", new BoardUpdateListener(readingDao, 2)));
+    readingMenu.add(new Menu("삭제", new BoardDeleteListener(readingDao, 2)));
     mainMenu.add(readingMenu);
 
     Menu helloMenu = new Menu("안녕!");
