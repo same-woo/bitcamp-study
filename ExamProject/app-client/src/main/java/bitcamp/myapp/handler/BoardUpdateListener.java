@@ -7,12 +7,10 @@ import bitcamp.util.BreadcrumbPrompt;
 
 public class BoardUpdateListener implements ActionListener {
 
-  int categoryNumber;
   BoardDao boardDao;
 
-  public BoardUpdateListener(BoardDao boardDao, int categoryNumber) {
+  public BoardUpdateListener(BoardDao boardDao) {
     this.boardDao = boardDao;
-    this.categoryNumber = categoryNumber;
   }
 
   @Override
@@ -25,14 +23,14 @@ public class BoardUpdateListener implements ActionListener {
       return;
     }
 
-    if (prompt.inputString("암호? ").equals(board.getPassword())) {
-      System.out.println("암호가 일치하지 않습니다!");
-      return;
-    }
-
     board.setTitle(prompt.inputString("제목(%s)? ", board.getTitle()));
     board.setContent(prompt.inputString("내용(%s)? ", board.getContent()));
+    board.setPassword(prompt.inputString("암호? "));
 
-    boardDao.update(board);
+    if (boardDao.update(board) == 0) {
+      System.out.println("암호가 일치하지 않습니다!");
+    } else {
+      System.out.println("변경했습니다!");
+    }
   }
 }
