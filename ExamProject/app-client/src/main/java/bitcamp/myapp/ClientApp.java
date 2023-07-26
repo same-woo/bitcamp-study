@@ -4,12 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
-import bitcamp.myapp.vo.Member;
 import bitcamp.net.NetProtocol;
 
 public class ClientApp {
-
-  public static Member loginUser;
 
   String ip;
   int port;
@@ -29,12 +26,11 @@ public class ClientApp {
     app.execute();
   }
 
-
   public void execute() {
     try (Scanner keyscan = new Scanner(System.in);
         Socket socket = new Socket(this.ip, this.port);
-        DataInputStream in = new DataInputStream(socket.getInputStream());
-        DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
+        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+        DataInputStream in = new DataInputStream(socket.getInputStream())) {
 
       System.out.println(in.readUTF());
 
@@ -48,8 +44,9 @@ public class ClientApp {
         } else if (response.equals(NetProtocol.NET_END)) {
           break;
         }
-        System.out.println(response);
+        System.out.print(response);
       }
+
 
     } catch (Exception e) {
       System.out.println("서버 통신 오류!");
