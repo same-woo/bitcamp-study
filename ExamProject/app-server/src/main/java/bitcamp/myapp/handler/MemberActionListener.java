@@ -27,6 +27,6 @@ public interface MemberActionListener extends ActionListener {
           prompt.println("무효한 번호입니다.");
       }
     }
-
   }
+
 }

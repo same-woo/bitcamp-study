@@ -15,7 +15,6 @@ public class LoginListener implements MemberActionListener {
 
   @Override
   public void service(BreadcrumbPrompt prompt) throws IOException {
-
     while (true) {
       Member m = new Member();
       m.setEmail(prompt.inputString("이메일? "));

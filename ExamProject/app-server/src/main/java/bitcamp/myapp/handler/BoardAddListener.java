@@ -1,21 +1,23 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.DataSource;
 
 public class BoardAddListener implements ActionListener {
 
+  int category;
   BoardDao boardDao;
-  DataSource ds;
+  SqlSessionFactory sqlSessionFactory;
 
-  public BoardAddListener(BoardDao boardDao, DataSource ds) {
+  public BoardAddListener(int category, BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
+    this.category = category;
     this.boardDao = boardDao;
-    this.ds = ds;
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
@@ -23,31 +25,23 @@ public class BoardAddListener implements ActionListener {
     Board board = new Board();
     board.setTitle(prompt.inputString("제목? "));
     board.setContent(prompt.inputString("내용? "));
-
     board.setWriter((Member) prompt.getAttribute("loginUser"));
-
+    board.setCategory(category);
 
     try {
       boardDao.insert(board);
-      Thread.sleep(5000);
+      // Thread.sleep(5000);
+      //
+      // boardDao.insert(board);
+      // Thread.sleep(5000);
+      //
+      // boardDao.insert(board);
+      // Thread.sleep(5000);
 
-      boardDao.insert(board);
-      Thread.sleep(5000);
-
-      boardDao.insert(board);
-      Thread.sleep(5000);
-
-      ds.getConnection().commit();
+      sqlSessionFactory.openSession(false).commit();
 
     } catch (Exception e) {
-      try {
-        ds.getConnection().rollback();
-      } catch (Exception e2) {
-      }
-      throw new RuntimeException(e);
-
+      sqlSessionFactory.openSession(false).rollback();
     }
-
   }
 }
-

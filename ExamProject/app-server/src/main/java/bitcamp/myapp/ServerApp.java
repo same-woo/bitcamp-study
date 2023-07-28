@@ -2,15 +2,19 @@ package bitcamp.myapp;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import bitcamp.dao.MySQLBoardDao;
-import bitcamp.dao.MySQLMemberDao;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.dao.MySQLBoardDao;
+import bitcamp.myapp.dao.MySQLMemberDao;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
@@ -24,19 +28,19 @@ import bitcamp.myapp.handler.MemberListListener;
 import bitcamp.myapp.handler.MemberUpdateListener;
 import bitcamp.net.NetProtocol;
 import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.DataSource;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
+import bitcamp.util.SqlSessionFactoryProxy;
 
 public class ServerApp {
 
   // 자바 스레드풀 준비
   ExecutorService threadPool = Executors.newFixedThreadPool(2);
 
-  DataSource ds = new DataSource("jdbc:mysql://localhost:3306/studydb", "study", "1111");
+  SqlSessionFactory sqlSessionFactory;
+
   MemberDao memberDao;
   BoardDao boardDao;
-  BoardDao readingDao;
 
   MenuGroup mainMenu = new MenuGroup("메인");
 
@@ -46,9 +50,18 @@ public class ServerApp {
 
     this.port = port;
 
-    this.memberDao = new MySQLMemberDao(ds);
-    this.boardDao = new MySQLBoardDao(ds, 1);
-    this.readingDao = new MySQLBoardDao(ds, 2);
+    // 1) mybatis 설정 파일을 읽어들일 도구를 준비한다.
+    InputStream mybatisConfigIn =
+        Resources.getResourceAsStream("bitcamp/myapp/config/mybatis-config.xml");
+
+    // 2) SqlSessionFactory를 만들어줄 빌더 객체 준비
+    SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+
+    // 3) 빌더 객체를 통해 SqlSessionFactory를 생성
+    sqlSessionFactory = new SqlSessionFactoryProxy(builder.build(mybatisConfigIn));
+
+    this.memberDao = new MySQLMemberDao(sqlSessionFactory);
+    this.boardDao = new MySQLBoardDao(sqlSessionFactory);
 
     prepareMenu();
   }
@@ -99,33 +112,33 @@ public class ServerApp {
       e.printStackTrace();
 
     } finally {
-      ds.clean(); // 현재 스레드에 보관된 Connection 객체를 닫고, 스레드에서 제거한다.
+      ((SqlSessionFactoryProxy) sqlSessionFactory).clean();
     }
   }
 
   private void prepareMenu() {
     MenuGroup memberMenu = new MenuGroup("회원");
-    memberMenu.add(new Menu("등록", new MemberAddListener(memberDao)));
+    memberMenu.add(new Menu("등록", new MemberAddListener(memberDao, sqlSessionFactory)));
     memberMenu.add(new Menu("목록", new MemberListListener(memberDao)));
     memberMenu.add(new Menu("조회", new MemberDetailListener(memberDao)));
-    memberMenu.add(new Menu("변경", new MemberUpdateListener(memberDao)));
-    memberMenu.add(new Menu("삭제", new MemberDeleteListener(memberDao)));
+    memberMenu.add(new Menu("변경", new MemberUpdateListener(memberDao, sqlSessionFactory)));
+    memberMenu.add(new Menu("삭제", new MemberDeleteListener(memberDao, sqlSessionFactory)));
     mainMenu.add(memberMenu);
 
     MenuGroup boardMenu = new MenuGroup("게시글");
-    boardMenu.add(new Menu("등록", new BoardAddListener(boardDao, ds)));
-    boardMenu.add(new Menu("목록", new BoardListListener(boardDao)));
-    boardMenu.add(new Menu("조회", new BoardDetailListener(boardDao)));
-    boardMenu.add(new Menu("변경", new BoardUpdateListener(boardDao)));
-    boardMenu.add(new Menu("삭제", new BoardDeleteListener(boardDao)));
+    boardMenu.add(new Menu("등록", new BoardAddListener(1, boardDao, sqlSessionFactory)));
+    boardMenu.add(new Menu("목록", new BoardListListener(1, boardDao)));
+    boardMenu.add(new Menu("조회", new BoardDetailListener(1, boardDao, sqlSessionFactory)));
+    boardMenu.add(new Menu("변경", new BoardUpdateListener(1, boardDao, sqlSessionFactory)));
+    boardMenu.add(new Menu("삭제", new BoardDeleteListener(1, boardDao, sqlSessionFactory)));
     mainMenu.add(boardMenu);
 
     MenuGroup readingMenu = new MenuGroup("독서록");
-    readingMenu.add(new Menu("등록", new BoardAddListener(readingDao, ds)));
-    readingMenu.add(new Menu("목록", new BoardListListener(readingDao)));
-    readingMenu.add(new Menu("조회", new BoardDetailListener(readingDao)));
-    readingMenu.add(new Menu("변경", new BoardUpdateListener(readingDao)));
-    readingMenu.add(new Menu("삭제", new BoardDeleteListener(readingDao)));
+    readingMenu.add(new Menu("등록", new BoardAddListener(2, boardDao, sqlSessionFactory)));
+    readingMenu.add(new Menu("목록", new BoardListListener(2, boardDao)));
+    readingMenu.add(new Menu("조회", new BoardDetailListener(2, boardDao, sqlSessionFactory)));
+    readingMenu.add(new Menu("변경", new BoardUpdateListener(2, boardDao, sqlSessionFactory)));
+    readingMenu.add(new Menu("삭제", new BoardDeleteListener(2, boardDao, sqlSessionFactory)));
     mainMenu.add(readingMenu);
 
     // Menu helloMenu = new Menu("안녕!");
