@@ -9,7 +9,7 @@ public class Member implements Serializable {
 
 
   public static final char MALE = 'M';
-  public static final char FEMALE = 'W';
+  public static final char FEMALE = 'F';
 
   private int no;
   private String name;
