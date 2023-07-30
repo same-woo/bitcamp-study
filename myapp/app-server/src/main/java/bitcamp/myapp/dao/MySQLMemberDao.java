@@ -49,4 +49,10 @@ public class MySQLMemberDao implements MemberDao {
     return sqlSession.delete("bitcamp.myapp.dao.MemberDao.delete", no);
   }
 
+@Override
+public Member findByEmailAndPassword(String email, String password) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 }

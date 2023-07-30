@@ -17,4 +17,6 @@ public interface MemberDao {
 
   int delete(int no);
 
+Member findByEmailAndPassword(String email, String password);
+
 }
