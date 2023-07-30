@@ -30,6 +30,15 @@ public class Prompt {
     return context.get(name);
   }
 
+  public void setAttributeUser(String email, Object value) {
+	    context.put(email, value);
+	  }
+
+	  public Object getAttributeUser(String email) {
+	    return context.get(email);
+	  }
+  
+  
 
   public String inputString(String title, Object... args) throws IOException {
     this.out.writeUTF(String.format(title, args));
@@ -38,8 +47,16 @@ public class Prompt {
   }
 
   public int inputInt(String title, Object... args) throws IOException {
-    return Integer.parseInt(this.inputString(title, args));
-  }
+	    return Integer.parseInt(this.inputString(title, args));
+	}
+
+	public double inputDouble(String title, Object... args) throws IOException {
+	    return Double.parseDouble(this.inputString(title, args));
+	}
+
+
+
+
 
   public void print(String str) {
     buf.append(str);
@@ -63,5 +80,10 @@ public class Prompt {
     this.out.writeUTF(NetProtocol.RESPONSE_END);
     buf.setLength(0);
   }
+  
+  public boolean inputBoolean(String title, Object... args) throws IOException {
+	    String input = this.inputString(title, args);
+	    return Boolean.parseBoolean(input);
+	  }
 
 }

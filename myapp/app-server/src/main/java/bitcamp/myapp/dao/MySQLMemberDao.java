@@ -4,13 +4,10 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.DataSource;
 
 public class MySQLMemberDao implements MemberDao {
 
   SqlSessionFactory sqlSessionFactory;
-
-  DataSource ds;
 
   public MySQLMemberDao(SqlSessionFactory sqlSessionFactory) {
     this.sqlSessionFactory = sqlSessionFactory;
@@ -28,11 +25,10 @@ public class MySQLMemberDao implements MemberDao {
     return sqlSession.selectList("bitcamp.myapp.dao.MemberDao.findAll");
   }
 
-
   @Override
   public Member findBy(int no) {
     SqlSession sqlSession = sqlSessionFactory.openSession();
-    return sqlSession.selectOne("bitcamp.myapp.dao.MemberDao.findAll");
+    return sqlSession.selectOne("bitcamp.myapp.dao.MemberDao.findBy", no);
   }
 
   @Override
@@ -52,7 +48,5 @@ public class MySQLMemberDao implements MemberDao {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.delete("bitcamp.myapp.dao.MemberDao.delete", no);
   }
-
-
 
 }

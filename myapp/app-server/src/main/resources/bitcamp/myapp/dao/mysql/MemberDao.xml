@@ -58,13 +58,13 @@
   </select>
   
   <update id="update" parameterType="member">
-    update myapp_member set
-      name=#{name},
-      email=#{email},
-      password=sha1(#{password}),
-      gender=#{gender}
-    where 
-      member_no=#{no}
+	  update myapp_member set
+	    name=#{name},
+	    email=#{email},
+	    password=sha1(#{password}),
+	    gender=#{gender}
+	  where 
+	    member_no=#{no}
   </update>
   
   <delete id="delete" parameterType="int">

@@ -17,12 +17,14 @@ public class Member implements Serializable {
   private String password;
   private char gender;
   private Date createdDate;
+  
 
+  
   @Override
   public int hashCode() {
     return Objects.hash(no);
   }
-
+ 
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -77,12 +79,15 @@ public class Member implements Serializable {
 
   public Date getCreatedDate() {
     return createdDate;
-  }
+ }
 
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
 
+
+
+ 
 
 
 }

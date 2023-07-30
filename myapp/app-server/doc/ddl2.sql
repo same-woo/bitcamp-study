@@ -1,42 +1,57 @@
-  /* board */
-CREATE TABLE myapp_board (
-  board_no INT NOT NULL,
-  title VARCHAR(255) NOT NULL,
-  content TEXT NULL,
-  writer int NOT NULL,
-  password VARCHAR(100) NULL,
-  view_count INT DEFAULT 0,
-  created_date DATETIME DEFAULT now(),
-  category int NOT NULL
+create table myapp_board(
+  board_no int not null,
+  title varchar(255) not null,
+  content text null,
+  writer int not null,
+  password varchar(100) null,
+  view_count int default 0,
+  created_date datetime default now(),
+  category int not null
 );
 
 alter table myapp_board
   add constraint primary key (board_no),
   modify column board_no int not null auto_increment;
   
-
-  /* member */
-CREATE TABLE myapp_member (
-  member_no INT NOT NULL,
-  name VARCHAR(20) NOT NULL,
-  email VARCHAR(50) NOT NULL,
-  password VARCHAR(100) NOT NULL,
-  gender CHAR(1) NOT NULL,
-  created_date DATE DEFAULT (current_date())
+create table myapp_member(
+  member_no int not null,
+  name varchar(20) not null,
+  email varchar(50) not null,
+  password varchar(100) not null,
+  gender char(1) not null,
+  created_date date default (current_date())
 );
-
-
 
 alter table myapp_member
   add constraint primary key (member_no),
-  modify column member_no int not null auto_increment; 
-  
-  -- 멤버 테이블 이메일 중복 방지
+  modify column member_no int not null auto_increment;
+
 alter table myapp_member
   add constraint myapp_member_uk unique (email);
   
-  
- -- 게시판 작성자에 의해 외부키 설정
- alter table myapp_board
+-- 게시판 작성자에 대해 외부키 설정
+alter table myapp_board
   add constraint myapp_board_fk foreign key (writer) references myapp_member (member_no);
+  
+
+ ---------------------------------------------
+   /* dog */
+CREATE TABLE myapp_dog (
+  dog_no INT NOT NULL,
+  kind VARCHAR(20) NOT NULL,
+  age INT NOT NULL,
+  gender CHAR(1) NOT NULL,
+  weight double NOT NULL,
+  location VARCHAR(100) NOT NULL,
+  id double NOT NULL,
+  created_date DATE DEFAULT (current_date()),
+  isCreated BOOLEAN DEFAULT true
+
+);
+
+
+ -- dog
+alter table myapp_dog
+  add constraint primary key (dog_no),
+  modify column dog_no int not null auto_increment; 
   
