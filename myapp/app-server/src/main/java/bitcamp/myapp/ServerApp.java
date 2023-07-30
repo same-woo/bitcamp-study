@@ -60,7 +60,7 @@ public class ServerApp {
 
     this.port = port;
 
-    // 1) mybatis 설정 파일을 읽어들일 도구를 준비한다.
+    // 1) mybatis 설정 파일을 읽어들일 도구를 준비한다.  d
     InputStream mybatisConfigIn = Resources.getResourceAsStream("bitcamp/myapp/config/mybatis-config.xml");
 
     // 2) SqlSessionFactory를 만들어줄 빌더 객체 준비
