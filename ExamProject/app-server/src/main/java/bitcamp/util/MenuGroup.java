@@ -6,8 +6,8 @@ public class MenuGroup extends Menu {
 
   ArrayList<Menu> childs;
 
-  public MenuGroup(String title) {
-    super(title);
+  public MenuGroup(String path, String title) {
+    super(path, title);
     this.childs = new ArrayList<>();
   }
 
@@ -15,9 +15,12 @@ public class MenuGroup extends Menu {
     this.childs.add(menu);
   }
 
+  public void add(String menuPath, String title, ActionListener listener) {
+    this.childs.add(new Menu(menuPath, title, listener));
+  }
+
   @Override
   public void execute(BreadcrumbPrompt prompt) {
-
     try {
       prompt.appendBreadcrumb(this.getTitle());
 
@@ -29,6 +32,7 @@ public class MenuGroup extends Menu {
           this.printMenu(prompt);
           continue;
         }
+
         try {
           int menuNo = Integer.parseInt(input);
           if (menuNo < 0 || menuNo > childs.size()) {
@@ -42,7 +46,7 @@ public class MenuGroup extends Menu {
             menu.execute(prompt);
           }
         } catch (Exception e) {
-          prompt.printf("실행오류 : %s\n", e.getMessage());
+          prompt.printf("실행 오류: %s\n", e.getMessage());
           prompt.end();
         }
       }
