@@ -24,6 +24,12 @@ dependencies {
     // python
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
     implementation 'com.google.guava:guava:31.1-jre'
+    
+    // netty 4.1.96 final
+    implementation platform('io.projectreactor:reactor-bom:2022.0.9') 
+    implementation 'io.projectreactor.netty:reactor-netty-core' 
+    implementation 'io.projectreactor.netty:reactor-netty-http'
+    
 }
 
 java {

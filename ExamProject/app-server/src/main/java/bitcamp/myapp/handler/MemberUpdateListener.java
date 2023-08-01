@@ -5,8 +5,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 import bitcamp.util.DataSource;
 
+@Component("/member/update")
 public class MemberUpdateListener implements MemberActionListener {
 
   SqlSessionFactory sqlSessionFactory;
@@ -35,11 +37,11 @@ public class MemberUpdateListener implements MemberActionListener {
 
     try {
       memberDao.update(m);
-      ds.getConnection().commit();
+      sqlSessionFactory.openSession(false).commit();
 
     } catch (Exception e) {
       try {
-        ds.getConnection().rollback();
+        sqlSessionFactory.openSession(false).rollback();
       } catch (Exception e2) {
       }
       throw new RuntimeException(e);

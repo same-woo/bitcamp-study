@@ -1,34 +1,28 @@
 package bitcamp.myapp;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import bitcamp.net.NetProtocol;
-import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.DispatcherListener;
-import bitcamp.util.MenuGroup;
-import bitcamp.util.SqlSessionFactoryProxy;
+import bitcamp.myapp.config.AppConfig;
+import bitcamp.util.ApplicationContext;
+import bitcamp.util.DispatcherServlet;
+import bitcamp.util.HttpServletRequest;
+import bitcamp.util.HttpServletResponse;
+import reactor.core.publisher.Mono;
+import reactor.netty.DisposableServer;
+import reactor.netty.NettyOutbound;
+import reactor.netty.http.server.HttpServer;
+import reactor.netty.http.server.HttpServerRequest;
+import reactor.netty.http.server.HttpServerResponse;
 
 public class ServerApp {
 
-  // 자바 스레드풀 준비
-  ExecutorService threadPool = Executors.newFixedThreadPool(2);
-
-  MenuGroup mainMenu = new MenuGroup("/", "메인");
-  DispatcherListener facadeListener = new DispatcherListener();
+  ApplicationContext iocContainer;
+  DispatcherServlet dispatcherServlet;
 
   int port;
 
   public ServerApp(int port) throws Exception {
-
     this.port = port;
-
-
-    prepareMenu();
+    iocContainer = new ApplicationContext(AppConfig.class);
+    dispatcherServlet = new DispatcherServlet(iocContainer);
   }
 
   public void close() throws Exception {
@@ -41,73 +35,35 @@ public class ServerApp {
     app.close();
   }
 
-  public void execute() {
-    try (ServerSocket serverSocket = new ServerSocket(this.port)) {
-      System.out.println("서버 실행 중...");
+  public void execute() throws Exception {
+    DisposableServer server = HttpServer.create().port(8888)
+        .handle((request, response) -> processRequest(request, response)).bindNow();
+    System.out.println("서버 실행됨!");
 
-      while (true) {
-        Socket socket = serverSocket.accept();
-        threadPool.execute(() -> processRequest(socket));
-      }
-    } catch (Exception e) {
-      System.out.println("서버 실행 오류!");
-      e.printStackTrace();
-    }
+    server.onDispose().block();
+    System.out.println("서버 종료됨!");
   }
 
-  private void processRequest(Socket socket) {
-    try (Socket s = socket;
-        DataInputStream in = new DataInputStream(socket.getInputStream());
-        DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
+  private NettyOutbound processRequest(HttpServerRequest request, HttpServerResponse response) {
+    try {
+      HttpServletRequest request2 = new HttpServletRequest(request);
+      HttpServletResponse response2 = new HttpServletResponse(response);
+      dispatcherServlet.service(request2, response2);
 
-      BreadcrumbPrompt prompt = new BreadcrumbPrompt(in, out);
+      // HTTP 응답 프로토콜의 헤더 설정
+      response.addHeader("Content-Type", response2.getContentType());
 
-      InetSocketAddress clientAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
-      System.out.printf("%s 클라이언트 접속함!\n", clientAddress.getHostString());
-
-      out.writeUTF("[나의 목록 관리 시스템]\n" + "-----------------------------------------");
-
-      prompt.setAttribute("menuPath", "login");
-      facadeListener.service(prompt);
-
-      mainMenu.execute(prompt);
-      out.writeUTF(NetProtocol.NET_END);
+      // 서블릿이 출력한 문자열을 버퍼에서 꺼내 HTTP 프로토콜에 맞춰 응답한다.
+      return response.sendString(Mono.just(response2.getContent()));
 
     } catch (Exception e) {
-      System.out.println("클라이언트 통신 오류!");
       e.printStackTrace();
+      return response.sendString(Mono.just("Error!"));
 
     } finally {
-      SqlSessionFactoryProxy sqlSessionFactoryProxy =
-          (SqlSessionFactoryProxy) facadeListener.getBean("sqlSessionFactory");
-      sqlSessionFactoryProxy.clean();
+      // SqlSessionFactoryProxy sqlSessionFactoryProxy =
+      // (SqlSessionFactoryProxy) iocContainer.getBean(SqlSessionFactory.class);
+      // sqlSessionFactoryProxy.clean();
     }
-  }
-
-  private void prepareMenu() {
-    MenuGroup memberMenu = new MenuGroup("member", "회원");
-    memberMenu.add("member/add", "등록", facadeListener);
-    memberMenu.add("member/list", "목록", facadeListener);
-    memberMenu.add("member/detail", "조회", facadeListener);
-    memberMenu.add("member/update", "변경", facadeListener);
-    memberMenu.add("member/delete", "삭제", facadeListener);
-    mainMenu.add(memberMenu);
-
-    MenuGroup boardMenu = new MenuGroup("board", "게시글");
-    boardMenu.add("board/add", "등록", facadeListener);
-    boardMenu.add("board/list", "목록", facadeListener);
-    boardMenu.add("board/detail", "조회", facadeListener);
-    boardMenu.add("board/update", "변경", facadeListener);
-    boardMenu.add("board/delete", "삭제", facadeListener);
-    mainMenu.add(boardMenu);
-
-    MenuGroup readingMenu = new MenuGroup("reading", "독서록");
-    readingMenu.add("reading/add", "등록", facadeListener);
-    readingMenu.add("reading/list", "목록", facadeListener);
-    readingMenu.add("reading/detail", "조회", facadeListener);
-    readingMenu.add("reading/update", "변경", facadeListener);
-    readingMenu.add("reading/delete", "삭제", facadeListener);
-    mainMenu.add(readingMenu);
-
   }
 }

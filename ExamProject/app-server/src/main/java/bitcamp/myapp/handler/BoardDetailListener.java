@@ -6,16 +6,15 @@ import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.DataSource;
+import bitcamp.util.Component;
 
+@Component("/board/detail")
 public class BoardDetailListener implements ActionListener {
-  int category;
-  SqlSessionFactory sqlSessionFactory;
-  BoardDao boardDao;
-  DataSource ds;
 
-  public BoardDetailListener(int category, BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
-    this.category = category;
+  BoardDao boardDao;
+  SqlSessionFactory sqlSessionFactory;
+
+  public BoardDetailListener(BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
     this.boardDao = boardDao;
     this.sqlSessionFactory = sqlSessionFactory;
   }
@@ -24,7 +23,8 @@ public class BoardDetailListener implements ActionListener {
   public void service(BreadcrumbPrompt prompt) throws IOException {
     int boardNo = prompt.inputInt("번호? ");
 
-    Board board = boardDao.findBy(category, boardNo);
+    Board board =
+        boardDao.findBy(Integer.parseInt((String) prompt.getAttribute("category")), boardNo);
     if (board == null) {
       prompt.println("해당 번호의 게시글이 없습니다!");
       return;
@@ -35,7 +35,6 @@ public class BoardDetailListener implements ActionListener {
     prompt.printf("작성자: %s\n", board.getWriter().getName());
     prompt.printf("조회수: %s\n", board.getViewCount());
     prompt.printf("등록일: %tY-%1$tm-%1$td\n", board.getCreatedDate());
-    board.setViewCount(board.getViewCount() + 1);
 
     try {
       board.setViewCount(board.getViewCount() + 1);
@@ -44,6 +43,7 @@ public class BoardDetailListener implements ActionListener {
 
     } catch (Exception e) {
       sqlSessionFactory.openSession(false).rollback();
+      throw new RuntimeException(e);
     }
   }
 }
