@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.myapp.dao.DogDao">
+
+  <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
+  <resultMap type="bitcamp.myapp.vo.MyDog" id="dogMap">
+    <id     column="dog_no"       property="dog_no"/>
+    <result column="kind"         property="kind"/>
+    <result column="age"          property="age"/>
+    <result column="weight"       property="weight"/>
+    <result column="gender"       property="gender"/>
+    <result column="location"     property="location"/>
+    <result column="id"           property="id"/>
+    <result column="isCreated"    property="isCreated"/>
+    <result column="created_date" property="createdDate"/>
+  </resultMap>
+
+  <insert id="insert" parameterType="bitcamp.myapp.vo.MyDog">
+    insert into myapp_dog(kind, age, gender, weight, location, id, isCreated) 
+    values(#{kind}, #{age}, #{gender}, #{weight}, #{location}, #{id}, #{isCreated})
+  </insert>
+  
+  <select id="findAll" resultMap="dogMap">
+    select
+      dog_no,
+      kind,
+      age,
+      weight,
+      gender,
+      location,
+      id,
+      isCreated,
+      created_date
+    from
+      myapp_dog 
+    order by
+      dog_no desc
+  </select>
+  
+  <select id="findBy" parameterType="int" resultMap="dogMap">
+    select
+      dog_no,
+      kind,
+      age,
+      weight,
+      gender,
+      location,
+      id,
+      isCreated,
+      created_date
+    from
+      myapp_dog
+    where
+      dog_no=#{dog_no}
+  </select>
+  
+  <update id="update" parameterType="bitcamp.myapp.vo.MyDog">
+    update myapp_dog set
+      kind=#{kind},
+      age=#{age},
+      gender=#{gender},
+      weight=#{weight},
+      location=#{location},
+      created_date=#{createdDate},
+      id=#{id},
+      isCreated=#{isCreated}
+    where 
+      dog_no=#{dog_no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from myapp_dog
+    where 
+      dog_no=#{dog_no}
+  </delete>
+</mapper>

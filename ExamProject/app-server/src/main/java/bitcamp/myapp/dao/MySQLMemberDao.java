@@ -5,14 +5,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.Component;
-import bitcamp.util.DataSource;
 
 @Component
 public class MySQLMemberDao implements MemberDao {
 
   SqlSessionFactory sqlSessionFactory;
-
-  DataSource ds;
 
   public MySQLMemberDao(SqlSessionFactory sqlSessionFactory) {
     this.sqlSessionFactory = sqlSessionFactory;
@@ -26,20 +23,19 @@ public class MySQLMemberDao implements MemberDao {
 
   @Override
   public List<Member> findAll() {
-    SqlSession sqlSession = sqlSessionFactory.openSession();
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.selectList("bitcamp.myapp.dao.MemberDao.findAll");
   }
 
-
   @Override
   public Member findBy(int no) {
-    SqlSession sqlSession = sqlSessionFactory.openSession();
-    return sqlSession.selectOne("bitcamp.myapp.dao.MemberDao.findAll");
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
+    return sqlSession.selectOne("bitcamp.myapp.dao.MemberDao.findBy", no);
   }
 
   @Override
   public Member findByEmailAndPassword(Member member) {
-    SqlSession sqlSession = sqlSessionFactory.openSession();
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.selectOne("bitcamp.myapp.dao.MemberDao.findByEmailAndPassword", member);
   }
 
@@ -54,7 +50,5 @@ public class MySQLMemberDao implements MemberDao {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.delete("bitcamp.myapp.dao.MemberDao.delete", no);
   }
-
-
 
 }
