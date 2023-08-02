@@ -22,6 +22,7 @@ public class BoardListServlet implements Servlet {
 
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
     int category = Integer.parseInt(request.getParameter("category"));
 
     response.setContentType("text/html;charset=UTF-8");
@@ -35,7 +36,7 @@ public class BoardListServlet implements Servlet {
     out.println("<body>");
     out.println("<h1>게시글 목록</h1>");
     out.println("<div style='margin:5px;'>");
-    out.printf("<a href='/board/form?cetegory=%d'>새 글</a>\n", category);
+    out.printf("<a href='/board/form?category=%d'>새 글</a>\n", category);
     out.println("</div>");
     out.println("<table border='1'>");
     out.println("<thead>");
@@ -61,5 +62,3 @@ public class BoardListServlet implements Servlet {
   }
 
 }
-
-
