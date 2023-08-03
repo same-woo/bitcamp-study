@@ -23,11 +23,23 @@ public class BoardAddServlet implements Servlet {
 
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+
+    if (loginUser == null) {
+      response.sendRedirect("/auth.form.html");
+      return;
+    }
+
+
+    int category = Integer.parseInt(request.getParameter("category"));
+
     Board board = new Board();
     board.setTitle(request.getParameter("title"));
     board.setContent(request.getParameter("content"));
-    board.setWriter((Member) request.getAttribute("loginUser"));
-    board.setCategory(Integer.parseInt(request.getParameter("category")));
+    board.setWriter((Member) request.getSession().getAttribute("loginUser"));
+    board.setWriter(loginUser);
+    board.setCategory(category);
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -35,7 +47,7 @@ public class BoardAddServlet implements Servlet {
     out.println("<html>");
     out.println("<head>");
     out.println("<meta charset='UTF-8'>");
-    out.println("<meta http-equiv='refresh' content='1;url=/board/list?category=1'>");
+    out.printf("<meta http-equiv='refresh' content='1;url=/board/list?category=%d'>", category);
     out.println("<title>게시글</title>");
     out.println("</head>");
     out.println("<body>");
@@ -54,14 +66,5 @@ public class BoardAddServlet implements Servlet {
     out.println("</html>");
   }
 }
-
-
-
-
-
-
-
-
-
 
 

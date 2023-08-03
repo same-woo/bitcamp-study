@@ -22,28 +22,22 @@ public class BoardDeleteServlet implements Servlet {
 
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+    if (loginUser == null) {
+      response.sendRedirect("/auth/form.html");
+      return;
+    }
+
     int category = Integer.parseInt(request.getParameter("category"));
 
-    Board board = new Board();
-    board.setNo(Integer.parseInt(request.getParameter("no")));
-    board.setWriter((Member) request.getAttribute("loginUser"));
-    board.setCategory(Integer.parseInt((String) request.getAttribute("category")));
-    board.setCategory(category);
-
-    // response.setContentType("text/html;charset=UTF-8");
-    // PrintWriter out = response.getWriter();
-    // out.println("<!DOCTYPE html>");
-    // out.println("<html>");
-    // out.println("<head>");
-    // out.println("<meta charset='UTF-8'>");
-    // out.println("<title>게시글</title>");
-    // out.println("</head>");
-    // out.println("<body>");
-    // out.println("<h1>게시글</h1>");
-
+    Board b = new Board();
+    b.setNo(Integer.parseInt(request.getParameter("no")));
+    b.setWriter(loginUser);
+    b.setCategory(category);
 
     try {
-      if (boardDao.delete(board) == 0) {
+      if (boardDao.delete(b) == 0) {
         throw new Exception("해당 번호의 게시글이 없거나 삭제 권한이 없습니다.");
       } else {
         response.sendRedirect("/board/list?category=" + category);
@@ -54,9 +48,16 @@ public class BoardDeleteServlet implements Servlet {
       sqlSessionFactory.openSession(false).rollback();
       throw new RuntimeException(e);
     }
-    // out.println("</body>");
-    // out.println("</html>");
   }
 }
+
+
+
+
+
+
+
+
+
 
 

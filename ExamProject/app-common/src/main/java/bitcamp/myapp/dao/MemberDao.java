@@ -1,4 +1,3 @@
-// MemberDao.java
 package bitcamp.myapp.dao;
 
 import java.util.List;
@@ -16,5 +15,4 @@ public interface MemberDao {
   int update(Member member);
 
   int delete(int no);
-
 }

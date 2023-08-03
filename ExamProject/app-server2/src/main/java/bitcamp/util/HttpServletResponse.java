@@ -227,7 +227,7 @@ public class HttpServletResponse {
 
   public Mono<Void> sendWebsocket(
       BiFunction<? super WebsocketInbound, ? super WebsocketOutbound, ? extends Publisher<Void>> websocketHandler,
-          WebsocketServerSpec websocketServerSpec) {
+      WebsocketServerSpec websocketServerSpec) {
     return original.sendWebsocket(websocketHandler, websocketServerSpec);
   }
 
