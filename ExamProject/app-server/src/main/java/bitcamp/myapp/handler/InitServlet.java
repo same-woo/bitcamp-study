@@ -2,6 +2,7 @@ package bitcamp.myapp.handler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.GenericServlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -14,11 +15,12 @@ import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.MySQLBoardDao;
 import bitcamp.myapp.dao.MySQLMemberDao;
-import bitcamp.util.AbstractServlet;
 import bitcamp.util.SqlSessionFactoryProxy;
 
-@WebServlet("/init")
-public class InitServlet extends AbstractServlet {
+@WebServlet(value = "/init", loadOnStartup = 1)
+public class InitServlet extends GenericServlet {
+
+  private static final long serialVersionUID = 1L;
 
   public static SqlSessionFactory sqlSessionFactory;
   public static BoardDao boardDao;
@@ -26,9 +28,8 @@ public class InitServlet extends AbstractServlet {
 
   @Override
   public void init(ServletConfig config) throws ServletException {
-    // TODO Auto-generated method stub
     super.init(config);
-    System.out.println("InitServlet.init() 호출됨");
+    System.out.println("InitServlet.init() 호출됨!");
 
     try {
       sqlSessionFactory = new SqlSessionFactoryProxy(new SqlSessionFactoryBuilder()
@@ -37,9 +38,8 @@ public class InitServlet extends AbstractServlet {
       boardDao = new MySQLBoardDao(sqlSessionFactory);
       memberDao = new MySQLMemberDao(sqlSessionFactory);
 
-
     } catch (Exception e) {
-      System.out.println("InitServlet.init() 실행 중 오류발생");
+      System.out.println("InitServlet.init() 실행 중 오류 발생!");
       e.printStackTrace();
     }
   }
@@ -47,8 +47,6 @@ public class InitServlet extends AbstractServlet {
   @Override
   public void service(ServletRequest request, ServletResponse response)
       throws ServletException, IOException {
-
-
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<!DOCTYPE html>");

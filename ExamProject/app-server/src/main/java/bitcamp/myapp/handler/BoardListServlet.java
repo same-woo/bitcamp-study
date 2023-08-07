@@ -4,16 +4,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import bitcamp.myapp.vo.Board;
-import bitcamp.util.AbstractServlet;
 
 @WebServlet("/board/list")
-public class BoardListServlet extends AbstractServlet {
+public class BoardListServlet extends GenericServlet {
 
+  private static final long serialVersionUID = 1L;
   SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
   @Override
@@ -44,20 +45,12 @@ public class BoardListServlet extends AbstractServlet {
 
     out.println("<tbody>");
     for (Board board : list) {
-      out.printf("<tr>"
-          + " <td>%d</td>"
-          + " <td><a href='/board/detail?category=%d&no=%d'>%s</a></td>"
-          + " <td>%s</td>"
-          + " <td>%d</td>"
-          + " <td>%s</td></tr>\n",
-          board.getNo(),
-          board.getCategory(),
-          board.getNo(),
-          (board.getTitle().length() > 0 ? board.getTitle() : "제목없음"),
-          board.getWriter().getName(),
-          board.getViewCount(),
-          dateFormatter.format(board.getCreatedDate())
-          );
+      out.printf(
+          "<tr>" + " <td>%d</td>" + " <td><a href='/board/detail?category=%d&no=%d'>%s</a></td>"
+              + " <td>%s</td>" + " <td>%d</td>" + " <td>%s</td></tr>\n",
+          board.getNo(), board.getCategory(), board.getNo(),
+          (board.getTitle().length() > 0 ? board.getTitle() : "제목없음"), board.getWriter().getName(),
+          board.getViewCount(), dateFormatter.format(board.getCreatedDate()));
     }
     out.println("</tbody>");
     out.println("</table>");
@@ -67,14 +60,3 @@ public class BoardListServlet extends AbstractServlet {
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-

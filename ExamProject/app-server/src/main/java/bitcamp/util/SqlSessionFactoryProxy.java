@@ -27,10 +27,12 @@ public class SqlSessionFactoryProxy implements SqlSessionFactory {
     }
   }
 
+  @Override
   public SqlSession openSession() {
     return openSession(true);
   }
 
+  @Override
   public SqlSession openSession(boolean autoCommit) {
     SqlSession sqlSession = sqlSessionBox.get();
     if (sqlSession == null) {
@@ -40,30 +42,37 @@ public class SqlSessionFactoryProxy implements SqlSessionFactory {
     return sqlSession;
   }
 
+  @Override
   public SqlSession openSession(Connection connection) {
     return original.openSession(connection);
   }
 
+  @Override
   public SqlSession openSession(TransactionIsolationLevel level) {
     return original.openSession(level);
   }
 
+  @Override
   public SqlSession openSession(ExecutorType execType) {
     return original.openSession(execType);
   }
 
+  @Override
   public SqlSession openSession(ExecutorType execType, boolean autoCommit) {
     return original.openSession(execType, autoCommit);
   }
 
+  @Override
   public SqlSession openSession(ExecutorType execType, TransactionIsolationLevel level) {
     return original.openSession(execType, level);
   }
 
+  @Override
   public SqlSession openSession(ExecutorType execType, Connection connection) {
     return original.openSession(execType, connection);
   }
 
+  @Override
   public Configuration getConfiguration() {
     return original.getConfiguration();
   }

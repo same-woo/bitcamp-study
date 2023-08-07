@@ -1,7 +1,7 @@
 plugins {
     id 'application'
     id 'java'
-    id 'eclipse'
+    id 'eclipse-wtp'
     id  'war'
 }
 
@@ -61,6 +61,17 @@ eclipse {
     
     war {
     archiveBaseName = "web"
+    }
+    
+    wtp {
+      facet {
+        facet name: 'jst.java', version: '17'
+        //facet name: 'jst.web', version: '4.0'
+      }
+        component {
+            contextPath = '/'
+            //deployName = 'web'
+      }
     }
     
 }
