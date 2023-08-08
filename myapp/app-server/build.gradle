@@ -1,5 +1,4 @@
 plugins {
-    id 'java-library'
     id 'application'
     id 'eclipse'
 }
@@ -12,7 +11,7 @@ dependencies {
     // 서브 프로젝트의 클래스를 사용하기
     implementation project(':app-common')
     
-    // sql 
+    // MySQL JDBC Driver
     implementation 'mysql:mysql-connector-java:8.0.33'
     
     // Google JSON 라이브러리
@@ -21,7 +20,11 @@ dependencies {
     // Mybatis 라이브러리
     implementation 'org.mybatis:mybatis:3.5.13'
   
-    // python
+    // Reactor Netty 프레임워크
+    implementation platform('io.projectreactor:reactor-bom:2022.0.9') 
+    implementation 'io.projectreactor.netty:reactor-netty-core' 
+    implementation 'io.projectreactor.netty:reactor-netty-http'
+  
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
     implementation 'com.google.guava:guava:31.1-jre'
 }
