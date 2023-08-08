@@ -8,11 +8,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.dao.MemberDao;
+
 import bitcamp.myapp.dao.MySQLBoardDao;
 import bitcamp.myapp.dao.MySQLMemberDao;
 import bitcamp.myapp.handler.BoardAddListener;
@@ -26,7 +26,6 @@ import bitcamp.myapp.handler.MemberDeleteListener;
 import bitcamp.myapp.handler.MemberDetailListener;
 import bitcamp.myapp.handler.MemberListListener;
 import bitcamp.myapp.handler.MemberUpdateListener;
-import bitcamp.net.NetProtocol;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
