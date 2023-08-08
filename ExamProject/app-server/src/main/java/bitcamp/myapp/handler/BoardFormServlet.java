@@ -14,7 +14,7 @@ public class BoardFormServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response)
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
 

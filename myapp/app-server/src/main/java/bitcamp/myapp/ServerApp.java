@@ -8,11 +8,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.DogDao;
 import bitcamp.myapp.dao.MemberDao;
@@ -61,8 +59,9 @@ public class ServerApp {
 
     this.port = port;
 
-    // 1) mybatis 설정 파일을 읽어들일 도구를 준비한다.  d
-    InputStream mybatisConfigIn = Resources.getResourceAsStream("bitcamp/myapp/config/mybatis-config.xml");
+    // 1) mybatis 설정 파일을 읽어들일 도구를 준비한다. d
+    InputStream mybatisConfigIn =
+        Resources.getResourceAsStream("bitcamp/myapp/config/mybatis-config.xml");
 
     // 2) SqlSessionFactory를 만들어줄 빌더 객체 준비
     SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
@@ -74,7 +73,7 @@ public class ServerApp {
     this.memberDao = new MySQLMemberDao(sqlSessionFactory);
     this.boardDao = new MySQLBoardDao(sqlSessionFactory);
 
-//    prepareMenu(prompt);
+    // prepareMenu(prompt);
   }
 
   public void close() throws Exception {
@@ -88,79 +87,74 @@ public class ServerApp {
   }
 
   public void execute() {
-	  try (ServerSocket serverSocket = new ServerSocket(this.port)) {
-	    System.out.println("서버 실행 중...");
+    try (ServerSocket serverSocket = new ServerSocket(this.port)) {
+      System.out.println("서버 실행 중...");
 
-	    while (true) {
-	      Socket socket = serverSocket.accept();
-	      threadPool.execute(() -> processRequest(socket));
-	    }
-	  } catch (Exception e) {
-	    System.out.println("서버 실행 오류!");
-	    e.printStackTrace();
-	  }
-	}
+      while (true) {
+        Socket socket = serverSocket.accept();
+        threadPool.execute(() -> processRequest(socket));
+      }
+    } catch (Exception e) {
+      System.out.println("서버 실행 오류!");
+      e.printStackTrace();
+    }
+  }
 
   private void processRequest(Socket socket) {
-	  try (Socket s = socket;
-	      DataInputStream in = new DataInputStream(socket.getInputStream());
-	      DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
-		  BreadcrumbPrompt prompt = new BreadcrumbPrompt(in, out); // 로그인 이후에 prompt 생성
-	    InetSocketAddress clientAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
-	    System.out.printf("%s 클라이언트 접속함!\n", clientAddress.getHostString());
+    try (Socket s = socket;
+        DataInputStream in = new DataInputStream(socket.getInputStream());
+        DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
+      BreadcrumbPrompt prompt = new BreadcrumbPrompt(in, out); // 로그인 이후에 prompt 생성
+      InetSocketAddress clientAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
+      System.out.printf("%s 클라이언트 접속함!\n", clientAddress.getHostString());
 
-	    out.writeUTF("[전국 보호동물센터.com]\n" + "-----------------------------------------");
+      out.writeUTF("[전국 보호동물센터.com]\n" + "-----------------------------------------");
 
-	    // 초기 화면에서 회원가입 또는 로그인 여부를 물어봅니다.
-	    String choice = prompt.inputString("1. 회원가입\n2. 로그인\n> ");
-	    switch (choice) {
-	      case "1":
-	        new MemberAddListener(memberDao, sqlSessionFactory).service(prompt); // 회원가입 기능 실행
-	        break;
-	      case "2":
-	        new LoginListener(memberDao).service(prompt); // 로그인 기능 실행
-	        break;
-	      default:
-	        prompt.println("잘못된 선택입니다.");
-	        prompt.end();
-	        return;
-	    }
+      // 초기 화면에서 회원가입 또는 로그인 여부를 물어봅니다.
+      String choice = prompt.inputString("1. 회원가입\n2. 로그인\n> ");
+      switch (choice) {
+        case "1":
+          new MemberAddListener(memberDao, sqlSessionFactory).service(prompt); // 회원가입 기능 실행
+          break;
+        case "2":
+          new LoginListener(memberDao).service(prompt); // 로그인 기능 실행
+          break;
+        default:
+          prompt.println("잘못된 선택입니다.");
+          prompt.end();
+          return;
+      }
 
-	    
 
-	    prepareMenu(prompt); // 메뉴를 준비합니다.
 
-	    mainMenu.execute(prompt);
-	    out.writeUTF(NetProtocol.NET_END);
+      prepareMenu(prompt); // 메뉴를 준비합니다.
 
-	  } catch (Exception e) {
-	    System.out.println("클라이언트 통신 오류!");
-	    e.printStackTrace();
+      mainMenu.execute(prompt);
+      out.writeUTF(NetProtocol.NET_END);
 
-	  } finally {
-	    ((SqlSessionFactoryProxy) sqlSessionFactory).clean();
-	  }
-	}
+    } catch (Exception e) {
+      System.out.println("클라이언트 통신 오류!");
+      e.printStackTrace();
+
+    } finally {
+      ((SqlSessionFactoryProxy) sqlSessionFactory).clean();
+    }
+  }
 
 
   private void prepareMenu(BreadcrumbPrompt prompt) {
     MenuGroup memberMenu = new MenuGroup("회원관리");
-    
-    if (((Member)prompt.getAttribute("loginUser")).getEmail().contains("@test.com")) {
-        memberMenu.add(new Menu("등록", new MemberAddListener(memberDao, sqlSessionFactory)));
-        memberMenu.add(new Menu("변경", new MemberUpdateListener(memberDao, sqlSessionFactory)));
-        memberMenu.add(new Menu("삭제", new MemberDeleteListener(memberDao, sqlSessionFactory)));
-      } else {
-    
-//    memberMenu.add(new Menu("등록", new MemberAddListener(memberDao, sqlSessionFactory)));
-    memberMenu.add(new Menu("목록", new MemberListListener(memberDao)));
-    memberMenu.add(new Menu("조회", new MemberDetailListener(memberDao)));
-//    memberMenu.add(new Menu("변경", new MemberUpdateListener(memberDao, sqlSessionFactory)));
-//    memberMenu.add(new Menu("삭제", new MemberDeleteListener(memberDao, sqlSessionFactory)));
-      }
+
+    if (((Member) prompt.getAttribute("loginUser")).getEmail().contains("@test.com")) {
+      memberMenu.add(new Menu("등록", new MemberAddListener(memberDao, sqlSessionFactory)));
+      memberMenu.add(new Menu("목록", new MemberListListener(memberDao)));
+      memberMenu.add(new Menu("조회", new MemberDetailListener(memberDao)));
+      memberMenu.add(new Menu("변경", new MemberUpdateListener(memberDao, sqlSessionFactory)));
+      memberMenu.add(new Menu("삭제", new MemberDeleteListener(memberDao, sqlSessionFactory)));
+    }
     mainMenu.add(memberMenu);
-    
-    
+
+
     MenuGroup dogMenu = new MenuGroup("보호동물");
     dogMenu.add(new Menu("등록", new DogAddListener(dogDao, sqlSessionFactory)));
     dogMenu.add(new Menu("목록", new DogListListener(dogDao)));
