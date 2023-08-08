@@ -5,10 +5,15 @@ import java.io.StringWriter;
 import java.net.SocketAddress;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
+<<<<<<< HEAD
+=======
+import java.sql.Connection;
+>>>>>>> 1f70ccb8656b36556158980f1dd27eac3570c4b5
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
+<<<<<<< HEAD
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -17,12 +22,24 @@ import org.reactivestreams.Subscriber;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.handler.codec.http.HttpHeaders;
+=======
+import java.util.concurrent.Flow.Publisher;
+import java.util.concurrent.Flow.Subscriber;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
+>>>>>>> 1f70ccb8656b36556158980f1dd27eac3570c4b5
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpVersion;
 import io.netty.handler.codec.http.cookie.Cookie;
 import reactor.core.publisher.Mono;
+<<<<<<< HEAD
 import reactor.netty.Connection;
+=======
+>>>>>>> 1f70ccb8656b36556158980f1dd27eac3570c4b5
 import reactor.netty.NettyOutbound;
 import reactor.netty.http.server.HttpServerResponse;
 import reactor.netty.http.server.WebsocketServerSpec;
@@ -227,7 +244,11 @@ public class HttpServletResponse {
 
   public Mono<Void> sendWebsocket(
       BiFunction<? super WebsocketInbound, ? super WebsocketOutbound, ? extends Publisher<Void>> websocketHandler,
+<<<<<<< HEAD
           WebsocketServerSpec websocketServerSpec) {
+=======
+      WebsocketServerSpec websocketServerSpec) {
+>>>>>>> 1f70ccb8656b36556158980f1dd27eac3570c4b5
     return original.sendWebsocket(websocketHandler, websocketServerSpec);
   }
 

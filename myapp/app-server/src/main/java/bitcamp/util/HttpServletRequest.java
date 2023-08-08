@@ -2,6 +2,7 @@ package bitcamp.util;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+<<<<<<< HEAD
 import java.nio.charset.Charset;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -9,11 +10,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+=======
+import java.sql.Connection;
+import java.time.ZonedDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+>>>>>>> 1f70ccb8656b36556158980f1dd27eac3570c4b5
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import io.netty.handler.codec.http.HttpContent;
+<<<<<<< HEAD
 import io.netty.handler.codec.http.HttpHeaders;
+=======
+>>>>>>> 1f70ccb8656b36556158980f1dd27eac3570c4b5
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpVersion;
 import io.netty.handler.codec.http.QueryStringDecoder;
@@ -21,13 +32,17 @@ import io.netty.handler.codec.http.cookie.Cookie;
 import io.netty.handler.codec.http.multipart.HttpData;
 import reactor.core.publisher.Flux;
 import reactor.netty.ByteBufFlux;
+<<<<<<< HEAD
 import reactor.netty.Connection;
 import reactor.netty.http.server.HttpServerFormDecoderProvider.Builder;
+=======
+>>>>>>> 1f70ccb8656b36556158980f1dd27eac3570c4b5
 import reactor.netty.http.server.HttpServerRequest;
 
 public class HttpServletRequest {
 
   HttpServerRequest original;
+<<<<<<< HEAD
   Map<String,Object> attrMap = new HashMap<>();
   Map<String,List<String>> paramMap = new HashMap<>();
   HttpSession session;
@@ -64,6 +79,14 @@ public class HttpServletRequest {
 
   public HttpSession getSession() {
     return this.session;
+=======
+  QueryStringDecoder qsDecoder;
+  Map<String, Object> attrMap = new HashMap<>();
+
+  public HttpServletRequest(HttpServerRequest original) {
+    this.original = original;
+    this.qsDecoder = new QueryStringDecoder(original.uri());
+>>>>>>> 1f70ccb8656b36556158980f1dd27eac3570c4b5
   }
 
   public void setAttribute(String name, Object value) {
@@ -75,6 +98,7 @@ public class HttpServletRequest {
   }
 
   public String getServletPath() {
+<<<<<<< HEAD
     return this.servletPath;
   }
 
@@ -92,6 +116,17 @@ public class HttpServletRequest {
       return null;
     }
     return values.toArray(new String[0]);
+=======
+    return qsDecoder.path();
+  }
+
+  public String getParameter(String name) {
+    return qsDecoder.parameters().get(name).get(0);
+  }
+
+  public String[] getParameterValues(String name) {
+    return qsDecoder.parameters().get(name).toArray(new String[0]);
+>>>>>>> 1f70ccb8656b36556158980f1dd27eac3570c4b5
   }
 
   public ByteBufFlux receive() {
@@ -224,4 +259,8 @@ public class HttpServletRequest {
   }
 
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1f70ccb8656b36556158980f1dd27eac3570c4b5

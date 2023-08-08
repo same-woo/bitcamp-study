@@ -60,13 +60,13 @@
   </select>
   
   <update id="update" parameterType="board">
-    update myapp_board set
-      title=#{title},
-      content=#{content}
-    where 
-      category=#{category}
-      and board_no=#{no}
-      and writer=#{writer.no}
+	  update myapp_board set
+	    title=#{title},
+	    content=#{content}
+	  where 
+	    category=#{category}
+	    and board_no=#{no}
+	    and writer=#{writer.no}
   </update>
   
   <update id="updateCount" parameterType="board">
@@ -85,3 +85,8 @@
       and writer=#{writer.no}
   </delete>
 </mapper>
+
+
+
+
+

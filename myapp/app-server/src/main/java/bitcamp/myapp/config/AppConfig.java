@@ -19,4 +19,8 @@ public class AppConfig {
         new SqlSessionFactoryBuilder().build(
             Resources.getResourceAsStream("bitcamp/myapp/config/mybatis-config.xml")));
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1f70ccb8656b36556158980f1dd27eac3570c4b5
