@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>전국 동물보호소 보호동물 정보시스템</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+<style>
+  /* 추가된 부분 */
+  .notice-container {
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 5px;
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  /* 추가된 부분 */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+</style>
+<script>
+  // 추가된 부분
+  function closeNotice() {
+    const noticeContainer = document.querySelector('.notice-container');
+    noticeContainer.style.display = 'none';
+  }
+</script>
+</head>
+<body>
+<div class="main-container">
+  <h1 class="main-title">🐾 전국 동물보호소 정보시스템</h1>
+  <ul class="main-menu">
+    <li><a href="/member/list">👤회원정보</a></li>
+    <li><a href="/dog/list">🐶보호동물</a></li>
+    <li><a href="/board/list?category=1">😻입양신청</a></li>
+    <li><a href="/board/list?category=2">✍게시판</a></li>
+    <li><a href="/auth/form.html">🔒로그인</a></li>
+  </ul>
+</div>
+<div class="notice-container">
+  <span class="close-button" onclick="closeNotice()">X</span>
+  <h2 class="notice-title">📣 공지사항</h2>
+  <p>본 시스템은 동물보호와 관련된 정보를 제공하는 시스템입니다. 최신 소식과 보호동물 정보를 확인하세요!</p>
+  <p>보호 중인 동물을 확인하고, 미리 입양 사전신청을 통해서 보호기간이 종료된 동물에 대해 입양기회를 얻을 수 있습니다.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>로그인</title>
+<link rel='stylesheet' type='text/css' href='login-styles.css'> <!-- CSS 파일 링크 추가 -->
+</head>
+<body>
+<div class='form-container'>
+<form action='/auth/login' method="post">
+<table class='form-table'>
+<tr>
+  <th>이메일</th> <td><input type='email' name='email'></td>
+</tr>
+<tr>
+  <th>암호</th> <td><input type='password' name='password'></td>
+</tr>
+</table>
+<button class='button'>로그인</button>
+<button type='button' class='button2' onclick="location.href='/';">메인</button>
+
+</form>
+</div>
+</body>
+</html>

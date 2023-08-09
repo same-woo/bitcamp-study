@@ -54,14 +54,14 @@ eclipse {
       javaRuntimeName = "JavaSE-17"
     }
     wtp {
-      facet {
-        facet name: 'jst.java', version: '17'
-        //facet name: 'jst.web', version: '4.0'
-      }
+        facet {
+            facet name: 'jst.java', version: '17'
+            //facet name: 'jst.web', version: '4.0'
+        }
         component {
             contextPath = '/'
             //deployName = 'web'
-      }
+        }
     }
 }
 

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>보호동물 등록</title>
+</head>
+<body>
+<h1>보호동물 등록</h1>
+<form action='/dog/add' method='post'>
+<table border='1'>
+<tr>
+  <th>품종</th> <td style="width:200px;"><input type='text' name='kind'></td>
+</tr>
+<tr>
+  <th>나이</th> <td><input type='number' name='age'></td>
+</tr>
+<tr>
+  <th>체중</th> <td><input type='number' step='0.1' name='weight'></td>
+</tr>
+<tr>
+  <th>성별</th> 
+  <td>
+    <select name="gender">
+      <option value="M">수컷</option>
+      <option value="W">암컷</option>
+    </select>  
+  </td>
+</tr>
+<tr>
+  <th>지역</th> <td><input type='text' name='location'></td>
+</tr>
+<tr>
+  <th>ID</th> <td><input type='number' name='id'></td>
+</tr>
+</table>
+<button>등록</button>
+</form>
+</body>
+</html>

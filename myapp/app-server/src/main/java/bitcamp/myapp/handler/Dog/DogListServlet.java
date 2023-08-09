@@ -1,69 +1,75 @@
 package bitcamp.myapp.handler.Dog;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import bitcamp.myapp.dao.DogDao;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.myapp.handler.Init.InitServlet;
 import bitcamp.myapp.vo.MyDog;
-import bitcamp.util.Component;
-import bitcamp.util.HttpServletRequest;
-import bitcamp.util.HttpServletResponse;
-import bitcamp.util.Servlet;
 
-@Component("/dog/list") // Assuming you want to map this to a URL like /dog/list
-public class DogListServlet implements Servlet {
+@WebServlet("/dog/list")
+public class DogListServlet extends HttpServlet {
 
-  DogDao dogDao;
+  private static final long serialVersionUID = 1L;
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+      
+	  response.setContentType("text/html;charset=UTF-8");
+	  PrintWriter out = response.getWriter();
+	  out.println("<!DOCTYPE html>");
+	  out.println("<html>");
+	  out.println("<head>");
+	  out.println("<meta charset='UTF-8'>");
+	  out.println("<title>보호동물 리스트</title>");
+	  
+	  out.println("<link rel='stylesheet' type='text/css' href='dog-styles.css'>");
+	  
+	  out.println("</head>");
+	  out.println("<body>");
+	  out.println("<h1 class='form-title' style='text-align:center;'>보호동물 목록</h1>");
+	  out.println("<div class='container'>");
+	    
+	  // 스타일이 적용된 버튼 추가
+	  out.println("<a href='/dog/form.html' class='button'>새 동물 등록</a>");
+	  out.println("<a href='/' class='button'>메인</a>");
+	  out.println("<table class='table'>");
+	  
+	  out.println("<thead>");
+	  out.println("  <tr><th>번호</th> <th>품종</th> <th>나이</th> <th>성별</th> <th>체중</th> <th>보호여부</th></tr>");
+	  out.println("</thead>");
 
-  public DogListServlet(DogDao dogDao) {
-    this.dogDao = dogDao;
-  }
-  
-  
-@Override
-	public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
 
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<meta charset='UTF-8'>");
-    out.println("<title>보호동물 리스트</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>보호동물 리스트</h1>");
-    out.println("<table>");
-    out.println("<tr>");
-    out.println("<th>번호</th>");
-    out.println("<th>품종</th>");
-    out.println("<th>나이</th>");
-    out.println("<th>성별</th>");
-    out.println("<th>체중</th>");
-    out.println("<th>보호여부</th>");
-    out.println("</tr>");
 
-    try {
-      List<MyDog> list = dogDao.findAll();
+      List<MyDog> list = InitServlet.dogDao.findAll();
       for (MyDog dog : list) {
-        out.println("<tr>");
-        out.printf("<td>%d</td>", dog.getDog_no());
-        out.printf("<td>%s</td>", dog.getKind());
-        out.printf("<td>%d</td>", dog.getAge());
-        out.printf("<td>%c</td>", dog.getGender());
-        out.printf("<td>%.0f</td>", dog.getWeight());
-        out.printf("<td>%b</td>", dog.isCreated());
-        out.println("</tr>");
-      }
-    } catch (Exception e) {
-      out.println("<tr>");
-      out.println("<td colspan='6'>목록을 불러오는 중 오류가 발생했습니다.</td>");
-      out.println("</tr>");
-      e.printStackTrace(out);
-    }
-
-    out.println("</table>");
-    out.println("</body>");
-    out.println("</html>");
+          out.printf("<tr>"
+                  + "<td><a href='/dog/detail?no=%d'>%d</a></td>"
+                  + "<td>%s</td>"
+                  + "<td>%d</td>"
+                  + "<td>%s</td>"
+                  + "<td>%.1f</td>"
+                  + "<td>%s</td>"
+                  + "</tr>\n",
+                  dog.getDog_no(),
+                  dog.getDog_no(),
+                  dog.getKind(),
+                  dog.getAge(),
+                  dog.getGender(),
+                  dog.getWeight(),
+                  dog.isCreated());
+        }
+        
+      out.println("</tbody>");
+      out.println("</table>");
+      out.println("</div>");
+      out.println("</body>");
+      out.println("</html>");
   }
 }

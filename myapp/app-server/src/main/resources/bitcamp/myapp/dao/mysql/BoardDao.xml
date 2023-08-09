@@ -84,4 +84,12 @@
       and board_no=#{no}
       and writer=#{writer.no}
   </delete>
+  
+  
+  <delete id="deleteAllByMemberNo" parameterType="int">
+  delete from myapp_board
+  where 
+    writer=#{memberNo}
+</delete>
+  
 </mapper>

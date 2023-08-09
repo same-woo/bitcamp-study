@@ -1,7 +1,8 @@
-package bitcamp.myapp.handler;
+package bitcamp.myapp.handler.Board;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,14 +41,3 @@ public class BoardFormServlet extends HttpServlet {
 
   }
 }
-
-
-
-
-
-
-
-
-
-
-

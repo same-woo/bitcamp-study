@@ -1,29 +1,27 @@
 package bitcamp.myapp.handler.Board;
 
+import java.io.IOException;
 import java.io.PrintWriter;
-import org.apache.ibatis.session.SqlSessionFactory;
-import bitcamp.myapp.dao.BoardDao;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.myapp.handler.Init.InitServlet;
 import bitcamp.myapp.vo.Board;
-import bitcamp.util.Component;
-import bitcamp.util.HttpServletRequest;
-import bitcamp.util.HttpServletResponse;
-import bitcamp.util.Servlet;
 
-@Component("/board/detail")
-public class BoardDetailServlet implements Servlet {
+@WebServlet("/board/detail")
+public class BoardDetailServlet extends HttpServlet {
 
-  BoardDao boardDao;
-  SqlSessionFactory sqlSessionFactory;
-
-  public BoardDetailServlet(BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
-    this.boardDao = boardDao;
-    this.sqlSessionFactory = sqlSessionFactory;
-  }
+  private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
 
-    Board board = boardDao.findBy(
+    Board board = InitServlet.boardDao.findBy(
         Integer.parseInt(request.getParameter("category")),
         Integer.parseInt(request.getParameter("no")));
 
@@ -66,11 +64,11 @@ public class BoardDetailServlet implements Servlet {
       out.println("</form>");
       try {
         board.setViewCount(board.getViewCount() + 1);
-        boardDao.updateCount(board);
-        sqlSessionFactory.openSession(false).commit();
+        InitServlet.boardDao.updateCount(board);
+        InitServlet.sqlSessionFactory.openSession(false).commit();
 
       } catch (Exception e) {
-        sqlSessionFactory.openSession(false).rollback();
+        InitServlet.sqlSessionFactory.openSession(false).rollback();
       }
     }
 

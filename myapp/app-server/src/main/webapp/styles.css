@@ -1,0 +1,44 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+.main-container {
+  width: 80%;
+  margin: 20px auto 0; /* 여백을 위한 margin-top 값을 변경 */
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.main-title {
+  text-align: center;
+  margin: 20px;
+}
+
+.main-menu {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.main-menu li {
+  margin: 10px;
+}
+
+.main-menu a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.main-menu a:hover {
+  color: #0056b3;
+}

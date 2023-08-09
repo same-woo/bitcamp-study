@@ -1,36 +1,35 @@
 package bitcamp.myapp.handler.Dog;
 
-import org.apache.ibatis.session.SqlSessionFactory;
-import bitcamp.myapp.dao.DogDao;
-import bitcamp.util.Component;
-import bitcamp.util.HttpServletRequest;
-import bitcamp.util.HttpServletResponse;
-import bitcamp.util.Servlet;
+import java.io.IOException;
 
-@Component("/dog/delete")
-public class DogDeleteServlet implements Servlet {
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-  DogDao dogDao;
-  SqlSessionFactory sqlSessionFactory;
+import bitcamp.myapp.handler.Init.InitServlet;
+import bitcamp.myapp.vo.Member;
 
-  public DogDeleteServlet(DogDao dogDao, SqlSessionFactory sqlSessionFactory) {
-    this.dogDao = dogDao;
-    this.sqlSessionFactory = sqlSessionFactory;
-  }
+@WebServlet("/dog/delete")
+public class DogDeleteServlet extends HttpServlet {
+
+  private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+	  
     try {
-      int dogNumber = Integer.parseInt(request.getParameter("number")); // Assuming "number" is the parameter for the dog's number
-      if (dogDao.delete(dogNumber) == 0) {
+      if (InitServlet.dogDao.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
         throw new Exception("해당 번호의 보호동물이 없습니다.");
       } else {
         response.sendRedirect("/dog/list");
       }
-      sqlSessionFactory.openSession(false).commit();
+      InitServlet.sqlSessionFactory.openSession(false).commit();
 
     } catch (Exception e) {
-      sqlSessionFactory.openSession(false).rollback();
+      InitServlet.sqlSessionFactory.openSession(false).rollback();
       throw new RuntimeException(e);
     }
   }

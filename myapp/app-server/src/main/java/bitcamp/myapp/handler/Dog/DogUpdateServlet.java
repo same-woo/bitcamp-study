@@ -1,30 +1,36 @@
 package bitcamp.myapp.handler.Dog;
 
+import java.io.IOException;
 import java.io.PrintWriter;
-import org.apache.ibatis.session.SqlSessionFactory;
-import bitcamp.myapp.dao.DogDao;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.myapp.handler.Init.InitServlet;
+import bitcamp.myapp.vo.Member;
 import bitcamp.myapp.vo.MyDog;
-import bitcamp.util.Component;
-import bitcamp.util.HttpServletRequest;
-import bitcamp.util.HttpServletResponse;
-import bitcamp.util.Servlet;
 
-@Component("/dog/update")
-public class DogUpdateServlet implements Servlet {
+@WebServlet("/dog/update")
+public class DogUpdateServlet extends HttpServlet {
 
-  DogDao dogDao;
-  SqlSessionFactory sqlSessionFactory;
-
-  public DogUpdateServlet(DogDao dogDao, SqlSessionFactory sqlSessionFactory) {
-    this.dogDao = dogDao;
-    this.sqlSessionFactory = sqlSessionFactory;
-  }
+  private static final long serialVersionUID = 1L;
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    
+  Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+    if (loginUser == null) {
+      response.sendRedirect("/auth/form.html");
+      return;
+    }
+	  
+	  
     MyDog dog = new MyDog();
-    dog.setDog_no(Integer.parseInt(request.getParameter("dog_no")));
+    dog.setDog_no(Integer.parseInt(request.getParameter("dog_no"))); // Assuming "dog_no" is the parameter for the dog's number
     dog.setKind(request.getParameter("kind"));
     dog.setAge(Integer.parseInt(request.getParameter("age")));
     dog.setWeight(Double.parseDouble(request.getParameter("weight")));
@@ -44,14 +50,12 @@ public class DogUpdateServlet implements Servlet {
     out.println("<h1>보호동물 변경</h1>");
 
     try {
-      if (dogDao.update(dog) == 0) {
-        out.println("<p>해당 번호의 보호동물이 없습니다.</p>");
+      if (InitServlet.dogDao.update(dog) == 0) {
+        out.println("<p>보호동물이 없습니다.</p>");
       } else {
-        sqlSessionFactory.openSession(false).commit();
         out.println("<p>변경했습니다!</p>");
       }
     } catch (Exception e) {
-      sqlSessionFactory.openSession(false).rollback();
       out.println("<p>변경 실패입니다!</p>");
       e.printStackTrace();
     }

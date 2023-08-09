@@ -15,9 +15,8 @@ public class LoginServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response)
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
 
     Member m = new Member();
     m.setEmail(request.getParameter("email"));
