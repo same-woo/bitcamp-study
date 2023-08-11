@@ -5,91 +5,92 @@
 <mapper namespace="bitcamp.myapp.dao.BoardDao">
 
   <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
-  <resultMap type="board" id="boardMap">
-    <id     column="board_no"       property="no"/>
-    <result column="title"          property="title"/>
-    <result column="content"        property="content"/>
-    <result column="view_count"     property="viewCount"/>
-    <result column="created_date"   property="createdDate"/>
-    <result column="category"       property="category"/>
+  <resultMap type="bitcamp.myapp.vo.Board" id="boardMap">
+    <id     column="글번호"       property="no"/>
+    <result column="제목"          property="title"/>
+    <result column="내용"        property="content"/>
+    <result column="조회수"     property="viewCount"/>
+    <result column="생성일"   property="createdDate"/>
+    <result column="동물번호"       property="animalNo"/>
+    <result column="게시판분류번호"       property="categoryNo"/>
     
-    <association property="writer" javaType="member">
-      <id     column="member_no"    property="no"/>
-      <result column="name"         property="name"/>
+    <association property="writer" javaType="bitcamp.myapp.vo.Member">
+      <id     column="작성자"    property="no"/>
+      <result column="작성자이름" property="name"/>
     </association>
     
   </resultMap>
 
-  <insert id="insert" parameterType="board">
-    insert into myapp_board(title,content,writer,category)
-    values(#{title},#{content},#{writer.no},#{category})
+  <insert id="insert" parameterType="bitcamp.myapp.vo.Board">
+    insert into 게시글(제목,내용,작성자,생성일,동물번호,게시판분류번호)
+    values(#{title},#{content},#{writer.no},#{createdDate},#{animalNo},#{categoryNo})
   </insert>
   
-  <select id="findAll" parameterType="int" resultMap="boardMap">
+<select id="findAll" parameterType="int" resultMap="boardMap">
     select
-      b.board_no,
-      b.title,
-      b.view_count,
-      b.created_date,
-      b.category,
-      m.member_no,
-      m.name
+      g.글번호,
+      g.제목,
+      g.조회수,
+      g.생성일,
+      g.동물번호,
+      g.게시판분류번호 as category,
+      m.회원번호 as writer, -- 수정된 부분
+      m.이름 as writerName -- 작성자 이름 추가
     from
-      myapp_board b inner join myapp_member m on b.writer=m.member_no
+      게시글 g inner join 회원 m on g.작성자=m.회원번호
     where
-      category=#{categoryNo}
+      g.게시판분류번호=#{category}
     order by
-      board_no desc
-  </select>
+      글번호 desc
+</select>
+
+
   
-  <select id="findBy" parameterType="map" resultMap="boardMap">
+  <select id="findBy" parameterType="int" resultMap="boardMap">
     select
-      b.board_no,
-      b.title,
-      b.content,
-      b.view_count,
-      b.created_date,
-      b.category,
-      m.member_no,
-      m.name
+      g.글번호,
+      g.제목,
+      g.내용,
+      g.조회수,
+      g.생성일,
+      g.동물번호,
+      g.게시판분류번호,
+      m.회원번호 as 작성자,
+      m.이름 as 작성자이름
     from
-      myapp_board b inner join myapp_member m on b.writer=m.member_no
+      게시글 g inner join 회원 m on g.작성자=m.회원번호
     where
-      category=#{categoryNo}
-      and board_no=#{boardNo}
+      g.게시판분류번호=#{categoryNo}
+      and g.글번호=#{boardNo}
   </select>
   
-  <update id="update" parameterType="board">
-    update myapp_board set
-      title=#{title},
-      content=#{content}
+  <update id="update" parameterType="bitcamp.myapp.vo.Board">
+    update 게시글 set
+      제목=#{title},
+      내용=#{content}
     where 
-      category=#{category}
-      and board_no=#{no}
-      and writer=#{writer.no}
+      글번호=#{no}
+      and 작성자=#{writer.no}
   </update>
   
-  <update id="updateCount" parameterType="board">
-    update myapp_board set
-      view_count=#{viewCount}
+  <update id="updateCount" parameterType="bitcamp.myapp.vo.Board">
+    update 게시글 set
+      조회수=#{viewCount}
     where
-      category=#{category}
-      and board_no=#{no}
+      글번호=#{no}
   </update>
   
-  <delete id="delete" parameterType="board">
-    delete from myapp_board
+  <delete id="delete" parameterType="bitcamp.myapp.vo.Board">
+    delete from 게시글
     where 
-      category=#{category}
-      and board_no=#{no}
-      and writer=#{writer.no}
+      글번호=#{no}
+      and 작성자=#{writer.no}
   </delete>
   
-  
   <delete id="deleteAllByMemberNo" parameterType="int">
-  delete from myapp_board
-  where 
-    writer=#{memberNo}
-</delete>
+    delete from 게시글
+    where 
+      작성자=#{memberNo}
+  </delete>
   
 </mapper>

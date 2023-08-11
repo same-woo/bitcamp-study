@@ -5,71 +5,71 @@
 <mapper namespace="bitcamp.myapp.dao.MemberDao">
 
   <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
-  <resultMap type="member" id="memberMap">
-    <id     column="member_no"       property="no"/>
-    <result column="name"          property="name"/>
-    <result column="email"        property="email"/>
-    <result column="password"     property="password"/>
-    <result column="gender"       property="gender"/>
-    <result column="created_date"   property="createdDate"/>
+  <resultMap type="bitcamp.myapp.vo.Member" id="memberMap">
+    <id     column="회원번호"       property="no"/>
+    <result column="이름"          property="name"/>
+    <result column="이메일"        property="email"/>
+    <result column="암호"         property="password"/>
+    <result column="성별"       property="gender"/>
+    <result column="가입일"   property="createdDate"/>
   </resultMap>
 
-  <insert id="insert" parameterType="member">
-    insert into myapp_member(name,email,password,gender)
-    values(#{name},#{email},sha1(#{password}),#{gender})
+  <insert id="insert" parameterType="bitcamp.myapp.vo.Member">
+    insert into 회원(이름, 이메일, 암호, 성별, 가입일)
+    values(#{name}, #{email}, sha1(#{password}), #{gender}, #{createdDate})
   </insert>
   
   <select id="findAll" resultMap="memberMap">
     select
-      member_no,
-      name,
-      email
+      회원번호,
+      이름,
+      이메일
     from
-      myapp_member 
+      회원
     order by
-      name desc
+      이름 desc
   </select>
   
   <select id="findBy" parameterType="int" resultMap="memberMap">
     select
-      member_no,
-      name,
-      email,
-      gender,
-      created_date
+      회원번호,
+      이름,
+      이메일,
+      성별,
+      가입일
     from
-      myapp_member
+      회원
     where
-      member_no=#{no}
+      회원번호=#{no}
   </select>
   
-  <select id="findByEmailAndPassword" parameterType="member" resultMap="memberMap">
+  <select id="findByEmailAndPassword" parameterType="bitcamp.myapp.vo.Member" resultMap="memberMap">
     select
-      member_no,
-      name,
-      email,
-      gender,
-      created_date
+      회원번호,
+      이름,
+      이메일,
+      성별,
+      가입일
     from
-      myapp_member
+      회원
     where
-      email=#{email}
-      and password=sha1(#{password})
+      이메일=#{email}
+      and 암호=sha1(#{password})
   </select>
   
-  <update id="update" parameterType="member">
-	  update myapp_member set
-	    name=#{name},
-	    email=#{email},
-	    password=sha1(#{password}),
-	    gender=#{gender}
-	  where 
-	    member_no=#{no}
+  <update id="update" parameterType="bitcamp.myapp.vo.Member">
+    update 회원 set
+      이름=#{name},
+      이메일=#{email},
+      암호=sha1(#{password}),
+      성별=#{gender}
+    where 
+      회원번호=#{no}
   </update>
   
   <delete id="delete" parameterType="int">
-    delete from myapp_member
+    delete from 회원
     where 
-      member_no=#{no}
+      회원번호=#{no}
   </delete>
 </mapper>

@@ -4,75 +4,75 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.myapp.dao.DogDao">
 
-  <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
   <resultMap type="bitcamp.myapp.vo.MyDog" id="dogMap">
-    <id     column="dog_no"       property="dog_no"/>
-    <result column="kind"         property="kind"/>
-    <result column="age"          property="age"/>
-    <result column="weight"       property="weight"/>
-    <result column="gender"       property="gender"/>
-    <result column="location"     property="location"/>
-    <result column="id"           property="id"/>
-    <result column="isCreated"    property="isCreated"/>
-    <result column="created_date" property="createdDate"/>
+    <id column="동물번호" property="dog_no"/>
+    <result column="종" property="kind"/>
+    <result column="나이" property="age"/>
+    <result column="체중" property="weight"/>
+    <result column="성별" property="gender"/>
+    <result column="보호소번호" property="location"/>
+    <result column="동물인증번호" property="id"/>
+    <result column="보호시작일" property="createdDate"/>
+    <result column="상태" property="isCreated"/>
+
   </resultMap>
 
   <insert id="insert" parameterType="bitcamp.myapp.vo.MyDog">
-    insert into myapp_dog(kind, age, gender, weight, location, id, isCreated) 
-    values(#{kind}, #{age}, #{gender}, #{weight}, #{location}, #{id}, #{isCreated})
+    INSERT INTO 보호동물(종, 나이, 성별, 체중, 보호소번호, 동물인증번호, 상태, 보호시작일) 
+    VALUES(#{kind}, #{age}, #{gender}, #{weight}, #{location}, #{id}, #{isCreated}, #{createdDate})
   </insert>
   
   <select id="findAll" resultMap="dogMap">
-    select
-      dog_no,
-      kind,
-      age,
-      weight,
-      gender,
-      location,
-      id,
-      isCreated,
-      created_date
-    from
-      myapp_dog 
-    order by
-      dog_no desc
+    SELECT
+      동물번호,
+      종,
+      나이,
+      체중,
+      성별,
+      보호소번호,
+      동물인증번호,
+      상태,
+      보호시작일
+    FROM
+      보호동물 
+    ORDER BY
+      동물번호 DESC
   </select>
   
   <select id="findBy" parameterType="int" resultMap="dogMap">
-    select
-      dog_no,
-      kind,
-      age,
-      weight,
-      gender,
-      location,
-      id,
-      isCreated,
-      created_date
-    from
-      myapp_dog
-    where
-      dog_no=#{dog_no}
+    SELECT
+      동물번호,
+      종,
+      나이,
+      체중,
+      성별,
+      보호소번호,
+      동물인증번호,
+      상태,
+      보호시작일
+    FROM
+      보호동물
+    WHERE
+      동물번호=#{dog_no}
   </select>
   
   <update id="update" parameterType="bitcamp.myapp.vo.MyDog">
-    update myapp_dog set
-      kind=#{kind},
-      age=#{age},
-      gender=#{gender},
-      weight=#{weight},
-      location=#{location},
-      created_date=#{createdDate},
-      id=#{id},
-      isCreated=#{isCreated}
-    where 
-      dog_no=#{dog_no}
+    UPDATE 보호동물 SET
+      종=#{kind},
+      나이=#{age},
+      성별=#{gender},
+      체중=#{weight},
+      보호소번호=#{location},
+      보호시작일=#{createdDate},
+      동물인증번호=#{id},
+      상태=#{isCreated},
+    WHERE 
+      동물번호=#{dog_no}
   </update>
   
   <delete id="delete" parameterType="int">
-    delete from myapp_dog
-    where 
-      dog_no=#{dog_no}
+    DELETE FROM 보호동물
+    WHERE 
+      동물번호=#{dog_no}
   </delete>
 </mapper>
