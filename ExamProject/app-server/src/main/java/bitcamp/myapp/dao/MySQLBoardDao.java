@@ -32,7 +32,7 @@ public class MySQLBoardDao implements BoardDao {
   public Board findBy(int category, int no) {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
 
-    Map<String,Object> paramMap = new HashMap<>();
+    Map<String, Object> paramMap = new HashMap<>();
     paramMap.put("categoryNo", category);
     paramMap.put("boardNo", no);
 
@@ -55,6 +55,12 @@ public class MySQLBoardDao implements BoardDao {
   public int delete(Board board) {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.delete("bitcamp.myapp.dao.BoardDao.delete", board);
+  }
+
+  @Override
+  public int insertFiles(Board board) {
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
+    return sqlSession.insert("bitcamp.myapp.dao.BoardDao.insertFiles", board);
   }
 
 }
