@@ -32,7 +32,7 @@ public class BoardFormServlet extends HttpServlet {
     out.println("<form action='/board/add' method='post' enctype='multipart/form-data'>");
     out.println("제목 <input type='text' name='title'><br>");
     out.println("내용 <textarea name='content'></textarea><br>");
-    out.println("파일 <input type='file' name='titles' multiple><br>");
+    out.println("파일 <input type='file' name='files' multiple><br>");
     out.printf("<input type='hidden' name='category' value='%d'>\n", category);
     out.println("<button>등록</button>");
     out.println("</form>");
@@ -41,5 +41,14 @@ public class BoardFormServlet extends HttpServlet {
 
   }
 }
+
+
+
+
+
+
+
+
+
 
 
