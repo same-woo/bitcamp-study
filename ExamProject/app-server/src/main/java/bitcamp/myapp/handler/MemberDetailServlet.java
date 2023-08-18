@@ -3,6 +3,7 @@ package bitcamp.myapp.handler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import bitcamp.myapp.vo.Member;
 
 @WebServlet("/member/detail")
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 public class MemberDetailServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
@@ -35,20 +37,29 @@ public class MemberDetailServlet extends HttpServlet {
       out.println("<p>해당 번호의 회원이 없습니다!</p>");
 
     } else {
-      out.println("<form action='/member/update' method='post'>");
+      out.println("<form action='/member/update' method='post' enctype='multipart/form-data'>");
       out.println("<table border='1'>");
+
+      out.printf("<tr><th style='width:120px;'>사진</th>" + " <td style='width:300px;'>"
+          + (member.getPhoto() == null ? "<img style='height:80px' src='/images/avatar.png'>"
+              : "<a href='https://kr.object.ncloudstorage.com/bitcamp-nc7-bucket-22/member/%s'>"
+                  + "<img src='http://itceodfhklmc19010708.cdn.ntruss.com/member/%1$s?type=f&w=60&h=80&faceopt=true&ttype=jpg'>"
+                  + "</a>")
+          + "<input type='file' name='photo'>" + "</td></tr>\n", member.getPhoto());
+
       out.printf("<tr><th style='width:120px;'>번호</th>"
-          + " <td style='width:300px;'><input type='text' name='no' value='%d' readonly></td></tr>\n", member.getNo());
-      out.printf("<tr><th>이름</th>"
-          + " <td><input type='text' name='name' value='%s'></td></tr>\n", member.getName());
-      out.printf("<tr><th>이메일</th>"
-          + " <td><input type='email' name='email' value='%s'></td></tr>\n", member.getEmail());
-      out.println("<tr><th>암호</th>"
-          + " <td><input type='password' name='password'></td></tr>");
-      out.printf("<tr><th>성별</th>\n"
-          + " <td><select name='gender'>\n"
-          + " <option value='M' %s>남자</option>\n"
-          + " <option value='W' %s>여자</option></select></td></tr>\n",
+          + " <td style='width:300px;'><input type='text' name='no' value='%d' readonly></td></tr>\n",
+          member.getNo());
+      out.printf("<tr><th>이름</th>" + " <td><input type='text' name='name' value='%s'></td></tr>\n",
+          member.getName());
+      out.printf(
+          "<tr><th>이메일</th>" + " <td><input type='email' name='email' value='%s'></td></tr>\n",
+          member.getEmail());
+      out.println("<tr><th>암호</th>" + " <td><input type='password' name='password'></td></tr>");
+      out.printf(
+          "<tr><th>성별</th>\n" + " <td><select name='gender'>\n"
+              + " <option value='M' %s>남자</option>\n"
+              + " <option value='W' %s>여자</option></select></td></tr>\n",
           (member.getGender() == 'M' ? "selected" : ""),
           (member.getGender() == 'W' ? "selected" : ""));
       out.println("</table>");
