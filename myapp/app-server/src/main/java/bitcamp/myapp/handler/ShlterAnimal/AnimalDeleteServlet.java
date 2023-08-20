@@ -1,4 +1,4 @@
-package bitcamp.myapp.handler.Dog;
+package bitcamp.myapp.handler.ShlterAnimal;
 
 import java.io.IOException;
 
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import bitcamp.myapp.handler.Init.InitServlet;
 import bitcamp.myapp.vo.Member;
 
-@WebServlet("/dog/delete")
-public class DogDeleteServlet extends HttpServlet {
+@WebServlet("/animal/delete")
+public class AnimalDeleteServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
@@ -21,7 +21,7 @@ public class DogDeleteServlet extends HttpServlet {
       throws ServletException, IOException {
 	  
     try {
-      if (InitServlet.dogDao.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
+      if (InitServlet.AnimalDao.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
         throw new Exception("해당 번호의 보호동물이 없습니다.");
       } else {
         response.sendRedirect("/dog/list");

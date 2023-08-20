@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.myapp.dao.AnimalDao">
+
+  <resultMap type="bitcamp.myapp.vo.ShelterAnimal" id="shelterAnimalMap"> <!-- 수정된 부분 -->
+    <id     column="shelter_animal_no"       property="shelterAnimalNo"/>
+    <result column="shelter_no"          property="shelterNo"/>
+    <result column="animal_kind_no"        property="animalKindNo"/>
+    <result column="age" property="age"/>
+    <result column="weight" property="weight"/>
+    <result column="gender" property="gender"/>
+    <result column="animal_key" property="animalid"/>
+    <result column="protection_day" property="protectionDay"/>
+    <result column="specifics" property="specifics"/>
+    <result column="protection" property="protection"/>
+  </resultMap>
+
+  <insert id="insert" parameterType="bitcamp.myapp.vo.ShelterAnimal">
+    INSERT INTO shelter_animal(shelter_no, animal_kind_no, age, weight, gender, animal_key, protection_day, specifics, protection) 
+    VALUES(#{shelterNo}, #{animalKindNo}, #{age}, #{weight}, #{gender}, #{animalid}, #{protectionDay}, #{specifics}, #{protection})
+  </insert>
+  
+  <select id="findAll" resultMap="shelterAnimalMap">
+    SELECT
+      shelter_no,
+      animal_kind_no,
+      shelter_animal_no,
+      age,
+      weight,
+      gender,
+      animal_key,
+      protection_day,
+      specifics,
+      protection
+    FROM
+      shelter_animal 
+    ORDER BY
+      shelter_animal_no DESC
+  </select>
+  
+  <select id="findBy" parameterType="int" resultMap="shelterAnimalMap">
+    SELECT
+      shelter_no,
+      animal_kind_no,
+      shelter_animal_no,
+      age,
+      weight,
+      gender,
+      animal_key,
+      protection_day,
+      specifics,
+      protection
+    FROM
+      shelter_animal
+    WHERE
+      shelter_animal_no=#{shelterAnimalNo}
+  </select>
+  
+  <update id="update" parameterType="bitcamp.myapp.vo.ShelterAnimal">
+    UPDATE shelter_animal SET
+      shelter_no=#{shelterNo},
+      animal_kind_no=#{animalKindNo},
+      age=#{age},
+      weight=#{weight},
+      gender=#{gender},
+      animal_key=#{animalid},
+      protection_day=#{protectionDay},
+      specifics=#{specifics},
+      protection=#{protection}
+    WHERE 
+      shelter_animal_no=#{shelterAnimalNo}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM shelter_animal
+    WHERE 
+      shelter_animal_no=#{shelterAnimalNo}
+  </delete>
+</mapper>

@@ -9,10 +9,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.dao.DogDao;
+import bitcamp.myapp.dao.AnimalDao;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.MySQLBoardDao;
-import bitcamp.myapp.dao.MySQLDogDao;
+import bitcamp.myapp.dao.MySQLAnimalDao;
 import bitcamp.myapp.dao.MySQLMemberDao;
 import bitcamp.util.SqlSessionFactoryProxy;
 
@@ -27,7 +27,7 @@ public class InitServlet extends HttpServlet {
   public static SqlSessionFactory sqlSessionFactory;
   public static BoardDao boardDao;
   public static MemberDao memberDao;
-  public static DogDao dogDao;
+  public static AnimalDao AnimalDao;
 
   @Override
   public void init() throws ServletException {
@@ -40,7 +40,7 @@ public class InitServlet extends HttpServlet {
 
       boardDao = new MySQLBoardDao(sqlSessionFactory);
       memberDao = new MySQLMemberDao(sqlSessionFactory);
-      dogDao = new MySQLDogDao(sqlSessionFactory);
+      AnimalDao = new MySQLAnimalDao(sqlSessionFactory);
 
     } catch (Exception e) {
       System.out.println("InitServlet.init() 실행 중 오류 발생!");

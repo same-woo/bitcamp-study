@@ -1,4 +1,4 @@
-package bitcamp.myapp.handler.Dog;
+package bitcamp.myapp.handler.ShlterAnimal;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import bitcamp.myapp.handler.Init.InitServlet;
 import bitcamp.myapp.vo.Member;
-import bitcamp.myapp.vo.MyDog;
+import bitcamp.myapp.vo.ShelterAnimal;
 
-@WebServlet("/dog/add")
-public class DogAddServlet extends HttpServlet {
+@WebServlet("/animal/add")
+public class AnimalAddServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 	
@@ -29,13 +29,13 @@ public class DogAddServlet extends HttpServlet {
       return;
     }
 	  
-    MyDog myDog = new MyDog();
-    myDog.setKind(request.getParameter("kind"));
-    myDog.setAge(Integer.parseInt(request.getParameter("age")));
-    myDog.setWeight(Double.parseDouble(request.getParameter("weight")));
-    myDog.setGender(request.getParameter("gender").charAt(0));
-    myDog.setLocation(request.getParameter("location"));
-    myDog.setId(Double.parseDouble(request.getParameter("id")));
+    ShelterAnimal a = new ShelterAnimal();
+    a.setAnimalKindNo(Integer.parseInt(request.getParameter("kind")));
+    a.setAge(Integer.parseInt(request.getParameter("age")));
+    a.setWeight(Double.parseDouble(request.getParameter("weight")));
+    a.setGender(request.getParameter("gender").charAt(0));
+    a.setShelterNo(Integer.parseInt(request.getParameter("location")));
+    a.setAnimalid(Double.parseDouble(request.getParameter("id")));
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -52,7 +52,7 @@ public class DogAddServlet extends HttpServlet {
     out.println("<h1>보호동물 등록</h1>");
 
     try {
-    	InitServlet.dogDao.insert(myDog);
+    	InitServlet.AnimalDao.insert(a);
     	InitServlet.sqlSessionFactory.openSession(false).commit();
       out.println("<p>등록 성공입니다!</p>");
     } catch (Exception e) {

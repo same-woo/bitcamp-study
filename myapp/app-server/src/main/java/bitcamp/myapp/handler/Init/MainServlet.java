@@ -50,7 +50,7 @@ public class MainServlet extends HttpServlet {
         out.println("<h1 class='main-title'>🐾 전국 동물보호소 정보시스템</h1>");
         out.println("<ul class='main-menu'>");
         out.println("<li><a href='/member/list'>👤회원정보</a></li>");
-        out.println("<li><a href='/dog/list'>🐶보호동물</a></li>");
+        out.println("<li><a href='/animal/list'>🐶보호동물</a></li>");
         out.println("<li><a href='/board/list?category=1'>😻입양신청</a></li>");
         out.println("<li><a href='/board/list?category=2'>✍게시판</a></li>");
         // 로그인/로그아웃 링크 추가

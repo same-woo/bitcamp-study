@@ -4,93 +4,94 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.myapp.dao.BoardDao">
 
-  <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
-  <resultMap type="bitcamp.myapp.vo.Board" id="boardMap">
-    <id     column="글번호"       property="no"/>
-    <result column="제목"          property="title"/>
-    <result column="내용"        property="content"/>
-    <result column="조회수"     property="viewCount"/>
-    <result column="생성일"   property="createdDate"/>
-    <result column="동물번호"       property="animalNo"/>
-    <result column="게시판분류번호"       property="categoryNo"/>
-    
-    <association property="writer" javaType="bitcamp.myapp.vo.Member">
-      <id     column="작성자"    property="no"/>
-      <result column="작성자이름" property="name"/>
-    </association>
-    
-  </resultMap>
+<resultMap type="bitcamp.myapp.vo.Board" id="boardMap">
+  <id     column="board_no"       property="no"/>
+  <result column="title"          property="title"/>
+  <result column="content"        property="content"/>
+  <result column="view_count"     property="viewCount"/>
+  <result column="created_date"   property="createdDate"/>
+  <result column="animal_no"       property="animalNo"/>
+  <result column="category"       property="categoryNo"/>
+  
+  <association property="writer" javaType="bitcamp.myapp.vo.Member">
+    <id     column="writer"    property="no"/>
+    <result column="writerName" property="name"/>
+  </association>
+</resultMap>
 
+  <!-- Insert Query -->
   <insert id="insert" parameterType="bitcamp.myapp.vo.Board">
-    insert into 게시글(제목,내용,작성자,생성일,동물번호,게시판분류번호)
-    values(#{title},#{content},#{writer.no},#{createdDate},#{animalNo},#{categoryNo})
+    INSERT INTO myapp_board(title, content, writer, created_date, animal_no, category)
+    VALUES (#{title}, #{content}, #{writer.no}, #{createdDate}, #{animalNo}, #{categoryNo})
   </insert>
   
-<select id="findAll" parameterType="int" resultMap="boardMap">
-    select
-      g.글번호,
-      g.제목,
-      g.조회수,
-      g.생성일,
-      g.동물번호,
-      g.게시판분류번호 as category,
-      m.회원번호 as writer, -- 수정된 부분
-      m.이름 as writerName -- 작성자 이름 추가
-    from
-      게시글 g inner join 회원 m on g.작성자=m.회원번호
-    where
-      g.게시판분류번호=#{category}
-    order by
-      글번호 desc
-</select>
-
-
-  
-  <select id="findBy" parameterType="int" resultMap="boardMap">
-    select
-      g.글번호,
-      g.제목,
-      g.내용,
-      g.조회수,
-      g.생성일,
-      g.동물번호,
-      g.게시판분류번호,
-      m.회원번호 as 작성자,
-      m.이름 as 작성자이름
-    from
-      게시글 g inner join 회원 m on g.작성자=m.회원번호
-    where
-      g.게시판분류번호=#{categoryNo}
-      and g.글번호=#{boardNo}
+  <!-- Select All Query -->
+  <select id="findAll" resultMap="boardMap">
+    SELECT
+      g.board_no,
+      g.title,
+      g.view_count,
+      g.created_date,
+      g.animal_no,
+      g.category,
+      m.member_no as writer,
+      m.name as writerName
+    FROM
+      myapp_board g INNER JOIN myapp_member m ON g.writer=m.member_no
+    ORDER BY
+      board_no DESC
   </select>
   
+  <!-- Select by Board Number Query -->
+  <select id="findBy" parameterType="int" resultMap="boardMap">
+    SELECT
+      g.board_no,
+      g.title,
+      g.content,
+      g.view_count,
+      g.created_date,
+      g.animal_no,
+      g.category,
+      m.member_no as writer,
+      m.name as writerName
+    FROM
+      myapp_board g INNER JOIN myapp_member m ON g.writer=m.member_no
+    WHERE
+      g.category = #{categoryNo}
+      AND g.board_no = #{boardNo}
+  </select>
+  
+  <!-- Update Query -->
   <update id="update" parameterType="bitcamp.myapp.vo.Board">
-    update 게시글 set
-      제목=#{title},
-      내용=#{content}
-    where 
-      글번호=#{no}
-      and 작성자=#{writer.no}
+    UPDATE myapp_board SET
+      title = #{title},
+      content = #{content}
+    WHERE 
+      board_no = #{no}
+      AND writer = #{writer.no}
   </update>
   
+  <!-- Update View Count Query -->
   <update id="updateCount" parameterType="bitcamp.myapp.vo.Board">
-    update 게시글 set
-      조회수=#{viewCount}
-    where
-      글번호=#{no}
+    UPDATE myapp_board SET
+      view_count = #{viewCount}
+    WHERE
+      board_no = #{no}
   </update>
   
+  <!-- Delete Query -->
   <delete id="delete" parameterType="bitcamp.myapp.vo.Board">
-    delete from 게시글
-    where 
-      글번호=#{no}
-      and 작성자=#{writer.no}
+    DELETE FROM myapp_board
+    WHERE 
+      board_no = #{no}
+      AND writer = #{writer.no}
   </delete>
   
+  <!-- Delete All by Member Number Query -->
   <delete id="deleteAllByMemberNo" parameterType="int">
-    delete from 게시글
-    where 
-      작성자=#{memberNo}
+    DELETE FROM myapp_board
+    WHERE 
+      writer = #{memberNo}
   </delete>
   
 </mapper>

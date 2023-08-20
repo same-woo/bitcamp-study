@@ -1,7 +1,7 @@
 package bitcamp.myapp.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Member implements Serializable {
@@ -15,76 +15,82 @@ public class Member implements Serializable {
   private String name;
   private String email;
   private String password;
+  private String tel;
   private char gender;
-  private Date createdDate;
+  private LocalDate createdDate;
   
 
   
   @Override
   public int hashCode() {
-    return Objects.hash(no);
+      return Objects.hash(email);
   }
- 
+  
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Member other = (Member) obj;
-    return no == other.no;
+      if (this == obj)
+          return true;
+      if (obj == null || getClass() != obj.getClass())
+          return false;
+      Member other = (Member) obj;
+      return Objects.equals(email, other.email);
   }
 
-  public int getNo() {
-    return no;
-  }
+public int getNo() {
+	return no;
+}
 
-  public void setNo(int no) {
-    this.no = no;
-  }
+public void setNo(int no) {
+	this.no = no;
+}
 
-  public String getName() {
-    return name;
-  }
+public String getName() {
+	return name;
+}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+public void setName(String name) {
+	this.name = name;
+}
 
-  public String getEmail() {
-    return email;
-  }
+public String getEmail() {
+	return email;
+}
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+public void setEmail(String email) {
+	this.email = email;
+}
 
-  public String getPassword() {
-    return password;
-  }
+public String getPassword() {
+	return password;
+}
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+public void setPassword(String password) {
+	this.password = password;
+}
 
-  public char getGender() {
-    return gender;
-  }
+public String getTel() {
+	return tel;
+}
 
-  public void setGender(char gender) {
-    this.gender = gender;
-  }
+public void setTel(String tel) {
+	this.tel = tel;
+}
 
-  public Date getCreatedDate() {
-    return createdDate;
- }
+public char getGender() {
+	return gender;
+}
 
-  public void setCreatedDate(Date createdDate) {
-    this.createdDate = createdDate;
-  }
+public void setGender(char gender) {
+	this.gender = gender;
+}
 
+public LocalDate getCreatedDate() {
+	return createdDate;
+}
+
+public void setCreatedDate(LocalDate createdDate) {
+	this.createdDate = createdDate;
+}
 
 
  

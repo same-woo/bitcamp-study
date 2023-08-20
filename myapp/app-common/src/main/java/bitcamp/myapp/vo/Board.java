@@ -15,7 +15,7 @@ public class Board implements Serializable {
   private String password;
   private int viewCount;
   private Timestamp createdDate;
-  private int category;
+  private int categoryNo;
 
 
   @Override
@@ -35,70 +35,70 @@ public class Board implements Serializable {
     return no == other.no;
   }
 
-  public int getNo() {
-    return no;
-  }
+public int getNo() {
+	return no;
+}
 
-  public void setNo(int no) {
-    this.no = no;
-  }
+public void setNo(int no) {
+	this.no = no;
+}
 
-  public String getTitle() {
-    return title;
-  }
+public String getTitle() {
+	return title;
+}
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+public void setTitle(String title) {
+	this.title = title;
+}
 
-  public String getContent() {
-    return content;
-  }
+public String getContent() {
+	return content;
+}
 
-  public void setContent(String content) {
-    this.content = content;
-  }
+public void setContent(String content) {
+	this.content = content;
+}
 
-  public Member getWriter() {
-    return writer;
-  }
+public Member getWriter() {
+	return writer;
+}
 
-  public void setWriter(Member writer) {
-    this.writer = writer;
-  }
+public void setWriter(Member writer) {
+	this.writer = writer;
+}
 
-  public int getViewCount() {
-    return viewCount;
-  }
+public String getPassword() {
+	return password;
+}
 
-  public void setViewCount(int viewCount) {
-    this.viewCount = viewCount;
-  }
+public void setPassword(String password) {
+	this.password = password;
+}
 
+public int getViewCount() {
+	return viewCount;
+}
 
-  public Timestamp getCreatedDate() {
-    return createdDate;
-  }
+public void setViewCount(int viewCount) {
+	this.viewCount = viewCount;
+}
 
-  public void setCreatedDate(Timestamp createdDate) {
-    this.createdDate = createdDate;
-  }
+public Timestamp getCreatedDate() {
+	return createdDate;
+}
 
-  public String getPassword() {
-    return password;
-  }
+public void setCreatedDate(Timestamp createdDate) {
+	this.createdDate = createdDate;
+}
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+public int getCategory() {
+	return categoryNo;
+}
 
-  public int getCategory() {
-    return category;
-  }
+public void setCategory(int category) {
+	this.categoryNo = category;
+}
 
-  public void setCategory(int category) {
-    this.category = category;
-  }
 
 
 }

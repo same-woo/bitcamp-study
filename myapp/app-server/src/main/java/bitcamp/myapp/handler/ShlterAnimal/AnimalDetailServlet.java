@@ -1,4 +1,4 @@
-package bitcamp.myapp.handler.Dog;
+package bitcamp.myapp.handler.ShlterAnimal;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bitcamp.myapp.handler.Init.InitServlet;
-import bitcamp.myapp.vo.MyDog;
+import bitcamp.myapp.vo.ShelterAnimal;
 
-@WebServlet("/dog/detail")
-public class DogDetailServlet extends HttpServlet {
+@WebServlet("/animal/detail")
+public class AnimalDetailServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
@@ -21,7 +21,7 @@ public class DogDetailServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    MyDog myDog = InitServlet.dogDao.findBy(Integer.parseInt(request.getParameter("no"))); // Assuming "no" is the parameter for the dog's number
+    ShelterAnimal a = InitServlet.AnimalDao.findBy(Integer.parseInt(request.getParameter("no")));
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -35,35 +35,34 @@ public class DogDetailServlet extends HttpServlet {
     out.println("<body>");
     out.println("<h1>보호동물</h1>");
 
-    if (myDog == null) {
+    if (a == null) {
       out.println("<p>해당 번호의 동물이 없습니다!</p>");
 
     } else {
-    
-    
-    out.println("<form action='/dog/update' method='post'>");
+
+    out.println("<form action='/animal/update' method='post'>");
     out.println("<table border='1'>");
     out.printf("<tr><th style='width:120px;'>번호</th>"
-        + " <td style='width:300px;'><input type='text' name='dog_no' value='%d' readonly></td></tr>\n", myDog.getDog_no());
+        + " <td style='width:300px;'><input type='text' name='shelterAnimalNo' value='%d' readonly></td></tr>\n", a.getShelterAnimalNo());
     out.printf("<tr><th>종류</th>"
-        + " <td><input type='text' name='kind' value='%s'></td></tr>\n", myDog.getKind());
+        + " <td><input type='text' name='animalKindNo' value='%d'></td></tr>\n", a.getAnimalKindNo());
     out.printf("<tr><th>나이</th>"
-        + " <td><input type='number' name='age' value='%d'></td></tr>\n", myDog.getAge());
+        + " <td><input type='number' name='age' value='%d'></td></tr>\n", a.getAge());
     out.println("<tr><th>성별</th>"
         + " <td><select name='gender'>"
-        + " <option value='M' " + (myDog.getGender() == 'M' ? "selected" : "") + ">수컷</option>"
-        + " <option value='F' " + (myDog.getGender() == 'F' ? "selected" : "") + ">암컷</option></select></td></tr>");
+        + " <option value='M' " + (a.getGender() == ShelterAnimal.MALE ? "selected" : "") + ">수컷</option>"
+        + " <option value='F' " + (a.getGender() == ShelterAnimal.FEMALE ? "selected" : "") + ">암컷</option></select></td></tr>");
     out.printf("<tr><th>무게</th>"
-        + " <td><input type='number' step='0.1' name='weight' value='%.1f'></td></tr>\n", myDog.getWeight());
+        + " < td><input type='number' step='0.1' name='weight' value='%.1f'></td></tr>\n", a.getWeight());
     out.printf("<tr><th>보호 여부</th>"
-        + " <td><input type='checkbox' name='created' %s></td></tr>\n", myDog.isCreated() ? "checked" : "");
+        + " <td><input type='checkbox' name='protection' %s></td></tr>\n", a.getProtection() == ShelterAnimal.PROTECTION_YES ? "checked" : "");
     out.println("</table>");
 
     out.println("<div>");
     out.println("<button>변경</button>");
     out.println("<button type='reset'>초기화</button>");
-    out.printf("<a href='/dog/delete?no=%d'>삭제</a>\n", myDog.getDog_no());
-    out.println("<a href='/dog/list'>목록</a>\n");
+    out.printf("<a href='/animal/delete?no=%d'>삭제</a>\n", a.getShelterAnimalNo());
+    out.println("<a href='/animal/list'>목록</a>\n");
     out.println("</div>");
     out.println("</form>");
   }
