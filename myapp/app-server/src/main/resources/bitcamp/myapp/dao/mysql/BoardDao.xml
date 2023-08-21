@@ -38,6 +38,8 @@
       m.name as writerName
     FROM
       myapp_board g INNER JOIN myapp_member m ON g.writer=m.member_no
+    where
+	  category=#{categoryNo}
     ORDER BY
       board_no DESC
   </select>
