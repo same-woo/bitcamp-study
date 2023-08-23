@@ -1,15 +1,16 @@
 package bitcamp.myapp.handler;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-@WebServlet("/board/form")
-public class BoardFormServlet extends HttpServlet {
+@WebServlet("/auth/form")
+public class LoginFormServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
@@ -17,7 +18,16 @@ public class BoardFormServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    int category = Integer.parseInt(request.getParameter("category"));
+    String email = "";
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+      for (Cookie cookie : cookies) {
+        if (cookie.getName().equals("email")) {
+          email = cookie.getValue();
+          break;
+        }
+      }
+    }
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -31,13 +41,19 @@ public class BoardFormServlet extends HttpServlet {
 
     request.getRequestDispatcher("/header").include(request, response);
 
-    out.println("<h1>게시글</h1>");
-    out.println("<form action='/board/add' method='post' enctype='multipart/form-data'>");
-    out.println("제목 <input type='text' name='title'><br>");
-    out.println("내용 <textarea name='content'></textarea><br>");
-    out.println("파일 <input type='file' name='files' multiple><br>");
-    out.printf("<input type='hidden' name='category' value='%d'>\n", category);
-    out.println("<button>등록</button>");
+    out.println("<h1>로그인</h1>");
+
+    out.println("<form action='/auth/login' method='post'>");
+    out.println("<table border='1'>");
+    out.println("<tr>");
+    out.printf("  <th>이메일</th> <td><input type='email' name='email' value='%s'></td>\n", email);
+    out.println("</tr>");
+    out.println("<tr>");
+    out.println("  <th>암호</th> <td><input type='password' name='password'></td>");
+    out.println("</tr>");
+    out.println("</table>");
+    out.println("<button>로그인</button>");
+    out.println(" <input type='checkbox' name='saveEmail'> 이메일 저장");
     out.println("</form>");
 
     request.getRequestDispatcher("/footer").include(request, response);

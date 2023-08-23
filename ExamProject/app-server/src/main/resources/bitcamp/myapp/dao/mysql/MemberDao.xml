@@ -6,13 +6,13 @@
 
   <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
   <resultMap type="member" id="memberMap">
-    <id     column="member_no"       property="no"/>
-    <result column="name"          property="name"/>
+    <id     column="member_no"    property="no"/>
+    <result column="name"         property="name"/>
     <result column="email"        property="email"/>
     <result column="password"     property="password"/>
     <result column="gender"       property="gender"/>
-    <result column="created_date"   property="createdDate"/>
-    <result column="photo"   property="photo"/>
+    <result column="created_date" property="createdDate"/>
+    <result column="photo"        property="photo"/>
   </resultMap>
 
   <insert id="insert" parameterType="member">
@@ -62,16 +62,16 @@
   </select>
   
   <update id="update" parameterType="member">
-	  update myapp_member set
-	    name=#{name}
-	    ,email=#{email}
-	    ,password=sha1(#{password})
-	    ,gender=#{gender}
-	    <if test="photo != null">
- 	    ,photo=#{photo}
-	    </if>
-	  where 
-	    member_no=#{no}
+    update myapp_member set
+      name=#{name}
+      ,email=#{email}
+      ,password=sha1(#{password})
+      ,gender=#{gender} 
+    <if test="photo != null">
+      ,photo=#{photo}
+    </if>
+    where 
+      member_no=#{no}
   </update>
   
   <delete id="delete" parameterType="int">

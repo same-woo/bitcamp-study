@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-//    id 'eclipse-wtp'
+    // id 'eclipse-wtp'
     id 'war'
 }
 
@@ -25,16 +25,14 @@ dependencies {
     // providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
         
     // multipart/form-data 처리 라이브러리
-    // implementation 'commons-fileupload:commons-fileupload:1.5'
-
-
-    
-    // 임베디드 Tomcat 서버    
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.79'
-    
-    // Amazon AWS
-    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.530'
+    //implementation 'commons-fileupload:commons-fileupload:1.5' // Servlet API 로 대체    
         
+    // 임베디드 Tomcat 서버
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.79'
+
+    // Amazon AWS Java SDK s3
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.530'
+    
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
     implementation 'com.google.guava:guava:31.1-jre'
 }
@@ -54,6 +52,7 @@ tasks.withType(JavaCompile) {
     sourceCompatibility = '17'
     targetCompatibility = '17'
 }
+
 /*
 eclipse {
     project {
@@ -75,9 +74,8 @@ eclipse {
         }
     }
 }
+*/
 
 war {
     archiveBaseName = "myapp"
 }
-
- */

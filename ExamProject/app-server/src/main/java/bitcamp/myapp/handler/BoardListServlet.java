@@ -10,7 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
+import bitcamp.util.NcpObjectStorageService;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 @WebServlet("/board/list")
 public class BoardListServlet extends HttpServlet {
@@ -31,25 +35,24 @@ public class BoardListServlet extends HttpServlet {
     out.println("<head>");
     out.println("<meta charset='UTF-8'>");
     out.println("<title>게시글</title>");
-
     out.println("</head>");
     out.println("<body>");
 
-    // headerServlet의 출력 결과를 합친다.
+    // HeaderServlet의 출력 결과를 합친다.
     request.getRequestDispatcher("/header").include(request, response);
-
 
     out.println("<h1>게시글 목록</h1>");
     out.println("<div style='margin:5px;'>");
     out.printf("<a href='/board/form?category=%d'>새 글</a>\n", category);
-    out.println("<a href='/'>메인</a>");
     out.println("</div>");
     out.println("<table border='1'>");
     out.println("<thead>");
     out.println("  <tr><th>번호</th> <th>제목</th> <th>작성자</th> <th>조회수</th> <th>등록일</th></tr>");
     out.println("</thead>");
 
-    List<Board> list = InitServlet.boardDao.findAll(category);
+    BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+
+    List<Board> list = boardDao.findAll(category);
 
     out.println("<tbody>");
     for (Board board : list) {
@@ -70,8 +73,9 @@ public class BoardListServlet extends HttpServlet {
     }
     out.println("</tbody>");
     out.println("</table>");
+    out.println("<a href='/'>메인</a>");
 
-
+    // FooterServlet의 출력 결과를 합친다.
     request.getRequestDispatcher("/footer").include(request, response);
 
     out.println("</body>");

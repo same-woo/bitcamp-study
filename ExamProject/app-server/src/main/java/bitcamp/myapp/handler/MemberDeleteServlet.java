@@ -1,5 +1,9 @@
 package bitcamp.myapp.handler;
 
+import bitcamp.myapp.dao.MemberDao;
+import bitcamp.util.NcpObjectStorageService;
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,19 +18,27 @@ public class MemberDeleteServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+          throws ServletException, IOException {
+
+    MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
+    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
 
     try {
-      if (InitServlet.memberDao.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
+      if (memberDao.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
         throw new Exception("해당 번호의 회원이 없습니다.");
       } else {
+        sqlSessionFactory.openSession(false).commit();
         response.sendRedirect("/member/list");
       }
-      InitServlet.sqlSessionFactory.openSession(false).commit();
 
     } catch (Exception e) {
-      InitServlet.sqlSessionFactory.openSession(false).rollback();
-      throw new RuntimeException(e);
+      sqlSessionFactory.openSession(false).rollback();
+
+      request.setAttribute("error", e);
+      request.setAttribute("message", e.getMessage());
+      request.setAttribute("refresh", "2;url=list");
+
+      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 
