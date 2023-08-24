@@ -1,14 +1,14 @@
 <%@ page
-    language="java"
-    pageEncoding="UTF-8"
-    contentType="text/html;charset=UTF-8"%>
+        language="java"
+        pageEncoding="UTF-8"
+        contentType="text/html;charset=UTF-8"%>
 
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset='UTF-8'>
-<title>비트캠프</title>
+    <meta charset='UTF-8'>
+    <title>비트캠프</title>
 </head>
 <body>
 
