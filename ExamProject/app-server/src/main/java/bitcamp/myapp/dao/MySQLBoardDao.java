@@ -3,17 +3,21 @@ package bitcamp.myapp.dao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.amazonaws.services.s3.model.CSVOutput;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MySQLBoardDao implements BoardDao {
 
   SqlSessionFactory sqlSessionFactory;
 
   public MySQLBoardDao(SqlSessionFactory sqlSessionFactory) {
-    this.sqlSessionFactory = sqlSessionFactory;
+    System.out.println("MySQLBoard()호출됨");this.sqlSessionFactory = sqlSessionFactory;
   }
 
   @Override
@@ -81,4 +85,5 @@ public class MySQLBoardDao implements BoardDao {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.delete("bitcamp.myapp.dao.BoardDao.deleteFiles", boardNo);
   }
+
 }

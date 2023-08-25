@@ -50,10 +50,13 @@
 out.println("<h2>오호라!!!</h2>");
 %>
 
+// expression
 <%="<h2>오호라!!!</h2>"%>
 
+// expressionlanguage
 ${"<h2>오호라!!!</h2>"}
 
+// jstl
 <c:out value="<h2>오호라!!!<h2>"/>
 
 </body>
