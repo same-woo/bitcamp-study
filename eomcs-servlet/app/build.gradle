@@ -22,7 +22,10 @@ dependencies {
     // multipart/form-data 처리 라이브러리
     implementation 'commons-fileupload:commons-fileupload:1.5'
 
+    implementation 'jstl:jstl:1.2'
     implementation 'net.coobird:thumbnailator:0.4.20'
+
+
 }
 
 java {

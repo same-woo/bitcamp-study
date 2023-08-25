@@ -5,24 +5,18 @@
         trimDirectiveWhitespaces="true"
         errorPage="/error.jsp" %>
 
-<%@ page import="bitcamp.myapp.dao.MemberDao" %>
-<%@ page import="bitcamp.myapp.vo.Board" %>
-<%@ page import="bitcamp.myapp.vo.Member" %>
-<%@ page import="org.apache.ibatis.session.SqlSessionFactory" %>
+<jsp:useBean id="memberDao" type="bitcamp.myapp.dao.MemberDao" scope="application"/>
+<jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
+<jsp:useBean id="loginUser" class="bitcamp.myapp.vo.Member" scope="session"/>
 
 
 <%
     request.setAttribute("refresh", "2;url=list.jsp?category=" + request.getParameter("category"));
 
-    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-    if (loginUser == null) {
+    if (loginUser.getNo() == 0) {
         response.sendRedirect("/auth/form.jsp");
         return;
     }
-
-    MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
-    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
-
 
     if (memberDao.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
         throw new Exception("해당 번호의 회원이 없습니다.");

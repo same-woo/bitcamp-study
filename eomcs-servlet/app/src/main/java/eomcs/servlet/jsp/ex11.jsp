@@ -1,34 +1,33 @@
-<%@page import="java.sql.Date"%>
-<%@ page 
+<%@ page
     language="java" 
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
-<%@ page import="com.eomcs.web.vo.Board"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>ex11</title>
+    <meta charset="UTF-8">
+    <title>ex11</title>
 </head>
 <body>
 <h1>JSP 액션 태그 - jsp:useBean, jsp:setProperty</h1>
+?
 <%-- bitcamp.vo.Board 객체 생성하기 --%>
-<jsp:useBean id="b1" class="com.eomcs.web.vo.Board" scope="page"/>
+<jsp:useBean id="b1" class="eomcs.vo.Board" scope="page"/>
 <%-- 
 위 태그의 자바 코드:
-com.eomcs.web.vo.Board b1 = (com.eomcs.web.vo.Board) pageContext.getAttribute("b1");
+eomcs.vo.Board b1 = (eomcs.vo.Board) pageContext.getAttribute("b1");
 if (b1 == null) {
-  b1 = new com.eomcs.web.vo.Board();
+  b1 = new eomcs.vo.Board();
   pageContext.setAttribute("b1", b1);
 }
 --%>
 
 
 <%-- scope을 생략하면 기본이 page(PageContext)이다. --%>
-<jsp:useBean id="b2" class="com.eomcs.web.vo.Board"/>
+<jsp:useBean id="b2" class="eomcs.vo.Board"/>
 
-<jsp:useBean id="b3" class="com.eomcs.web.vo.Board"/>
+<jsp:useBean id="b3" class="eomcs.vo.Board"/>
 
 <%-- 객체의 setter 메서드를 호출하기 --%>
 <jsp:setProperty name="b3" property="no" value="100"/>
