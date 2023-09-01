@@ -1,13 +1,39 @@
-package com.eomcs.ioc.ex09;
+package com.eomcs.spring.ioc.ex09;
+
+import org.springframework.stereotype.Component;
 
 @Component
 public class Engine {
+  String maker;
+  int valve;
+  int cylinder;
 
   public Engine() {
-    System.out.println("===> Engine()");
+    System.out.println("Engine()");
   }
 
-  public void run() {
-    System.out.println("엔진을 가동한다.");
+  @Override
+  public String toString() {
+    return "Engine [maker=" + maker + ", valve=" + valve + ", cylinder=" + cylinder + "]";
   }
+  public String getMaker() {
+    return maker;
+  }
+  public void setMaker(String maker) {
+    this.maker = maker;
+  }
+  public int getValve() {
+    return valve;
+  }
+  public void setValve(int valve) {
+    this.valve = valve;
+  }
+  public int getCylinder() {
+    return cylinder;
+  }
+  public void setCylinder(int cylinder) {
+    this.cylinder = cylinder;
+  }
+
+
 }

@@ -10,9 +10,20 @@ repositories {
 dependencies {
     // Google JSON 라이브러리
     implementation 'com.google.code.gson:gson:2.10.1'
-  
+
+    // Mybatis 라이브러리
+    implementation 'org.mybatis:mybatis:3.5.13'
+
+    // Mybatis-Spring 연동 라이브러리
+    implementation 'org.mybatis:mybatis-spring:3.0.2'
+
+    // log4j
+    implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
     implementation 'com.google.guava:guava:31.1-jre'
+
+
 }
 
 java {

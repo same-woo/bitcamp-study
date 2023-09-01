@@ -23,8 +23,8 @@ public class LoginController implements PageController {
     }
 
     Member m = new Member();
-    m.setEmail(request.getParameter("email"));
-    m.setPassword(request.getParameter("password"));
+    String email = request.getParameter("email");
+    String password = request.getParameter("password");
 
     if (request.getParameter("saveEmail") != null) {
       Cookie cookie = new Cookie("email", m.getEmail());
@@ -35,7 +35,7 @@ public class LoginController implements PageController {
       response.addCookie(cookie);
     }
 
-    Member loginUser = memberDao.findByEmailAndPassword(m);
+    Member loginUser = memberDao.findByEmailAndPassword(email, password);
     if (loginUser == null) {
       request.setAttribute("refresh", "2;url=/app/auth/login");
       throw new Exception("회원 정보가 일치하지 않습니다.");
