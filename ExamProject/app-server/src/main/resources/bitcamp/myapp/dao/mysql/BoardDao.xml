@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.myapp.dao.BoardDao">
 
   <!-- 결과 레코드의 컬럼 값을 자바 객체에 어떻게 담을 것인지 설정한다. -->
@@ -12,19 +12,19 @@
     <result column="view_count"     property="viewCount"/>
     <result column="created_date"   property="createdDate"/>
     <result column="category"       property="category"/>
-    
+
     <association property="writer" javaType="member">
       <id     column="member_no"    property="no"/>
       <result column="name"         property="name"/>
     </association>
-    
+
     <collection property="attachedFiles" ofType="attachedFile">
       <id     column="board_file_no"    property="no"/>
       <result column="filepath"         property="filePath"/>
     </collection>
-    
+
   </resultMap>
-  
+
   <resultMap type="attachedFile" id="attachedFileMap">
     <id     column="board_file_no"  property="no"/>
     <result column="filepath"       property="filePath"/>
@@ -36,91 +36,85 @@
     insert into myapp_board(title,content,writer,category)
     values(#{title},#{content},#{writer.no},#{category})
   </insert>
-  
+
   <select id="findAll" parameterType="int" resultMap="boardMap">
     select
-      b.board_no,
-      b.title,
-      b.view_count,
-      b.created_date,
-      b.category,
-      m.member_no,
-      m.name
+    b.board_no,
+    b.title,
+    b.view_count,
+    b.created_date,
+    b.category,
+    m.member_no,
+    m.name
     from
-      myapp_board b inner join myapp_member m on b.writer=m.member_no
+    myapp_board b inner join myapp_member m on b.writer=m.member_no
     where
-      category=#{categoryNo}
+    category=#{categoryNo}
     order by
-      board_no desc
+    board_no desc
   </select>
-  
-  <select id="findBy" resultMap="boardMap">
+
+  <select id="findBy" resultMap="boardMap" parameterType="int">
     select
-      b.board_no,
-      b.title,
-      b.content,
-      b.view_count,
-      b.created_date,
-      b.category,
-      m.member_no,
-      m.name,
-      f.board_file_no,
-      f.filepath
+    b.board_no,
+    b.title,
+    b.content,
+    b.view_count,
+    b.created_date,
+    b.category,
+    m.member_no,
+    m.name,
+    f.board_file_no,
+    f.filepath
     from
-      myapp_board b inner join myapp_member m on b.writer=m.member_no
-      left outer join myapp_board_file f on b.board_no=f.board_no
+    myapp_board b inner join myapp_member m on b.writer=m.member_no
+    left outer join myapp_board_file f on b.board_no=f.board_no
     where
-      b.category=#{categoryNo}
-      and b.board_no=#{boardNo}
+    b.board_no=#{boardNo}
   </select>
-  
+
   <update id="update" parameterType="board">
-	  update myapp_board set
-	    title=#{title},
-	    content=#{content}
-	  where 
-	    category=#{category}
-	    and board_no=#{no}
-	    and writer=#{writer.no}
-  </update>
-  
-  <update id="updateCount" parameterType="board">
     update myapp_board set
-      view_count=#{viewCount}
+    title=#{title},
+    content=#{content}
     where
-      category=#{category}
-      and board_no=#{no}
+    board_no=#{no}
   </update>
-  
-  <delete id="delete" parameterType="board">
+
+  <update id="updateCount" parameterType="int">
+    update myapp_board set
+    view_count=view_count + 1
+    where
+    board_no=#{no}
+  </update>
+
+  <delete id="delete" parameterType="int">
     delete from myapp_board
-    where 
-      category=#{category}
-      and board_no=#{no}
-      and writer=#{writer.no}
+    where
+    board_no=#{no}
   </delete>
-  
+
   <insert id="insertFiles" parameterType="board">
-    insert into myapp_board_file(filepath, board_no) 
-    values 
+    insert into myapp_board_file(filepath, board_no)
+    values
     <foreach collection="attachedFiles" item="file" separator=",">(#{file.filePath}, #{no})</foreach>
   </insert>
-  
+
   <select id="findFileBy" parameterType="int" resultMap="attachedFileMap">
     select
-      board_file_no,
-      filepath,
-      board_no
+    board_file_no,
+    filepath,
+    board_no
     from
-      myapp_board_file
+    myapp_board_file
     where
-      board_file_no=#{no}
+    board_file_no=#{no}
   </select>
-  
+
   <delete id="deleteFile" parameterType="int">
     delete from myapp_board_file
-    where 
-      board_file_no=#{no}
+    where
+    board_file_no=#{no}
   </delete>
 
   <delete id="deleteFiles" parameterType="int">
@@ -129,8 +123,3 @@
     board_no=#{no}
   </delete>
 </mapper>
-
-
-
-
-

@@ -3,8 +3,9 @@
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"
     trimDirectiveWhitespaces="true"
-    errorPage="/error.jsp"%>
+    errorPage="../error.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="refresh" value="2;url=list?category=${param.category}" scope="request"/>
 <!DOCTYPE html>
 <html>
@@ -24,7 +25,6 @@
 
 <c:if test="${not empty board}">
     <form action='update' method='post' enctype='multipart/form-data'>
-    <input type='hidden' name='category' value='${board.category}'>
     <table border='1'>
     <tr><th style='width:120px;'>번호</th>
     <td style='width:300px;'><input type='text' name='no' value='${board.no}' readonly></td></tr>
@@ -34,11 +34,11 @@
     <td><textarea name='content' style='height:200px; width:400px;'>${board.content}</textarea></td></tr>
     <tr><th>작성자</th> <td>${board.writer.name}</td></tr>
     <tr><th>조회수</th> <td>${board.viewCount}</td></tr>
-    <tr><th>등록일</th> <td>${simpleDateFormatter.format(board.createdDate)}</td></tr>
+    <tr><th>등록일</th> <td><fmt:formatDate value="${board.createdDate}" pattern="yyyy-MM-dd"/></td></tr>
     <tr><th>첨부파일</th><td>
     <c:forEach items="${board.attachedFiles}" var="file">
         <a href='https://kr.object.ncloudstorage.com/bitcamp-nc7-bucket-22/board/${file.filePath}'>${file.filePath}</a>
-        [<a href='fileDelete?category=${param.category}&no=${file.no}'>삭제</a>]<br>
+        [<a href='fileDelete?no=${file.no}'>삭제</a>]<br>
     </c:forEach>
         <input type='file' name='files' multiple>
     </td></tr>
@@ -47,8 +47,8 @@
     <div>
     <button>변경</button>
     <button type='reset'>초기화</button>
-    <a href='delete?category=${param.category}&no=${param.no}'>삭제</a>
-    <a href='list?category=${param.category}'>목록</a>
+    <a href='delete?category=${board.category}&no=${board.no}'>삭제</a>
+    <a href='list?category=${board.category}'>목록</a>
     </div>
     </form>
 </c:if>

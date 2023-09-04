@@ -19,6 +19,7 @@ dependencies {
 
     // log4j
     implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+    implementation project(path: ':app-server')
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
     implementation 'com.google.guava:guava:31.1-jre'

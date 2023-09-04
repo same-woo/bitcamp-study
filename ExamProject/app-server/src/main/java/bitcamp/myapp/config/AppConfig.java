@@ -1,5 +1,12 @@
 package bitcamp.myapp.config;
 
+import bitcamp.myapp.dao.BoardDao;
+import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.service.BoardService;
+import bitcamp.myapp.service.DefaultBoardService;
+import bitcamp.myapp.service.DefaultMemberService;
+import bitcamp.myapp.service.MemberService;
+import bitcamp.util.TransactionProxyBuilder;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -32,6 +39,8 @@ public class AppConfig {
   public SqlSessionFactory sqlSessionFactory(DataSource dataSource, ApplicationContext appCtx) throws Exception {
     System.out.println("AppConfig.sqlSessionFactory() 호출됨!");
 
+    // Mybatis에서 Log4j 2.x 버전을 사용하도록 활성화시킨다.
+    // 활성화시키지 않으면 Mybatis에서 로그를 출력하지 않는다.
     org.apache.ibatis.logging.LogFactory.useLog4J2Logging();
 
     SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
@@ -64,6 +73,24 @@ public class AppConfig {
     System.out.println("AppConfig.transactionManager() 호출됨!");
 
     return new DataSourceTransactionManager(dataSource);
+  }
+
+  @Bean
+  public TransactionProxyBuilder txProxyBuilder(PlatformTransactionManager txManager) {
+    // 주어진 객체에 트랜잭션 다루는 기능을 덧붙여서 새로운 객체를 만드는 일을 한다.
+    return new TransactionProxyBuilder(txManager);
+  }
+
+  @Bean
+  public BoardService boardService(TransactionProxyBuilder txProxyBuilder, BoardDao boardDao) {
+    // 서비스 객체 + 트랜잭션 다루는 기능  => 리턴
+    return (BoardService) txProxyBuilder.build(new DefaultBoardService(boardDao));
+  }
+
+  @Bean
+  public MemberService memberService(TransactionProxyBuilder txProxyBuilder, MemberDao memberDao) {
+    // 서비스 객체 + 트랜잭션 다루는 기능  => 리턴
+    return (MemberService) txProxyBuilder.build(new DefaultMemberService(memberDao));
   }
 
 }
