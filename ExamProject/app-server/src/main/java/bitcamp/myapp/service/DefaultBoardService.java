@@ -1,20 +1,20 @@
 package bitcamp.myapp.service;
 
 import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.util.TransactionCallback;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
-import bitcamp.util.Transactional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.List;
 
-//@Service
+@Service
 public class DefaultBoardService implements BoardService {
 
     BoardDao boardDao;

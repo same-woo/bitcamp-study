@@ -1,12 +1,5 @@
 package bitcamp.myapp.config;
 
-import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.service.BoardService;
-import bitcamp.myapp.service.DefaultBoardService;
-import bitcamp.myapp.service.DefaultMemberService;
-import bitcamp.myapp.service.MemberService;
-import bitcamp.util.TransactionProxyBuilder;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -18,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
@@ -29,6 +23,7 @@ import javax.sql.DataSource;
         "bitcamp.myapp.service"})
 @PropertySource({"classpath:bitcamp/myapp/config/ncloud/jdbc.properties"})
 @MapperScan("bitcamp.myapp.dao") // Mybatis가 자동으로 생성할 DAO 객체의 인터페이스 패키지 지정
+@EnableTransactionManagement // @Transactional 애노테이션을 처리할 객체 등록
 public class AppConfig {
 
   public AppConfig() {
@@ -73,24 +68,6 @@ public class AppConfig {
     System.out.println("AppConfig.transactionManager() 호출됨!");
 
     return new DataSourceTransactionManager(dataSource);
-  }
-
-  @Bean
-  public TransactionProxyBuilder txProxyBuilder(PlatformTransactionManager txManager) {
-    // 주어진 객체에 트랜잭션 다루는 기능을 덧붙여서 새로운 객체를 만드는 일을 한다.
-    return new TransactionProxyBuilder(txManager);
-  }
-
-  @Bean
-  public BoardService boardService(TransactionProxyBuilder txProxyBuilder, BoardDao boardDao) {
-    // 서비스 객체 + 트랜잭션 다루는 기능  => 리턴
-    return (BoardService) txProxyBuilder.build(new DefaultBoardService(boardDao));
-  }
-
-  @Bean
-  public MemberService memberService(TransactionProxyBuilder txProxyBuilder, MemberDao memberDao) {
-    // 서비스 객체 + 트랜잭션 다루는 기능  => 리턴
-    return (MemberService) txProxyBuilder.build(new DefaultMemberService(memberDao));
   }
 
 }

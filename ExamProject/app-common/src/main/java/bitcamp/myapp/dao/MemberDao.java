@@ -1,8 +1,9 @@
 package bitcamp.myapp.dao;
 
-import java.util.List;
 import bitcamp.myapp.vo.Member;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface MemberDao {
   int insert(Member member);
