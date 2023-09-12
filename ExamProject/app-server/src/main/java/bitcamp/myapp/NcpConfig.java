@@ -1,4 +1,4 @@
-package bitcamp.myapp.config;
+package bitcamp.myapp;
 
 import org.springframework.context.annotation.Configuration;
 
